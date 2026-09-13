@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Snickylink — a secret little world for two</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Not more than a chat. Snickylink is a playful, private experience for two people to connect, play and grow together.">
+<link rel="icon" href="assets/snickylink-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Bricolage+Grotesque:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+
+<!-- global overlays -->
+<div class="cursor-glow"></div>
+<div class="progress"></div>
+
+<!-- persistent two-person motif — tracks scroll from "separate" to "together" -->
+<div class="thread" aria-hidden="true">
+  <div class="thread__dot thread__dot--a"><span>you</span></div>
+  <div class="thread__line"><i></i></div>
+  <div class="thread__dot thread__dot--b"><span>them</span></div>
+  <div class="thread__spark"></div>
+</div>
+
+<!-- nav -->
+<nav class="nav" aria-label="primary">
+  <div class="brand">SNICKYLINK<em>◦ v0.1 · beta</em></div>
+  <div class="whisper"><span>something's waiting ✨</span><span class="dot"></span><span>bring your person 💌</span></div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero__grain"></div>
+
+  <!-- corner registration marks -->
+  <div class="corner corner--tl"><span>SNK · 001</span><em>/ dossier</em></div>
+  <div class="corner corner--tr"><span>coord · 28.61°N · 77.20°E</span></div>
+  <div class="corner corner--bl"><span>chapter i</span><em>the chat era</em></div>
+  <div class="corner corner--br"><span>audio · off</span><em>read in silence</em></div>
+
+  <!-- vertical side rail -->
+  <div class="side-rail side-rail--left"><span>a campaign for two</span></div>
+  <div class="side-rail side-rail--right"><span>08 · 31 · 2026 — beta</span></div>
+
+  <!-- floating dots (two people motif) -->
+  <div class="hero__dots" aria-hidden="true">
+    <div class="pdot pdot--a"><span class="pdot__label">you</span></div>
+    <div class="pdot pdot--b"><span class="pdot__label">them</span></div>
+  </div>
+
+  <!-- floating chat scraps around the title -->
+  <div class="scrap scrap--1" aria-hidden="true">
+    <div class="bubble bubble--them">u up?</div>
+    <div class="scrap__time">02:14</div>
+  </div>
+  <div class="scrap scrap--2" aria-hidden="true">
+    <div class="bubble bubble--you">lol yeah</div>
+  </div>
+  <div class="scrap scrap--3" aria-hidden="true">
+    <div class="bubble bubble--them">😂😂</div>
+  </div>
+  <div class="scrap scrap--4" aria-hidden="true">
+    <div class="bubble bubble--you">seen this?</div>
+    <div class="scrap__time">reel · 0:14</div>
+  </div>
+  <div class="scrap scrap--5" aria-hidden="true">
+    <div class="bubble bubble--them">omg</div>
+  </div>
+
+  <div class="hero__inner">
+
+    <!-- campaign stamp -->
+    <div class="stamp">
+      <div class="stamp__ring">
+        <svg viewBox="0 0 200 200" width="140" height="140">
+          <defs>
+            <path id="stampPath" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/>
+          </defs>
+          <text font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="4" fill="currentColor">
+            <textPath href="#stampPath" startOffset="0">A CAMPAIGN FOR TWO · MORE THAN A CHAT · SNICKYLINK · </textPath>
+          </text>
+        </svg>
+      </div>
+      <div class="stamp__core">
+        <span class="stamp__soon">coming</span>
+        <span class="stamp__label">SOON</span>
+        <span class="stamp__meta">for two only</span>
+      </div>
+    </div>
+
+    <div class="eyebrow hero__eyebrow">
+      <span>a campaign — chapter one</span>
+      <span class="pill">08.31.26</span>
+      <span class="pill pill--live"><i></i>live tease 🔥</span>
+    </div>
+
+    <h1 class="hero__title" aria-label="Not more than a chat.">
+      <span class="word"><span>Not</span></span>
+      <span class="word"><span>more</span></span>
+      <span class="word"><span>than</span></span>
+      <br>
+      <span class="word"><span>a</span></span>
+      <span class="word"><span><em>chat</em></span></span><span class="period">.</span>
+    </h1>
+
+    <div class="hero__strike" aria-hidden="true">
+      <span class="strike">not another dating app</span>
+      <span class="strike">not another group chat</span>
+      <span class="strike">not another feed</span>
+      <span class="strike is-live">something for two<i></i></span>
+    </div>
+
+    <p class="hero__sub">
+      Move your cursor. Notice the two little things.<br>
+      <em>they're already looking for each other.</em>
+    </p>
+
+    <div class="hero__cta">
+      <button class="btn btn--primary" data-scroll-to=".reveal">
+        See what's coming <span class="arrow">→</span>
+      </button>
+      <button class="btn btn--ghost btn--ghost-dark" data-scroll-to=".story">
+        First, the truth <span class="arrow">↓</span>
+      </button>
+    </div>
+
+    <!-- proof strip -->
+    <div class="proof">
+      <div class="proof__cell"><b>2</b><span>people. that's the whole guest list. 👫</span></div>
+      <div class="proof__cell"><b>4</b><span>little snicks to start. 🔓</span></div>
+      <div class="proof__cell"><b>0</b><span>feeds, likes, or strangers. 🚫</span></div>
+      <div class="proof__cell"><b>∞</b><span>tiny reasons to look up. ✨</span></div>
+    </div>
+
+  </div>
+
+  <!-- bottom ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>MORE THAN A CHAT</span><i>✦</i>
+      <span>BRING YOUR PERSON</span><i>✦</i>
+      <span>DON'T SPOIL IT</span><i>✦</i>
+      <span>A SECRET LITTLE WORLD FOR TWO</span><i>✦</i>
+      <span>CONNECT · PLAY · GROW</span><i>✦</i>
+      <span>MORE THAN A CHAT</span><i>✦</i>
+      <span>BRING YOUR PERSON</span><i>✦</i>
+      <span>DON'T SPOIL IT</span><i>✦</i>
+      <span>A SECRET LITTLE WORLD FOR TWO</span><i>✦</i>
+      <span>CONNECT · PLAY · GROW</span><i>✦</i>
+    </div>
+  </div>
+
+  <div class="hero__hint">scroll · slowly</div>
+</section>
+
+<!-- ============================ STORY BEATS ============================ -->
+<section class="story" data-screen-label="02 Story">
+  <div class="story__wrap">
+
+    <div class="beat">
+      <div class="beat__kicker">1 — a normal tuesday</div>
+      <div class="beat__line">
+        You <span class="fx"><span><em>text</em>.</span></span>
+      </div>
+      <p class="beat__aside">little grey bubbles. read receipts. the usual soft dopamine.</p>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">2 — around 4pm</div>
+      <div class="beat__line">
+        You send <span class="fx"><span><em>reels</em>.</span></span>
+      </div>
+      <div style="margin-top:34px;display:flex;gap:16px;justify-content:flex-end;align-items:flex-end">
+        <div class="beat__extra reel-card"><div class="play"></div><div class="meta"><span>@you</span><span>0:12</span></div></div>
+        <div class="beat__extra reel-card" style="transform:rotate(4deg);width:150px;height:230px"><div class="play"></div><div class="meta"><span>@them</span><span>0:07</span></div></div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="beat__kicker">3 — sometime later</div>
+      <div class="beat__line">
+        You say <span class="fx"><span><em>"wyd?"</em></span></span>
+      </div>
+      <div class="beat__extra" style="margin-top:28px">
+        <div class="bubble__row"><div class="bubble bubble--you">wyd?</div></div>
+        <div class="bubble__row"><div class="bubble bubble--them">nothing.</div></div>
+        <div class="bubble__row"><div class="bubble bubble--you bubble--muted">…same</div></div>
+      </div>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">4 — 11:47pm</div>
+      <div class="beat__line">
+        You say <span class="fx"><span><em>"goodnight ❤"</em></span></span>
+      </div>
+      <p class="beat__aside">and then you both keep scrolling for another 40 minutes. alone.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ CAMPAIGN MARQUEE STRIP ============================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+  </div>
+</div>
+
+<!-- ============================ BUT MOMENT ============================ -->
+<section class="but" data-screen-label="03 But">
+  <div class="but__sticky">
+    <div class="but__text">but</div>
+    <div class="but__whisper">wait for it…</div>
+  </div>
+</section>
+
+<!-- ============================ MYSTERY ============================ -->
+<section class="mystery" data-screen-label="04 Mystery">
+  <div class="mystery__glow mystery__glow--a"></div>
+  <div class="mystery__glow mystery__glow--b"></div>
+
+  <div class="story__wrap">
+    <div class="beat">
+      <div class="beat__kicker">a serious question</div>
+      <div class="beat__line" style="max-width:16ch">
+        When was the last time <br>
+        you <span class="fx"><span><em>actually</em></span></span>
+        <span class="fx"><span>did something</span></span>
+        <br>
+        <span class="fx"><span>together?</span></span>
+      </div>
+      <p class="beat__aside">not "sent each other something." did something. as a duo. with your bodies.</p>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">the uncomfortable part</div>
+      <div class="beat__line" style="max-width:14ch">
+        A relationship shouldn't
+        <br>
+        <span class="fx"><span>live inside a </span></span>
+        <span class="fx"><span><em>chat box.</em></span></span>
+      </div>
+
+      <div class="cage" aria-hidden="true" style="margin-left:auto;margin-right:0">
+        <div class="cage__bars"></div>
+        <div class="bubble__row"><div class="bubble">hey</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">hii</div></div>
+        <div class="bubble__row"><div class="bubble">wyd</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">nothing u</div></div>
+        <div class="bubble__row"><div class="bubble">same</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">🫶</div></div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="beat__kicker">the pivot</div>
+      <div class="beat__line">
+        Let's <span class="fx"><span><em>change</em></span></span>
+        <span class="fx"><span>that.</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REVEAL ============================ -->
+<section class="reveal" data-screen-label="05 Reveal">
+  <div class="reveal__stage">
+    <div class="eyebrow" style="justify-content:center;color:rgba(232,185,156,.7)">okay… you're both here</div>
+
+    <div class="reveal__campaign">
+      <span class="cross">Not</span> <em>more</em> than a chat.
+    </div>
+
+    <div class="beat__line" style="margin-top:18px">
+      <span class="fx"><span>Meet</span></span>
+    </div>
+
+    <div class="connect-viz" aria-hidden="true">
+      <div class="cv-line"></div>
+      <div class="cv-dot cv-dot--a"></div>
+      <div class="cv-dot cv-dot--b"></div>
+      <div class="cv-spark"></div>
+    </div>
+
+    <div class="logo-reveal">
+      <img src="assets/snickylink-logo.png" alt="Snickylink">
+    </div>
+
+    <p class="reveal__tag">
+      a secret little world for two people.<br>
+      connect · play · grow together.
+    </p>
+
+    <p class="reveal__invite">
+      If you wanna experience your relationship<br>
+      in a special way…
+    </p>
+    <p class="reveal__invite reveal__invite--sub">Start with <em>4 Snicks.</em></p>
+
+    <div class="reveal__cta-row">
+      <button class="btn btn--primary" id="startExperienceBtn">
+        Start our experience <span class="arrow">→</span>
+      </button>
+      <button class="btn btn--ghost" data-scroll-to=".snicks">
+        Peek inside <span class="arrow">↓</span>
+      </button>
+    </div>
+
+    <p class="reveal__hint" id="needPersonHint">but you'll need your person. 👀</p>
+  </div>
+</section>
+
+<!-- ============================ PAIR / SECRET CODE REGISTRATION ============================ -->
+<section class="pair" data-screen-label="06 Pair">
+  <div class="pair__head">
+    <div class="kicker">but first…</div>
+    <h2 aria-label="You'll need your person.">
+      You'll <span class="fx"><span>need</span></span> your <span class="fx"><span><em>person</em>.</span></span>
+    </h2>
+    <p style="margin-top:18px;font-family:var(--serif);font-style:italic;color:rgba(251,238,228,.6);max-width:520px;margin-left:auto;margin-right:auto">
+      one of you starts. the other joins with a code. no accounts. no feed. no strangers.
+    </p>
+  </div>
+
+  <div class="pair__viz" aria-hidden="true">
+    <div class="avatar avatar--a">
+      <div class="avatar__ring"></div>
+      <span id="avatarAInitial">y</span>
+      <div class="avatar__label" id="avatarALabel">you · person 1</div>
+    </div>
+    <div style="width:60px"></div>
+    <div class="avatar avatar--b">
+      <div class="avatar__ring"></div>
+      <span id="avatarBInitial">t</span>
+      <div class="avatar__label" id="avatarBLabel">them · person 2</div>
+    </div>
+  </div>
+
+  <!-- tabs: create vs join -->
+  <div class="pair__panel" id="pairPanel">
+
+    <div class="pair__tabs" role="tablist" id="pairTabs">
+      <button class="pair__tab is-active" data-tab="create" type="button">Create Our Experience</button>
+      <button class="pair__tab" data-tab="join" type="button">I Have a Code</button>
+    </div>
+
+    <!-- CREATE (person one) -->
+    <div class="pair__view" data-view="create">
+      <form class="pair__form" id="createForm" autocomplete="off">
+        <label class="field">
+          <span>your name</span>
+          <input type="text" name="name" id="p1Name" placeholder="Rahul" required>
+        </label>
+        <label class="field">
+          <span>your email</span>
+          <input type="email" name="email" id="p1Email" placeholder="you@email.com" required>
+        </label>
+        <button class="btn btn--primary" type="submit">Create Our Experience <span class="arrow">→</span></button>
+      </form>
+
+      <div class="code-card" id="codeCard" hidden>
+        <div class="code-card__label">your secret code</div>
+        <div class="code-card__code" id="codeCardValue">SNK7X2</div>
+        <div class="code-card__hint">send this to your person. don't spoil what's next.</div>
+        <div class="code-card__actions">
+          <button class="code-card__copy" type="button" id="copyCodeBtn">copy code</button>
+          <button class="code-card__copy" type="button" id="shareCodeBtn">share code</button>
+        </div>
+        <p class="code-card__wait" id="waitingLine">waiting for your person to join…</p>
+      </div>
+    </div>
+
+    <!-- JOIN (person two) -->
+    <div class="pair__view" data-view="join" hidden>
+      <p class="pair__whisper">someone brought you here. 👀</p>
+      <form class="pair__form" id="joinForm" autocomplete="off">
+        <label class="field">
+          <span>enter your code</span>
+          <input type="text" name="code" id="joinCodeInput" maxlength="6" placeholder="SNK7X2" required style="text-transform:uppercase;letter-spacing:.2em">
+        </label>
+        <button class="btn btn--primary" type="submit">Find them <span class="arrow">→</span></button>
+      </form>
+      <div class="pair__found" id="pairFound" hidden>
+        <p class="pair__found-line" id="pairFoundLine"><span id="foundName">Rahul</span> is waiting for you.</p>
+        <button class="btn btn--primary" id="joinExperienceBtn" type="button">Join Their Experience <span class="arrow">→</span></button>
+      </div>
+      <p class="pair__error" id="pairError" hidden>hmm, that code doesn't match anything yet. double-check it?</p>
+    </div>
+
+    <!-- CONNECTED state -->
+    <div class="pair__connected" id="pairConnected" hidden>
+      <p class="pair__connected-big">YOU'RE BOTH IN.</p>
+      <p class="pair__connected-sub">okay… let's see what you've got.</p>
+      <button class="btn btn--primary" data-scroll-to=".snicks" id="revealSnick01Btn">Reveal Snick #01 <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <p class="pair__footnote">when they join, the first Snick unlocks itself. we'll take it from there.</p>
+</section>
+
+<!-- ============================ SNICKS — unlockable secrets ============================ -->
+<section class="snicks" data-screen-label="07 Snicks">
+  <div class="snicks__head">
+    <div class="eyebrow">four little unlocks 🔐</div>
+    <h2>Start with <em style="font-style:italic;color:var(--peach)">4 Snicks.</em></h2>
+    <p>Small missions. Real moments. Complete them in order — no peeking ahead.</p>
+    <div class="snicks__progress" id="snicksProgress" aria-hidden="true">
+      <span class="sp-dot" data-i="0"></span>
+      <span class="sp-dot" data-i="1"></span>
+      <span class="sp-dot" data-i="2"></span>
+      <span class="sp-dot" data-i="3"></span>
+    </div>
+  </div>
+
+  <div class="snick-track" id="snickTrack">
+    <article class="snick" data-snick="0" tabindex="0" aria-label="Snick 01: Notice">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 01</div>
+        <div class="snick__tag">notice</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · tap to open</div>
+        <h3 class="snick__title">Notice<br>Something.</h3>
+        <p class="snick__hint">find one little thing about them you genuinely love. tell them.</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="1" tabindex="0" aria-label="Snick 02: Play">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 02</div>
+        <div class="snick__tag">play</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #01</div>
+        <h3 class="snick__title">Make Them<br>Laugh.</h3>
+        <p class="snick__hint">60 seconds. no repeats — no old jokes, memes, or pickup lines.</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="2" tabindex="0" aria-label="Snick 03: Connect">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 03</div>
+        <div class="snick__tag">connect</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #02</div>
+        <h3 class="snick__title">Ask Something<br>Real.</h3>
+        <p class="snick__hint">what's something you've always wanted us to do together?</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="3" tabindex="0" aria-label="Snick 04: Create">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 04</div>
+        <div class="snick__tag">create</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #03</div>
+        <h3 class="snick__title">Make A<br>Moment.</h3>
+        <p class="snick__hint">one photo, together. don't pose. don't make it perfect.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ SNICK TASK MODAL ============================ -->
+<div class="snick-modal" id="snickModal" hidden>
+  <div class="snick-modal__backdrop" id="snickModalBackdrop"></div>
+  <div class="snick-modal__card" role="dialog" aria-modal="true">
+    <button class="snick-modal__close" id="snickModalClose" aria-label="close">✕</button>
+    <div class="snick-modal__eyebrow" id="modalEyebrow">SNICK · 01 — notice</div>
+    <h3 class="snick-modal__title" id="modalTitle">Notice Something</h3>
+    <p class="snick-modal__prompt" id="modalPrompt">Look at your partner for a moment. Find one little thing about them that you genuinely love. Tell them.</p>
+
+    <div class="snick-modal__body" id="modalBody">
+      <!-- injected per-snick interaction -->
+    </div>
+
+    <button class="btn btn--primary snick-modal__complete" id="modalCompleteBtn" type="button">Done <span class="arrow">→</span></button>
+    <p class="snick-modal__done-line" id="modalDoneLine" hidden></p>
+  </div>
+</div>
+
+<!-- ============================ FINAL MOMENT ============================ -->
+<section class="moment" data-screen-label="08 Moment" id="momentSection">
+  <div class="moment__stage">
+    <div class="moment__photo" id="momentPhoto" aria-hidden="true">
+      <img id="momentPhotoImg" alt="" hidden>
+      <div class="moment__photo-empty" id="momentPhotoEmpty">📸</div>
+    </div>
+
+    <p class="moment__line moment__line--1">YOU MADE A MOMENT. 📸</p>
+    <p class="moment__line moment__line--2">Imagine having a moment like this every day.</p>
+    <p class="moment__line moment__line--3">That's <em>SNICKYLINK.</em> 💕</p>
+
+    <div class="logo-reveal moment__logo">
+      <img src="assets/snickylink-logo.png" alt="Snickylink">
+    </div>
+    <p class="moment__tag">CONNECT · PLAY · GROW TOGETHER</p>
+
+    <a class="btn btn--primary moment__cta" id="joinWaitlistBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+      Join Snickylink 💌 <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ FOOTER WHISPER ============================ -->
+<footer class="foot">
+  <p class="foot__sub">the last thing 💌</p>
+  <h2 class="foot__big" aria-label="Don't worry. It gets better.">
+    <span class="fx"><span>Don't</span></span>
+    <span class="fx"><span>worry.</span></span>
+    <br>
+    <span class="fx"><span>It gets</span></span>
+    <span class="fx"><span><em>better</em>.</span></span>
+  </h2>
+
+  <a class="btn btn--primary foot__waitlist" href="https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+    Join the Waitlist 💌 <span class="arrow">→</span>
+  </a>
+
+  <div class="foot__row">
+    <span>© 2026 snickylink</span>
+    <span>connect · play · grow together</span>
+    <span>made for two</span>
+  </div>
+</footer>
+
+<!-- libs -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js?v=7"></script>
+<script>
+  // simple smooth-scroll for reveal buttons
+  document.querySelectorAll('[data-scroll-to]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const t = document.querySelector(b.dataset.scrollTo);
+      if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+</script>
+</body>
+</html>
