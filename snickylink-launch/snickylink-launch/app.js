@@ -68,7 +68,7 @@
   glowRaf();
 
   // ---------- switch to dark body class based on section colors ----------
-  const darkSections = $$('.mystery, .reveal, .snicks, .pair, .moment, .foot, .but');
+  const darkSections = $$('.mystery, .reveal, .snicks, .pair, .moment, .invite, .foot, .but');
   darkSections.forEach(sec => {
     ScrollTrigger.create({
       trigger: sec,
@@ -251,6 +251,18 @@
     onEnter: (els) => gsap.from(els, {y: 40, opacity: 0, rotate: (i)=>i%2?3:-3, duration: 1, stagger: 0.12, ease:'power3.out'}),
     once: true,
   });
+
+  // ---------- INVITE — seal entrance ----------
+  if ($('.invite__paper')){
+    gsap.from('.invite__paper', {
+      opacity: 0, y: 30, duration: 1,
+      scrollTrigger: { trigger: '.invite', start: 'top 70%' },
+    });
+    gsap.from('.seal', {
+      opacity: 0, scale: .7, duration: .9, delay: .2, ease: 'back.out(1.6)',
+      scrollTrigger: { trigger: '.invite', start: 'top 70%' },
+    });
+  }
 
   // =====================================================
   // PAIR — secret-code couple registration

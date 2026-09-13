@@ -487,7 +487,6 @@ body:not(.js-ready) .beat__line .fx > span{transform:translateY(105%)}
 }
 .foot__big em{color:var(--peach);font-style:italic}
 .foot__sub{margin-top:24px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:rgba(232,185,156,.5)}
-.foot__waitlist{margin-top:52px}
 .foot__row{
   margin-top:80px;display:flex;justify-content:space-between;align-items:center;
   max-width:1200px;margin-left:auto;margin-right:auto;padding:24px 6vw 0;
@@ -949,6 +948,77 @@ body.dark .thread__line{background:rgba(232,185,156,.2)}
   font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:rgba(232,185,156,.7);
 }
 .moment__cta{margin-top:44px}
+
+/* ---------- INVITE — the one true waitlist seal ---------- */
+.invite{
+  background:var(--wine-deep);color:#fbeee4;padding:170px 0 190px;
+  position:relative;overflow:hidden;display:grid;place-items:center;text-align:center;
+}
+.invite__glow{
+  position:absolute;top:-10%;left:50%;width:60vw;height:60vw;max-width:700px;max-height:700px;
+  transform:translateX(-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(233,118,91,.22) 0%,rgba(233,118,91,.05) 45%,transparent 72%);
+}
+.invite__paper{
+  position:relative;max-width:600px;padding:64px 44px;margin:0 24px;
+  border:1px solid rgba(232,185,156,.22);border-radius:26px;
+  background:linear-gradient(165deg,rgba(251,238,228,.05),rgba(251,238,228,.015));
+  backdrop-filter:blur(2px);
+}
+.invite__paper::before{
+  content:'';position:absolute;top:0;left:50%;transform:translate(-50%,-50%);
+  width:0;height:0;border-left:26px solid transparent;border-right:26px solid transparent;
+  border-top:20px solid var(--coral);opacity:.85;filter:drop-shadow(0 6px 14px rgba(233,118,91,.4));
+}
+.invite__corner{
+  position:absolute;font-size:14px;color:var(--peach);opacity:.5;
+}
+.invite__corner--tl{top:18px;left:22px}
+.invite__corner--br{bottom:18px;right:22px}
+.invite__eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(232,185,156,.65);
+}
+.invite__title{
+  margin-top:22px;font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(26px,4vw,42px);line-height:1.25;color:#fbeee4;
+}
+.invite__title em{color:var(--peach);font-style:italic}
+.invite__sub{
+  margin-top:18px;font-family:var(--serif);font-style:italic;font-size:16px;
+  color:rgba(251,238,228,.62);max-width:38ch;margin-left:auto;margin-right:auto;
+}
+.seal{
+  position:relative;display:grid;place-items:center;width:152px;height:152px;
+  margin:52px auto 6px;color:rgba(232,185,156,.85);text-decoration:none;
+  animation:sealBob 6s ease-in-out infinite;
+}
+@keyframes sealBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+.seal__ring{position:absolute;inset:0;animation:sealSpin 20s linear infinite;transition:animation-duration .4s}
+@keyframes sealSpin{to{transform:rotate(360deg)}}
+.seal__core{
+  position:relative;width:100px;height:100px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#f28770,var(--coral) 60%,#d1573f 100%);
+  color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 18px 44px -10px rgba(233,118,91,.6),inset 0 0 0 1px rgba(255,255,255,.15);
+  transition:transform .4s cubic-bezier(.2,.9,.3,1.4);
+}
+.seal__top{font-family:var(--mono);font-size:8px;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+.seal__label{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.1;margin-top:2px}
+.seal__bottom{font-size:13px;margin-top:3px}
+.seal:hover .seal__core{transform:scale(1.08) rotate(-4deg)}
+.seal:hover .seal__ring{animation-duration:6s}
+.invite__ps{
+  margin-top:26px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(232,185,156,.45);
+}
+@media(max-width:720px){
+  .invite{padding:120px 0 140px}
+  .invite__paper{padding:48px 26px}
+  .seal{width:128px;height:128px}
+  .seal__ring{width:128px;height:128px}
+  .seal__core{width:84px;height:84px}
+}
 
 /* ---------- mobile ---------- */
 @media(max-width:720px){
