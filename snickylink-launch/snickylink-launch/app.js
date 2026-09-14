@@ -24,31 +24,45 @@
   // Make sure GSAP's own ticker is awake (independent from Lenis)
   gsap.ticker.wake();
 
-  // ---------- progress bar + persistent two-person thread ----------
+  // ---------- progress bar + signature GROW TOGETHER vine ----------
   const progress = $('.progress');
-  const thread = $('.thread');
-  const threadLine = $('.thread__line i');
-  const threadA = $('.thread__dot--a');
-  const threadB = $('.thread__dot--b');
-  let threadJoined = false;
+  const vine = $('.vine');
+  const vinePath = $('#vinePath');
+  const vineBlooms = $$('.vine__bloom');
+  const vinePathLength = vinePath ? vinePath.getTotalLength() : 0;
+  if (vinePath) {
+    vinePath.style.strokeDasharray = vinePathLength;
+    vinePath.style.strokeDashoffset = vinePathLength;
+  }
+  // bloom thresholds, roughly: connect / play / discover-pair / grow together
+  const BLOOM_THRESHOLDS = [0.16, 0.42, 0.66, 0.92];
+  const LEAF_THRESHOLDS = [0.08, 0.30, 0.55];
+
   ScrollTrigger.create({
     start: 0, end: 'max',
     onUpdate: (self) => {
-      progress.style.setProperty('--p', (self.progress * 100) + '%');
-      // dots "meet" by roughly the reveal section (~55% of the page)
-      const meetProgress = Math.min(1, self.progress / 0.55);
-      threadLine.style.setProperty('--tp', meetProgress);
-      threadA.style.transform = `translateX(${meetProgress * 22}px)`;
-      threadB.style.transform = `translateX(${-meetProgress * 22}px)`;
-      if (meetProgress >= 1 && !threadJoined) {
-        threadJoined = true;
-        thread.classList.add('is-joined');
-      } else if (meetProgress < 1 && threadJoined) {
-        threadJoined = false;
-        thread.classList.remove('is-joined');
+      const p = self.progress;
+      progress.style.setProperty('--p', (p * 100) + '%');
+      if (vinePath) vinePath.style.strokeDashoffset = vinePathLength * (1 - p);
+      vineBlooms.forEach((el, i) => {
+        el.classList.toggle('is-bloom', p >= BLOOM_THRESHOLDS[i]);
+      });
+      if (vine) {
+        LEAF_THRESHOLDS.forEach((t, i) => {
+          vine.classList.toggle(`leaf-${i + 1}-on`, p >= t);
+        });
       }
     },
   });
+
+  // ---------- nav gets a soft translucent treatment once you start scrolling ----------
+  const navEl = $('.nav');
+  if (navEl) {
+    ScrollTrigger.create({
+      start: 80, end: 'max',
+      onUpdate: (self) => navEl.classList.toggle('is-scrolled', self.scroll() > 80),
+    });
+  }
 
   // ---------- cursor glow ----------
   const glow = $('.cursor-glow');
@@ -92,8 +106,8 @@
   gsap.from('.hero__strike .strike', {opacity: 0, y: 10, duration: .6, stagger: .08, delay: 1.5, ease:'power2.out'});
   gsap.from('.hero__cta .btn', {opacity: 0, y: 16, duration: .7, stagger: .1, delay: 1.9, ease:'power2.out'});
   gsap.from('.proof__cell', {opacity: 0, y: 24, duration: .8, stagger: .09, delay: 2.2, ease:'power3.out'});
-  gsap.from('.corner', {opacity: 0, duration: 1.2, stagger: .1, delay: 0.4});
-  gsap.from('.side-rail', {opacity: 0, duration: 1.2, delay: 0.7});
+  gsap.from('.hero__shoot', {opacity: 0, scale: 0.5, duration: 1.2, delay: 0.5, ease:'back.out(1.6)'});
+  gsap.from('.editorial-photo--hero', {opacity: 0, y: 24, rotate: 10, duration: 1.1, delay: 0.8, ease:'power3.out'});
   gsap.from('.stamp', {opacity: 0, scale: 0.6, duration: 1.2, delay: 0.9, ease:'back.out(1.8)', clearProps:'transform'});
   gsap.from('.scrap', {opacity: 0, duration: 1, stagger: .12, delay: 1.3, ease:'power3.out'});
   gsap.from('.ticker', {opacity: 0, y: 20, duration: 1, delay: 2.4, ease:'power2.out'});
