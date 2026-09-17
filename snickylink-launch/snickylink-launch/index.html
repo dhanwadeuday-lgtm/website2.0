@@ -1,0 +1,490 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SnickyLink — A Ritual for Two</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #160D12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3A1620;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6B2B3C;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "wine-ink": "#160D12",
+            "wine-dark": "#22131A",
+            "wine-surface": "#2B1621",
+            "wine-card": "#24141B",
+            "wine-primary": "#6B2B3C",
+            "wine-soft": "#84364B",
+            "peach-accent": "#E8B99C",
+            "peach-glow": "#F4CBB5",
+            "blush-white": "#FFF8F5",
+            "copper-rose": "#B8654A",
+            "text-muted": "#D6BCB4",
+            "outline-soft": "#4D2633",
+            "outline-glow": "rgba(232, 185, 156, 0.25)"
+          },
+          fontFamily: {
+            "display-hero": ["Playfair Display", "serif"],
+            "headline-lg": ["Playfair Display", "serif"],
+            "headline-md": ["Playfair Display", "serif"],
+            "headline-sm": ["Playfair Display", "serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-mono": ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-wine-ink font-body-md text-blush-white min-h-screen selection:bg-wine-primary selection:text-peach-glow relative">
+<!-- Ambient Cinematic Background Glow -->
+<div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(107,43,60,0.32),transparent_70%)] z-0"></div>
+<div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(184,101,74,0.12),transparent_75%)] z-0"></div>
+<!-- ================= CLEAN LUXURY NAVIGATION ================= -->
+<header class="fixed top-0 w-full z-50 bg-wine-ink/85 backdrop-blur-md border-b border-outline-soft/40 transition-all duration-300">
+<div class="max-w-7xl mx-auto h-20 px-6 lg:px-12 flex items-center justify-between">
+<!-- Brand Logo & Wordmark -->
+<a class="flex items-center gap-3.5 group" href="#">
+<div class="relative w-10 h-10 rounded-full overflow-hidden border border-peach-accent/30 bg-wine-dark flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(232,185,156,0.15)] group-hover:border-peach-accent/70 transition-colors">
+<img alt="SnickyLink Mark" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfDtdMAyQb1fEN7IfIB21Ox8SzF2gkkSRXGy0xIyCWNKs6yDOTcnJfxSMBdilCoXR8fwx5W2BJRcqEbIBVBB6Qk4UTKr7oWnsAQfvr2uCW6_CR4KLmL0kqptSSz5xmtYBencaJBIFbFyrFojzYgNLWPiA_8I1mwc_GhVNNW6ijamIn8YhpEZ865Xvp-Bpi1V8vUUqPU2RNhRhur300fIkT2wXrwJ-kvOY3UKktC3NIG5F7m6YZIhC1TUCxHLKKapxFwQ">
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-lg font-semibold tracking-wide text-blush-white group-hover:text-peach-glow transition-colors">SNICKYLINK</span>
+<span class="text-[10px] tracking-widest uppercase text-text-muted/70 font-label-mono">A RITUAL FOR TWO</span>
+</div>
+</a>
+<!-- Minimalist Navigation Links -->
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-text-muted">
+<a class="hover:text-peach-glow transition-colors" href="#ritual">The Ritual</a>
+<a class="hover:text-peach-glow transition-colors" href="#how-it-works">Why It Works</a>
+<a class="hover:text-peach-glow transition-colors" href="#founder-note">The Ethos</a>
+</nav>
+<!-- Primary Action -->
+<div class="flex items-center gap-4">
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-wine-primary text-blush-white font-body-sm font-medium tracking-wide text-xs uppercase border border-peach-accent/30 hover:bg-peach-accent hover:text-wine-ink hover:border-peach-accent transition-all duration-300 shadow-[0_4px_20px_rgba(107,43,60,0.35)]" href="#gate"><span class="">Coming Soon • Request Invite</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span></a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 relative z-10">
+<div class="flex flex-col w-full text-blush-white">
+<!-- ================= SECTION 01: CINEMATIC INTIMATE HERO ================= -->
+<section class="relative w-full min-h-[880px] flex flex-col justify-center px-6 lg:px-16 py-16 lg:py-24">
+<div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- Left Column: Intimate Narrative Typography -->
+<div class="lg:col-span-7 flex flex-col items-start gap-6">
+<!-- Subtle Tag -->
+<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-wine-dark border border-outline-soft/80 text-xs font-label-mono text-peach-glow tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent animate-pulse"></span>
+<span class="">SYNCHRONOUS INTIMACY FOR COUPLES</span>
+</div>
+<h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[56px] leading-[1.12] tracking-tight text-blush-white">
+              Some things are only meant to be shared <br>
+<span class="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-peach-glow via-peach-accent to-copper-rose">
+                in the quiet dark.
+              </span>
+</h1>
+<p class="font-body-lg text-lg text-text-muted max-w-xl leading-relaxed">Snick is a quiet daily breach in the routine of modern connection. One shared window each day — it opens the moment both partners arrive, and closes the moment either one leaves.</p>
+<!-- Human Trust & Call to Action -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 w-full sm:w-auto">
+<a class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-wine-primary hover:bg-peach-accent text-blush-white hover:text-wine-ink font-body-sm font-semibold tracking-wider text-xs uppercase transition-all duration-300 border border-peach-accent/40 shadow-[0_8px_30px_rgba(107,43,60,0.45)]" href="#gate">
+<span class="">Enter the Ritual</span>
+<span class="material-symbols-outlined text-[17px]">lock_open</span>
+</a>
+<a class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-wine-dark/80 hover:bg-wine-card text-text-muted hover:text-blush-white text-xs uppercase font-body-sm tracking-wider border border-outline-soft/60 transition-all" href="#how-it-works">
+<span class="">See How It Works</span>
+</a>
+</div>
+<!-- Soft Privacy Assurance & Invitation Aura -->
+<div class="flex flex-wrap items-center gap-6 pt-6 text-xs text-text-muted/80 border-t border-outline-soft/40 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-peach-accent">verified_user</span>
+<span class="">Zero permanent storage</span>
+</div>
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-peach-accent">schedule</span>
+<span class="">Closes the moment either partner leaves</span></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-peach-accent">key</span>
+<span class="font-label-mono">14,3<span class="bg-wine-primary/60 px-1 py-0.5 rounded text-peach-glow cursor-default select-none" title="Invitations unlocked in current cohort">82</span> unlocked</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Moonlit Bridge Artwork & Ritual Timer Preview -->
+<div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+<!-- Soft Ember Backlight Ring -->
+<div class="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full bg-radial from-wine-primary/30 via-peach-accent/10 to-transparent blur-2xl pointer-events-none"></div>
+<div class="relative w-72 h-72 sm:w-88 sm:h-88 rounded-full p-2 border border-outline-soft/80 bg-wine-dark shadow-[0_20px_60px_rgba(10,5,8,0.7)] flex items-center justify-center group">
+<!-- Thin Celestial Ring -->
+<div class="absolute inset-0 rounded-full border border-peach-accent/20 border-dashed animate-[spin_120s_linear_infinite]"></div>
+<!-- Artwork -->
+<div class="w-full h-full rounded-full overflow-hidden border border-peach-accent/30 relative">
+<img alt="Two figures under the moon on a bridge" class="w-full h-full object-cover brightness-95 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsy7neoKD5wdOpEOyxZOYhvM8EpkL0uyUdF3WjA9moDDMDOmN14QO52nGV8iiT8X68zQvrD6UPccgkDpd8fmw9TmhMIOThvU-cxmCEksS_46p2ut-KJ1HyCvMnCHvJJqVI2TG6a43c-58MAn6RIE3FVlFtk1VmXwr3dLQWW_T0sETrjYD19DhjQBF4UIhPpOySx8RfpAOox7iXAo0nk_f4Cab4HpnOnE1YoAg8V7cjnHpCdPcJJ9nNvF-1bmFMeOCvjg">
+<!-- Subtle Gradient Vignette -->
+<div class="absolute inset-0 bg-gradient-to-t from-wine-ink/80 via-transparent to-transparent pointer-events-none"></div>
+</div>
+<!-- Floating Tactile Window Badge -->
+<div class="absolute -bottom-4 bg-wine-dark/95 backdrop-blur-md px-4 py-2 rounded-full border border-peach-accent/40 shadow-xl flex items-center gap-3 text-xs"><div class="w-2 h-2 rounded-full bg-peach-accent animate-ping"></div>
+<span class="text-text-muted font-label-mono text-[11px] tracking-wider">SYNCED &amp; SEALED</span>
+<span class="text-outline-soft">//</span>
+<span class="font-label-mono font-semibold text-peach-glow tracking-wider text-[11px]">CLOSES WHEN EITHER LEAVES</span></div>
+</div>
+<!-- Soft Subtitle -->
+<p class="text-xs text-text-muted/70 tracking-widest uppercase mt-8 font-label-mono">
+              TWO PEOPLE • ONE SKY • ZERO SPECTATORS
+            </p>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 02: THE CLARITY FIX (WHAT IS SNICK?) ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-dark/50 border-y border-outline-soft/40" id="ritual">
+<div class="max-w-5xl mx-auto flex flex-col gap-16">
+<!-- Section Heading -->
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-4">
+<span class="text-xs uppercase tracking-widest text-peach-accent font-label-mono">THE RITUAL OF ATTENTION</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white tracking-tight">
+              Not a continuous feed. <br>
+<span class="italic text-peach-glow">An intentional, synchronized rendezvous.</span>
+</h2>
+<p class="text-text-muted text-base leading-relaxed">
+              Snick strips away the endless asynchronous noise of modern messaging. We turn communication into an intimate event you both step into together.
+            </p>
+</div>
+<!-- 3 Real Tactile Ritual Prompts -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Ritual Card 1 -->
+<div class="bg-wine-card/90 p-8 rounded-2xl border border-outline-soft/60 hover:border-peach-accent/40 transition-all duration-300 flex flex-col justify-between gap-8 group">
+<div class="flex flex-col gap-4">
+<div class="w-10 h-10 rounded-xl bg-wine-surface border border-outline-soft flex items-center justify-center text-peach-glow">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">01 / Synchronous Drop</span>
+</div>
+<h3 class="font-headline-sm text-xl text-blush-white font-semibold">Dual Horizon Photo</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+                  Both partners capture what’s immediately before them. Neither photo reveals until both shutters have closed.
+                </p>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted/80">
+<span class="">Interaction: Simultaneous</span>
+<span class="font-label-mono text-peach-glow">Locked until paired</span>
+</div>
+</div>
+<!-- Ritual Card 2 -->
+<div class="bg-wine-card/90 p-8 rounded-2xl border border-outline-soft/60 hover:border-peach-accent/40 transition-all duration-300 flex flex-col justify-between gap-8 group">
+<div class="flex flex-col gap-4">
+<div class="w-10 h-10 rounded-xl bg-wine-surface border border-outline-soft flex items-center justify-center text-peach-glow">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">02 / Spoken Truth</span>
+</div>
+<h3 class="font-headline-sm text-xl text-blush-white font-semibold">The Midnight Voice Note</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+                  A 60-second audio prompt that plays exactly once. No waveform replay bar. Just genuine, unfiltered breath and cadence.
+                </p>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted/80">
+<span class="">Play count: Single listen</span>
+<span class="font-label-mono text-peach-glow">Ephemeral audio</span>
+</div>
+</div>
+<!-- Ritual Card 3 -->
+<div class="bg-wine-card/90 p-8 rounded-2xl border border-outline-soft/60 hover:border-peach-accent/40 transition-all duration-300 flex flex-col justify-between gap-8 group"><div class="flex flex-col gap-4">
+<div class="w-10 h-10 rounded-xl bg-wine-surface border border-outline-soft flex items-center justify-center text-peach-glow">
+<span class="material-symbols-outlined text-[20px]">hourglass_empty</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">03 / The Threshold</span>
+</div>
+<h3 class="font-headline-sm text-xl text-blush-white font-semibold">The Quiet Dissolve</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+                  The window lives only while both of you remain present. The second either partner leaves, the threshold dissolves into memory. No archives, no replay.
+                </p>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted/80">
+<span class="">Retention: Zero logs</span>
+<span class="font-label-mono text-peach-glow">Sealed permanently</span>
+</div></div>
+</div>
+<!-- Bottom Quote -->
+<div class="p-8 rounded-2xl bg-gradient-to-r from-wine-card via-wine-surface to-wine-card border border-outline-soft/80 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+<div>
+<p class="font-display-hero text-xl text-blush-white italic">
+                "What if you said what you actually felt, knowing it would never be weaponized or screenshotted?"
+              </p>
+<p class="text-xs text-text-muted mt-1 uppercase tracking-wider font-label-mono">THE CORE QUESTION BEHIND THE SYNCHRONIZED THRESHOLD</p>
+</div>
+<a class="whitespace-nowrap px-6 py-3 rounded-full bg-peach-accent text-wine-ink font-semibold text-xs tracking-wider uppercase hover:bg-peach-glow transition-colors" href="#gate">
+              Begin with Partner
+            </a>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 03: WHY IT WORKS (PSYCHOLOGY & PROOF) ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-ink" id="how-it-works">
+<div class="max-w-5xl mx-auto flex flex-col gap-16">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Info Block -->
+<div class="lg:col-span-6 flex flex-col gap-6">
+<span class="text-xs uppercase tracking-widest text-peach-accent font-label-mono">INTIMACY BY ARCHITECTURE</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white leading-tight">
+                Designed against the habits of mindless scrolling.
+              </h2>
+<p class="text-text-muted text-base leading-relaxed">
+                Most social apps treat couple communication like an unending logistics thread—errands, links, and half-distracted replies. Snick creates a sacred boundary.
+              </p>
+<div class="space-y-4 pt-2">
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-wine-primary/40 border border-peach-accent/30 flex items-center justify-center text-peach-glow shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-blush-white">Synchronous presence only</p>
+<p class="text-xs text-text-muted">The prompt only opens when both partners tap in within 15 minutes of each other.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-wine-primary/40 border border-peach-accent/30 flex items-center justify-center text-peach-glow shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-blush-white">Zero algorithmic feed or ads</p>
+<p class="text-xs text-text-muted">There are no influencers, no likes, and no third parties. Just the two of you.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-wine-primary/40 border border-peach-accent/30 flex items-center justify-center text-peach-glow shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-blush-white">Privacy through non-existence</p>
+<p class="text-xs text-text-muted">The safest data is the data that doesn't exist. Once closed, the room is deleted.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Interactive Demo Card -->
+<div class="lg:col-span-6 bg-wine-dark p-6 sm:p-8 rounded-3xl border border-outline-soft/80 shadow-2xl relative">
+<div class="flex items-center justify-between pb-6 border-b border-outline-soft/50 text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-peach-accent"></span>
+<span class="font-semibold text-blush-white">TODAY'S RITUAL #482</span>
+</div>
+<span class="font-label-mono text-peach-accent">OPENS AT DUSK</span>
+</div>
+<div class="py-6 flex flex-col gap-5">
+<div class="bg-wine-card p-4 rounded-xl border border-outline-soft/60">
+<span class="text-[11px] font-label-mono text-peach-accent uppercase tracking-wider block mb-1">PROMPT DISPATCH</span>
+<p class="font-display-hero text-lg text-blush-white italic">
+                    "Take a photo of where you wish you were together right now, without speaking."
+                  </p>
+</div>
+<!-- Duo Status Mockup -->
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-wine-card/70 border border-peach-accent/20 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="text-xs font-semibold text-blush-white">Partner A</span>
+</div>
+<span class="text-xs text-text-muted">Responded • Locked</span>
+</div>
+<div class="p-4 rounded-xl bg-wine-card/70 border border-outline-soft flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-peach-accent animate-pulse"></span>
+<span class="text-xs font-semibold text-blush-white">Partner B</span>
+</div>
+<span class="text-xs text-peach-glow">Composing in dark...</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted">
+<span class="">Seals automatically at zero</span>
+<span class="font-label-mono text-peach-glow">No chat history kept</span>
+</div>
+</div>
+</div>
+<!-- Real Couple Feedback Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+<div class="p-6 rounded-2xl bg-wine-card/80 border border-outline-soft/60"><p class="font-headline-sm text-base text-blush-white italic mb-4">
+                "We live in different time zones for work. Snick became the only app where we didn't just exchange schedules—it forced us into thirty minutes of real, unfiltered focus."
+              </p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center font-display-hero text-xs font-semibold text-peach-glow">
+                  A&amp;I
+                </div>
+<div>
+<p class="text-xs font-semibold text-blush-white">Ananya &amp; Ishaan</p>
+<p class="text-[11px] text-text-muted font-label-mono">Cohort 02 • Mumbai ↔ Bengaluru</p>
+</div>
+</div></div>
+<div class="p-6 rounded-2xl bg-wine-card/80 border border-outline-soft/60"><p class="font-headline-sm text-base text-blush-white italic mb-4">
+                "Knowing that the conversation vanished the second one of us left completely removed the guardedness we usually have over text. It feels like bedroom conversation again."
+              </p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center font-display-hero text-xs font-semibold text-peach-glow">
+                  K&amp;R
+                </div>
+<div>
+<p class="text-xs font-semibold text-blush-white">Kavya &amp; Rohan</p>
+<p class="text-[11px] text-text-muted font-label-mono">Cohort 03 • Mumbai, IN</p>
+</div>
+</div></div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 04: FOUNDER ETHOS NOTE ================= -->
+<section class="relative w-full py-20 px-6 lg:px-16 bg-wine-dark/30 border-t border-outline-soft/40" id="founder-note">
+<div class="max-w-3xl mx-auto flex flex-col gap-6 text-center sm:text-left bg-wine-card p-8 sm:p-12 rounded-3xl border border-outline-soft/70 shadow-xl">
+<div class="flex items-center gap-3 self-center sm:self-start">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center text-peach-accent">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</div>
+<span class="text-xs font-label-mono uppercase tracking-widest text-peach-accent font-semibold">FOUNDER'S NOTE</span>
+</div>
+<h3 class="font-display-hero text-2xl sm:text-3xl text-blush-white leading-snug">
+            "We built Snick because texting had become transactional. We wanted something that felt like whispering across a dark room again."
+          </h3>
+<p class="text-text-muted text-sm sm:text-base leading-relaxed">
+            Every platform wants you to stay online forever, building records, accumulating analytics, and monetizing your relationship. We believe intimacy thrives in ephemerality. What makes a memory poignant is the fact that you were there when it happened—and that nobody else will ever see it.
+          </p>
+<div class="pt-4 border-t border-outline-soft/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted"><span class="font-medium text-blush-white">— Aarav &amp; Meher, Co-creators of SnickyLink</span>
+<span class="font-label-mono text-peach-glow">Coming Soon • iOS &amp; Android</span></div>
+</div>
+</section>
+<!-- ================= SECTION 05: CLEARANCE GATE / PRIVATE INVITATION ================= -->
+<section class="relative w-full py-24 lg:py-32 px-6 lg:px-16 bg-wine-ink border-t border-outline-soft/60" id="gate">
+<!-- Subtle Glow -->
+<div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-wine-primary/20 blur-[130px] pointer-events-none"></div>
+<div class="max-w-2xl mx-auto flex flex-col items-center text-center gap-8 relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-wine-dark border border-peach-accent/30 text-xs font-label-mono text-peach-glow"><span class="w-2 h-2 rounded-full bg-peach-accent animate-pulse"></span>
+<span class="">COMING SOON • COHORT 04 PRIVATE BETA ACCESS</span></div>
+<div class="flex flex-col gap-3">
+<h2 class="font-display-hero text-3xl sm:text-5xl text-blush-white tracking-tight">
+              An intimate space for you and your person.
+            </h2>
+<p class="text-text-muted text-base max-w-lg mx-auto">
+              Invitations are rolled out in small weekly batches to keep the experience calm and private. Submit your email to receive an activation key for two.
+            </p>
+</div>
+<!-- Application Form -->
+<div class="w-full bg-wine-dark p-6 sm:p-8 rounded-3xl border border-outline-soft shadow-2xl text-left flex flex-col gap-4">
+<form id="invite-form">
+<div class="flex flex-col gap-4" id="form-state">
+<label class="text-xs uppercase tracking-wider font-label-mono text-peach-accent" for="email-input">
+                  Your Email Address
+                </label>
+<div class="flex flex-col sm:flex-row gap-3">
+<input class="w-full bg-wine-surface text-blush-white font-body-sm text-sm px-5 py-3.5 rounded-xl border border-outline-soft focus:border-peach-accent focus:ring-0 focus:outline-none placeholder:text-text-muted/40" id="email-input" placeholder="you@example.com" required="" type="email">
+<button class="whitespace-nowrap px-7 py-3.5 rounded-xl bg-wine-primary hover:bg-peach-accent text-blush-white hover:text-wine-ink font-semibold text-xs tracking-wider uppercase transition-all duration-300 border border-peach-accent/30 flex items-center justify-center gap-2" type="submit" id="invite-submit-btn">
+<span class="" id="invite-submit-label">Request Key</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<p class="hidden text-xs text-red-400 pt-1" id="form-error"></p>
+<div class="flex items-center justify-between text-xs text-text-muted pt-2">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-peach-accent">lock</span>
+                    End-to-end encrypted
+                  </span>
+<span class="font-label-mono text-peach-glow">Join 2,400+ couples in queue</span>
+</div>
+</div>
+<!-- Success State -->
+<div class="hidden p-6 bg-wine-surface border border-peach-accent/40 rounded-2xl flex flex-col gap-3" id="success-state">
+<div class="flex items-center gap-2 text-peach-glow font-semibold text-sm">
+<span class="material-symbols-outlined text-[20px] text-peach-accent">mark_email_read</span>
+<span class="">Invitation Request Received</span>
+</div>
+<p class="text-xs text-text-muted leading-relaxed" id="success-message">
+                  We have queued your invitation code. When your window unlocks, both you and your partner will receive a dual activation link directly to your inbox.
+                </p>
+<div class="pt-2 text-[11px] font-label-mono text-peach-accent" id="success-ticket">
+                  COHORT TICKET: #SNK-7712-PAIR
+                </div>
+</div>
+</form>
+</div>
+<!-- Micro Pillars -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full text-left pt-2">
+<div class="p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">Two Accounts Only</span>
+<span class="text-xs text-text-muted">Bound strictly to each other. No external following.</span>
+</div>
+<div class="p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">Zero Archiving</span>
+<span class="text-xs text-text-muted">No servers holding your late-night notes.</span>
+</div>
+<div class="p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">No Notification Spam</span>
+<span class="text-xs text-text-muted">Exactly one gentle chime when the daily prompt opens.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ================= LUXURY MINIMAL FOOTER ================= -->
+<footer class="w-full bg-wine-ink border-t border-outline-soft/50 py-16 relative z-10">
+<div class="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col gap-10">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-outline-soft/40">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-peach-accent/30 bg-wine-dark flex items-center justify-center p-0.5">
+<img alt="SnickyLink" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmCmHpMmlqe-oPpAcTpuAVtK8nQMtSSx_MW18gBor9G4X_1CyZetux06oElg_le6l93dPP8mHo9C5t3LVLmiiYivl_kZM9NXY0Oh8odONCZSVl5ErDjpG0FvN4-_TVG_64rDgPdUlt8Z0CTRuKgLRvAasRlH5tfDs1xR8jczFlkqLU7R4OGMT_k5JRUfe6vwb7sY5pq3_njO4fkpOiSUjEzsaObefZt50clnbgLqLHd4b6SvuQwQk-wDhHTxAZBRMf0Q">
+</div>
+<span class="font-display-hero text-lg font-semibold tracking-wide text-blush-white">SNICKYLINK</span>
+</div>
+<div class="flex flex-wrap items-center gap-8 text-xs text-text-muted">
+<a class="hover:text-peach-glow transition-colors" href="#ritual">The Ritual</a>
+<a class="hover:text-peach-glow transition-colors" href="#how-it-works">Why It Works</a>
+<a class="hover:text-peach-glow transition-colors" href="#founder-note">Founder Note</a>
+<a class="text-peach-accent hover:text-peach-glow transition-colors" href="#gate">Request Invite</a>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted/70">
+<p class="text-center sm:text-left">
+          Crafted with care for two. Designed for iOS &amp; Android.
+        </p>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent"></span>
+<span class="font-display-hero italic text-blush-white">"Some things are only shared in the quiet dark."</span>
+</div>
+</div>
+<div class="text-center sm:text-left text-[11px] font-label-mono text-text-muted/40">
+        © 2024 SNICKYLINK INC. ALL RIGHTS RESERVED. ZERO-PERSISTENCE ARCHITECTURE.
+      </div>
+</div>
+</footer>
+<script src="/js/main.js"></script>
+
+</body></html>
