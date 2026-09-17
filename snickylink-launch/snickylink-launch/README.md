@@ -103,6 +103,21 @@ it works correctly across serverless invocations).
 { "count": 42 }
 ```
 
+## SEO setup (important — do this after you deploy)
+`index.html`, `robots.txt`, and `sitemap.xml` currently use the
+placeholder domain `https://snickylink.vercel.app/` for the canonical
+URL, Open Graph tags, Twitter Card tags, the JSON-LD `Organization`
+schema, and the sitemap's `Sitemap:` line. Once you know your real
+Vercel URL (or custom domain), find-and-replace
+`https://snickylink.vercel.app` with it in those three files —
+otherwise search engines and link previews (WhatsApp, Twitter, etc.)
+will point at the wrong URL.
+
+Also swap the `og:image` / `twitter:image` — they currently point at
+the temporary Stitch/Google CDN image — for a proper 1200×630 image
+hosted on your own domain once you have one, so link previews don't
+break if that CDN link expires.
+
 ## About this update
 `index.html` now uses the new "Velvet & Ember" redesign (the Stitch
 export from `stitch_snickylink_interactive_brand_redesign__6_.zip`),
