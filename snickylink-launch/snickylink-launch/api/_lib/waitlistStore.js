@@ -23,11 +23,13 @@ function generateTicket() {
 }
 
 /**
- * Adds an email to the waitlist if it isn't already present.
+ * Adds an email (optionally paired with a partner's email) to the
+ * waitlist if it isn't already present.
  * Returns { position, ticket, alreadyExists }.
  */
-async function addEmail(email) {
+async function addEmail(email, partnerEmail) {
   const normalized = email.trim().toLowerCase();
+  const normalizedPartner = partnerEmail ? partnerEmail.trim().toLowerCase() : undefined;
 
   const existingRaw = await redis.hget(EMAILS_KEY, normalized);
   if (existingRaw) {
@@ -38,7 +40,12 @@ async function addEmail(email) {
 
   const position = await redis.incr(COUNTER_KEY);
   const ticket = generateTicket();
-  const entry = { position, ticket, createdAt: new Date().toISOString() };
+  const entry = {
+    position,
+    ticket,
+    partnerEmail: normalizedPartner || null,
+    createdAt: new Date().toISOString(),
+  };
 
   await redis.hset(EMAILS_KEY, { [normalized]: JSON.stringify(entry) });
 

@@ -1,6 +1,6 @@
 // SnickyLink — waitlist form logic
-// Talks to POST /api/waitlist on the same origin (server.js serves this file
-// and the API from one Express app, so no base URL/CORS config is needed).
+// Talks to POST /api/waitlist on the same origin (Vercel serverless
+// function under /api), so no base URL/CORS config is needed.
 
 (function () {
   const form = document.getElementById('invite-form');
@@ -11,9 +11,12 @@
   const successMessage = document.getElementById('success-message');
   const successTicket = document.getElementById('success-ticket');
   const errorEl = document.getElementById('form-error');
-  const emailInput = document.getElementById('email-input');
+  const selfInput = document.getElementById('email-self');
+  const partnerInput = document.getElementById('email-partner');
   const submitBtn = document.getElementById('invite-submit-btn');
   const submitLabel = document.getElementById('invite-submit-label');
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function showError(message) {
     errorEl.textContent = message;
@@ -28,16 +31,26 @@
   function setLoading(isLoading) {
     submitBtn.disabled = isLoading;
     submitBtn.style.opacity = isLoading ? '0.6' : '1';
-    submitLabel.textContent = isLoading ? 'Requesting…' : 'Request Key';
+    submitLabel.textContent = isLoading ? 'Requesting…' : 'Request Duo Cryptographic Key';
   }
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
     clearError();
 
-    const email = emailInput.value.trim();
-    if (!email) {
-      showError('Please enter your email address.');
+    const email = (selfInput ? selfInput.value : '').trim();
+    const partnerEmail = (partnerInput ? partnerInput.value : '').trim();
+
+    if (!email || !partnerEmail) {
+      showError('Please enter both your email and your partner\u2019s email.');
+      return;
+    }
+    if (!EMAIL_REGEX.test(email) || !EMAIL_REGEX.test(partnerEmail)) {
+      showError('Please enter two valid email addresses.');
+      return;
+    }
+    if (email.toLowerCase() === partnerEmail.toLowerCase()) {
+      showError('Your email and your partner\u2019s email must be different.');
       return;
     }
 
@@ -47,7 +60,7 @@
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, partnerEmail }),
       });
 
       const data = await response.json();
@@ -59,11 +72,11 @@
       }
 
       // Populate the success state with real data from the backend.
-      if (successTicket) {
-        successTicket.textContent = `COHORT TICKET: #${data.ticket}`;
+      if (successTicket && data.ticket) {
+        successTicket.textContent = `PAIR TICKET: #${data.ticket}`;
       }
       if (successMessage && typeof data.position === 'number') {
-        successMessage.textContent = `You're #${data.position} in the queue. When your window unlocks, both you and your partner will receive a dual activation link directly to your inbox.`;
+        successMessage.textContent = `Both email addresses have been queued for Cohort 04 \u2014 you're #${data.position} in line. When the portal opens, you both will receive dual activation tokens simultaneously.`;
       }
 
       formState.classList.add('hidden');

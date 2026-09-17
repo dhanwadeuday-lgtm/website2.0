@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     console.error('Rate limit check failed:', err);
   }
 
-  const { email } = req.body || {};
+  const { email, partnerEmail } = req.body || {};
 
   if (!email || typeof email !== 'string') {
     return res.status(400).json({ error: 'Email is required.' });
@@ -34,8 +34,17 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
 
+  if (partnerEmail !== undefined) {
+    if (typeof partnerEmail !== 'string' || !EMAIL_REGEX.test(partnerEmail.trim())) {
+      return res.status(400).json({ error: "Please enter a valid partner email address." });
+    }
+    if (partnerEmail.trim().toLowerCase() === email.trim().toLowerCase()) {
+      return res.status(400).json({ error: 'Your email and your partner\u2019s email must be different.' });
+    }
+  }
+
   try {
-    const { position, ticket } = await addEmail(email);
+    const { position, ticket } = await addEmail(email, partnerEmail);
     return res.status(200).json({ position, ticket });
   } catch (err) {
     console.error('Waitlist signup failed:', err);

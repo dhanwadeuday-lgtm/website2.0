@@ -103,6 +103,24 @@ it works correctly across serverless invocations).
 { "count": 42 }
 ```
 
+## About this update
+`index.html` now uses the new "Velvet & Ember" redesign (the Stitch
+export from `stitch_snickylink_interactive_brand_redesign__6_.zip`),
+wired into this project's real waitlist backend instead of the static
+demo markup it shipped with:
+- The invite form now collects **your email + your partner's email**
+  and POSTs both to `POST /api/waitlist`.
+- `api/waitlist/index.js` and `api/_lib/waitlistStore.js` accept an
+  optional `partnerEmail` field, validate it, and store it alongside
+  the signup entry in Redis.
+- `js/main.js` was rewritten to match the new form's field IDs
+  (`email-self` / `email-partner`) and to populate the real ticket
+  number + queue position returned by the API into the success card.
+- All the page's other interactive bits (ambient audio toggle, partner
+  presence simulator, the format-unlock sequence) are unchanged —
+  they're cosmetic demo scripts local to `index.html` and don't touch
+  the backend.
+
 ## Known follow-ups (not yet done)
 - Images in `index.html` are currently hosted on Google's temporary
   `lh3.googleusercontent.com` CDN (from the Stitch export) — these can
