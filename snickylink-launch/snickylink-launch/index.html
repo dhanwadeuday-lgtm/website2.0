@@ -1,1348 +1,620 @@
-<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>SNICKYLINK — The Synchronous 2-Player Co-Op Connection Ritual</title>
-<meta name="description" content="SnickyLink is a 2-player daily connection ritual for couples. Snicks stay locked until you register — request your Duo Pair Key and unlock today's cards together."/>
-<meta name="keywords" content="couples app, daily connection app, private couples app, relationship app, synchronous messaging for couples, SnickyLink"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="SnickyLink"/>
-<link rel="canonical" href="https://snickylink.vercel.app/"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://snickylink.vercel.app/"/>
-<meta property="og:title" content="SNICKYLINK — The Synchronous 2-Player Co-Op Connection Ritual"/>
-<meta property="og:description" content="Snicks reveal only when both partners submit. Register to unlock today's ritual cards together."/>
-<meta property="og:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuBkE2tf4NfArUe5Dum5xdthS_xew_-gImBWE1s0JJM9L-olhXIP0C9lWlPYKRzC6iCLquKWPc5-Ya7WJ_PPqwnUHeYov23hCwlYJuNCA_2UTSR6MXj1CpnljsknntdgRUtcoSDHC9jDG2kxrUQJlu93cEoYAtQShOi4gIOqRZMF9O06k2zhdJb8azTCNEYWaVQxB5AZCGZmjDfd5y2mKOoIARJ31eqRfTWX-_fVUbRI1Sdru9qPT2tYonCe76VdcEO6iZz7auOHE3Ecvg"/>
-<meta property="og:site_name" content="SnickyLink"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="SNICKYLINK — The Synchronous 2-Player Co-Op Connection Ritual"/>
-<meta name="twitter:description" content="Snicks reveal only when both partners submit. Register to unlock today's ritual cards together."/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E"/>
+<title>Snickylink — a secret little world for two</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Not more than a chat. Snickylink is a playful, private experience for two people to connect, play and grow together.">
+<meta name="keywords" content="couples app, daily connection app, private couples app, relationship app, snickylink">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://snickylink.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://snickylink.vercel.app/">
+<meta property="og:title" content="Snickylink — a secret little world for two">
+<meta property="og:description" content="Not more than a chat. Bring your person, unlock your first Snick together.">
+<meta property="og:image" content="https://snickylink.vercel.app/assets/snickylink-logo.png">
+<meta property="og:site_name" content="Snickylink">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Snickylink — a secret little world for two">
+<meta name="twitter:description" content="Not more than a chat. Bring your person, unlock your first Snick together.">
+<meta name="twitter:image" content="https://snickylink.vercel.app/assets/snickylink-logo.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "SnickyLink",
+  "name": "Snickylink",
   "url": "https://snickylink.vercel.app/",
-  "description": "SnickyLink is a 2-player daily connection ritual for couples. Snicks stay locked until both partners register.",
+  "description": "Snickylink is a playful, private experience for two people to connect, play and grow together.",
   "sameAs": []
 }
 </script>
-<!-- Tailwind CSS CDN with forms and container queries -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Configuration for exact Wine & Peach Palette (Option 3: Velvet & Ember) -->
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            wine: {
-              primary: '#6B2B3C',   /* Muted Wine: Primary brand, CTAs */
-              dark: '#3A1620',      /* Deep Wine-Black: Night cards, editorial contrast */
-              ink: '#1E0E13',       /* Deepest Wine-Ink */
-            },
-            peach: {
-              warm: '#E8B99C',      /* Warm Peach: Highlights, glows, badges */
-              light: '#F5DDD0',     /* Soft Peach tint */
-              faint: '#FDF7F4',     /* Subtle warm parchment tint */
-            },
-            blush: {
-              day: '#FBF4F1',       /* Blush White canvas */
-              card: '#FFFFFF',
-            }
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'Georgia', 'serif'],
-            sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Menlo', 'monospace']
-          },
-          boxShadow: {
-            'peach-glow': '0 0 30px -4px rgba(232, 185, 156, 0.55)',
-            'wine-glow': '0 12px 35px -6px rgba(107, 43, 60, 0.40)',
-            'card-lift': '0 16px 36px -8px rgba(58, 22, 32, 0.08), 0 4px 12px -2px rgba(58, 22, 32, 0.03)',
-            'phone-shadow': '0 25px 60px -15px rgba(30, 14, 19, 0.45)'
-          }
-        }
-      }
-    }
-  </script>
-<!-- Google Fonts: Playfair Display & Plus Jakarta Sans & JetBrains Mono -->
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
-<style data-purpose="base-styling">
-    body {
-      background-color: #FBF4F1;
-      color: #3A1620;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      overflow-x: hidden;
-    }
-    ::selection {
-      background-color: #E8B99C;
-      color: #1E0E13;
-    }
-    .serif-title {
-      font-family: 'Playfair Display', Georgia, serif;
-    }
-    .mono-num {
-      font-family: 'JetBrains Mono', monospace;
-    }
-  </style>
-<style data-purpose="custom-animations">
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.95; transform: scale(1); filter: drop-shadow(0 0 12px rgba(232, 185, 156, 0.8)); }
-      50% { opacity: 0.5; transform: scale(0.97); filter: drop-shadow(0 0 3px rgba(232, 185, 156, 0.3)); }
-    }
-    @keyframes floatSoft {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      14% { transform: scale(1.08); }
-      28% { transform: scale(1); }
-      42% { transform: scale(1.06); }
-      70% { transform: scale(1); }
-    }
-    @keyframes shimmerMove {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    @keyframes beamSweep {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(200%); }
-    }
-    .animate-sync-glow {
-      animation: pulseGlow 3s infinite ease-in-out;
-    }
-    .animate-float {
-      animation: floatSoft 5s infinite ease-in-out;
-    }
-    .animate-heartbeat {
-      animation: heartbeat 2.2s infinite ease-in-out;
-    }
-    .mystery-shimmer {
-      background: linear-gradient(110deg, rgba(232,185,156,0.1) 0%, rgba(232,185,156,0.4) 50%, rgba(232,185,156,0.1) 100%);
-      background-size: 200% 100%;
-      animation: shimmerMove 3.5s infinite linear;
-    }
-    .beam-line {
-      animation: beamSweep 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .story-canvas-wine {
-      background: radial-gradient(circle at 50% 20%, #6B2B3C 0%, #3A1620 55%, #1E0E13 100%);
-      color: #FFFFFF;
-    }
-    .story-canvas-peach {
-      background: linear-gradient(160deg, #FBF4F1 0%, #F5DDD0 50%, #E8B99C 100%);
-      color: #3A1620;
-    }
-    .story-canvas-noir {
-      background: radial-gradient(circle at 50% 30%, #2A0E17 0%, #15060B 75%, #0A0205 100%);
-      color: #FFFFFF;
-    }
-
-    /* --- Snick Lock Mechanism --- */
-    .snick-locked {
-      position: relative;
-    }
-    .snick-locked .snick-lock-target {
-      filter: blur(5px);
-      pointer-events: none;
-      user-select: none;
-    }
-    .snick-lock-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 0.75rem;
-      padding: 1.5rem;
-      background: rgba(30, 14, 19, 0.55);
-      border-radius: inherit;
-    }
-    .snick-locked:not(.snick-unlocked) .snick-lock-overlay {
-      display: flex;
-    }
-    .snick-unlocked .snick-lock-overlay {
-      display: none;
-    }
-    .snick-unlocked .snick-lock-target {
-      filter: none;
-      pointer-events: auto;
-      user-select: auto;
-    }
-    @keyframes snickBloom {
-      0% { opacity: 0; transform: scale(0.94); filter: blur(6px); }
-      60% { opacity: 1; filter: blur(0); }
-      100% { opacity: 1; transform: scale(1); filter: blur(0); }
-    }
-    .snick-bloom {
-      animation: snickBloom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-  </style>
+<link rel="icon" href="assets/snickylink-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Bricolage+Grotesque:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
-<body class="bg-blush-day text-wine-dark antialiased selection:bg-peach-warm selection:text-wine-ink min-h-screen flex flex-col">
-<!-- BEGIN: NavigationBar -->
-<header class="sticky top-0 z-50 bg-[#FBF4F1]/95 backdrop-blur-md border-b border-[#E8B99C]/50 transition-all">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-<!-- Brand Official Logo Lockup -->
-<a class="flex items-center gap-3.5 group" href="#">
-<div class="w-11 h-11 rounded-full border-2 border-wine-primary/70 p-0.5 overflow-hidden shadow-sm group-hover:scale-105 transition-transform bg-white">
-<img alt="SNICKYLINK Official Couple Bridge Crest Emblem" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJRhV24F5hmDQ6ekMCc3l970fVmxdj8SMRwvix6xq8vczVL4GomFFjBXtl2hRVziaYtxelN7ERdCpXoTh4QiRruj9ITTUF-GfJEBnEnJu-fBv04sVvj-3f4frCLR4ONqqhK6HZ6u_ESlrfyB8HENNfNVMHuWNLGXQUNiG-edr59kTinj_PuuiTB4y13Wdr-dXziP3Ra63z2_aCaPGfVUV0QrvLiK3wYaPnnerVMMu2-5sxy0V1WqSAQDL2872FYLE3WwCnVfV6buN41g">
-</div>
-<div class="flex flex-col">
-<div class="flex items-center gap-2">
+<body>
 
+<!-- global overlays -->
+<div class="cursor-glow"></div>
+<div class="progress"></div>
 
+<!-- signature "Grow Together" vine — a tiny shoot that grows into full bloom as the story unfolds -->
+<div class="vine" aria-hidden="true">
+  <svg class="vine__svg" viewBox="0 0 40 400" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vineGrad" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" style="stop-color:var(--coral)"></stop>
+        <stop offset="100%" style="stop-color:var(--peach)"></stop>
+      </linearGradient>
+    </defs>
+    <path id="vinePath" class="vine__path"
+      d="M20,398 C4,364 34,340 19,304 C4,268 34,244 19,206 C4,168 34,144 19,104 C4,64 34,40 19,6"
+      fill="none" stroke="url(#vineGrad)" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+  <i class="vine__leaf vine__leaf--1"></i>
+  <i class="vine__leaf vine__leaf--2"></i>
+  <i class="vine__leaf vine__leaf--3"></i>
+  <span class="vine__bloom" data-bloom="1" style="bottom:76%"><i></i><i></i><i></i><i></i><i></i></span>
+  <span class="vine__bloom" data-bloom="2" style="bottom:51%"><i></i><i></i><i></i><i></i><i></i></span>
+  <span class="vine__bloom" data-bloom="3" style="bottom:26%"><i></i><i></i><i></i><i></i><i></i></span>
+  <span class="vine__bloom vine__bloom--final" data-bloom="4" style="bottom:2%"><i></i><i></i><i></i><i></i><i></i><i></i></span>
 </div>
 
-</div>
-</a>
-<!-- Navigation Links -->
-<nav class="hidden md:flex items-center gap-7 text-xs font-bold tracking-wide uppercase font-mono text-wine-dark/80">
-<a class="hover:text-wine-primary transition-colors flex items-center gap-1.5" href="#two-way-rule">
-<span class="w-1.5 h-1.5 rounded-full bg-peach-warm"></span> The 2-Way Lock Rule
-      </a>
-<a class="text-wine-primary hover:text-wine-dark transition-colors flex items-center gap-1.5 bg-peach-warm/25 px-2.5 py-1 rounded-full" href="#interactive-demo">
-<span class="">🕹️</span> 1-Day Live Demo
-      </a>
-<a class="hover:text-wine-primary transition-colors" href="#story-export">
-        Instagram Story Export
-      </a>
-<a class="hover:text-wine-primary transition-colors" href="#progression-map">
-        RPG Roadmap
-      </a>
+<!-- nav -->
+<nav class="nav" aria-label="primary">
+  <div class="brand">SNICKYLINK<em>◦ v0.1 · beta</em></div>
+  <div class="whisper"><span>something's waiting</span><span class="dot"></span><span>bring your person</span></div>
 </nav>
-<!-- Header Duo Key CTA -->
-<div class="flex items-center gap-3">
-<a class="px-5 py-2.5 rounded-full bg-wine-primary text-white text-xs font-bold tracking-wider uppercase border border-peach-warm shadow-wine-glow hover:bg-wine-dark transition-all duration-200 flex items-center gap-2 active:scale-95" href="#request-duo-key">
-<span class="">CLAIM DUO KEY</span>
-<span class="font-mono text-peach-warm">🗝️</span>
-</a>
-</div>
-</div>
-</header>
-<!-- END: NavigationBar -->
-<main class="flex-grow">
-<!-- BEGIN: HeroSection -->
-<section class="relative pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden">
-<!-- Ambient Background Glows -->
-<div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[580px] bg-peach-warm/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
-<div class="absolute top-8 right-12 w-80 h-80 bg-wine-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<!-- Top Brand Lockup Banner -->
-<div class="max-w-xl mx-auto mb-8 text-center">
-<div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#1E0E13] text-peach-warm border border-peach-warm/40 text-xs font-mono font-bold uppercase tracking-wider shadow-sm">
-<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          STRICT 2-PLAYER PROTOCOL // ZERO LURKING
-        </div>
-</div>
-<!-- Core Headline -->
-<div class="text-center max-w-4xl mx-auto mb-12">
-<h1 class="serif-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-wine-dark tracking-tight leading-[1.14] mb-6">
-          Snicks reveal <span class="italic text-wine-primary">ONLY</span> when both partners submit. <br class="hidden sm:inline">
-          Never alone. Always together.
-        </h1>
-<p class="text-base sm:text-lg text-wine-dark/80 leading-relaxed font-normal max-w-2xl mx-auto mb-8">
-          Not a passive chat feed. A daily evening synchronous co-op game for you and your favorite person. Neither can peek, edit, or unlock until both screens lock in at dusk.
-        </p>
-<!-- Hero CTAs -->
-<div class="flex flex-wrap items-center justify-center gap-4">
-<a class="px-8 py-3.5 bg-wine-primary text-white font-bold text-sm sm:text-base rounded-full shadow-wine-glow hover:bg-wine-dark transition-all duration-200 border-2 border-peach-warm flex items-center gap-2 group cursor-pointer" href="#interactive-demo">
-<span class="">Play 1-Day Snick Demo</span>
-<span class="group-hover:translate-x-1 transition-transform">✨</span>
-</a>
-<a class="px-7 py-3.5 bg-white text-wine-dark font-bold text-sm sm:text-base rounded-full border-2 border-peach-warm hover:border-wine-primary hover:bg-peach-faint transition-all duration-200 flex items-center gap-2 shadow-sm" href="#two-way-rule">
-<span class="">How the 2-Way Lock Works</span>
-<span class="font-mono text-xs text-wine-primary">🔒</span>
-</a>
-</div>
-<!-- Social Proof Stats -->
-<div class="mt-8 flex items-center justify-center gap-6 text-xs text-wine-dark/70 font-semibold font-mono">
-<span class="flex items-center gap-1.5"><span class="text-wine-primary">★</span> 14,392 Mutual Unmasks</span>
-<span class="text-peach-warm">•</span>
-<span class="flex items-center gap-1.5"><span class="text-wine-primary">🛡️</span> 0 Single-Player Leaks</span>
-<span class="text-peach-warm">•</span>
-<span class="flex items-center gap-1.5"><span class="text-wine-primary">⚡</span> 100% Simultaneous</span>
-</div>
-</div>
-<!-- Real-Time 2-Player Controller Deck -->
-<div class="relative max-w-4xl mx-auto">
-<div class="bg-wine-dark text-white rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-peach-warm/40 relative overflow-hidden">
-<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-wine-primary/40 rounded-full blur-3xl pointer-events-none"></div>
-<!-- Controller Deck Bar -->
-<div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-white/10">
-<div class="flex items-center gap-3">
-<div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
-<span class="font-mono text-xs text-peach-warm font-bold tracking-wider uppercase">SYNCHRONOUS ORBIT // LIVE TWO-WAY LOCK</span>
-</div>
-<div class="flex items-center gap-4 text-xs font-mono">
-<span class="bg-white/10 px-3 py-1 rounded-full text-peach-light">Session #4982-BLR-BOM</span>
-<span class="text-peach-warm font-bold">+20 XP Active</span>
-</div>
-</div>
-<!-- 2-Player Split Lock State -->
-<div class="py-8 grid grid-cols-1 md:grid-cols-7 items-center gap-6">
-<!-- Player 1 Card -->
-<div class="md:col-span-3 bg-[#1E0E13]/85 p-5 rounded-2xl border border-wine-primary/60 flex items-center gap-4 relative overflow-hidden">
-<div class="relative">
-<div class="w-14 h-14 rounded-full bg-wine-primary/50 border-2 border-peach-warm flex items-center justify-center font-bold text-peach-light text-lg">
-                  A
-                </div>
-<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-wine-dark flex items-center justify-center text-[10px] text-white">✓</span>
-</div>
-<div class="flex-grow">
-<div class="flex items-center justify-between">
-<h3 class="text-white font-bold text-base">Aarav</h3>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-peach-warm/20 text-peach-warm font-semibold">P1 // Mumbai 🌆</span>
-</div>
-<p class="text-xs text-peach-light/70 mt-0.5 font-medium">Prompt Locked In &amp; Sealed</p>
-<div class="mt-2 text-[11px] text-emerald-400 font-mono flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Waiting for Meher
-                </div>
-</div>
-</div>
-<!-- Center Sync Meter & Lock Hub -->
-<div class="md:col-span-1 flex flex-col items-center justify-center text-center">
-<div class="w-13 h-13 p-2 rounded-full bg-wine-primary border-2 border-peach-warm flex flex-col items-center justify-center animate-sync-glow shadow-peach-glow text-peach-warm font-mono font-bold text-xs">
-<span class="">99.4%</span>
-</div>
-<span class="text-[9px] uppercase font-mono tracking-widest text-peach-warm mt-2 font-bold">2-WAY LOCK</span>
-<div class="w-full h-0.5 bg-gradient-to-r from-wine-primary via-peach-warm to-wine-primary mt-2"></div>
-</div>
-<!-- Player 2 Card -->
-<div class="md:col-span-3 bg-[#1E0E13]/85 p-5 rounded-2xl border border-peach-warm/60 flex items-center gap-4 relative overflow-hidden">
-<div class="relative">
-<div class="w-14 h-14 rounded-full bg-wine-primary/50 border-2 border-peach-warm flex items-center justify-center font-bold text-peach-warm text-lg">
-                  M
-                </div>
-<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-wine-dark flex items-center justify-center text-[10px] text-white">✓</span>
-</div>
-<div class="flex-grow">
-<div class="flex items-center justify-between">
-<h3 class="text-white font-bold text-base">Meher</h3>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-peach-warm/20 text-peach-warm font-semibold">P2 // BLR ☕</span>
-</div>
-<p class="text-xs text-peach-light/70 mt-0.5 font-medium">Prompt Locked In &amp; Sealed</p>
-<div class="mt-2 text-[11px] text-emerald-400 font-mono flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Signal Match Confirmed
-                </div>
-</div>
-</div>
-</div>
-<!-- Active Dusk Prompt Banner Inside Hero Card -->
-<div class="bg-gradient-to-r from-[#1E0E13] via-wine-primary/40 to-[#1E0E13] p-5 rounded-2xl border border-peach-warm/30 flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="flex items-start gap-3">
-<span class="text-2xl mt-0.5">🕯️</span>
-<div>
-<span class="text-[10px] font-mono uppercase tracking-widest text-peach-warm font-bold">Dusk Duel #49:</span>
-<p class="text-white text-base font-medium serif-title italic">"What is one quiet sacrifice you made for me this month that I didn’t notice?"</p>
-</div>
-</div>
-<button class="w-full md:w-auto px-6 py-2.5 rounded-xl bg-peach-warm hover:bg-white text-wine-dark font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-peach-glow whitespace-nowrap cursor-pointer active:scale-95" id="hero-reveal-btn" onclick="triggerMutualReveal()">
-              Simulate Mutual Reveal ✨
-            </button>
-</div>
-<div class="hidden mt-4 text-center p-3 rounded-xl bg-wine-primary/60 border border-peach-warm text-peach-light text-xs font-mono" id="reveal-toast">
-            🎉 Unmasked Simultaneously at 06:00:02 PM IST! Aarav: "Rerouted my 11 PM cab to pick your roasted almond dessert." &nbsp;•&nbsp; Meher: "Skipped my mixer to hold quiet space while you rested."
-          </div>
-</div>
-<!-- Hanging Crest Badge -->
-<div class="absolute -bottom-6 right-6 hidden md:flex items-center gap-2.5 bg-[#FBF4F1] border-2 border-wine-primary py-1.5 px-4 rounded-full shadow-lg text-xs font-bold text-wine-primary">
-<span class="text-base">🤝</span> 342 Consecutive Synchronous Sunsets
-        </div>
-</div>
-</div>
-</section>
-<!-- END: HeroSection -->
-<!-- BEGIN: CoreLockRuleSection -->
-<section class="py-16 bg-white border-y border-peach-warm/40" id="two-way-rule">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-2xl mx-auto mb-12">
-<span class="px-3 py-1 rounded-full bg-wine-primary/10 text-wine-primary text-xs font-mono font-bold uppercase tracking-widest">The Core Mechanic</span>
-<h2 class="serif-title text-3xl sm:text-4xl font-extrabold text-wine-dark mt-3 mb-3">
-          The Synchronous 2-Way Lock Rule
-        </h2>
-<p class="text-wine-dark/75 text-sm sm:text-base">
-          Snickylink is engineered to protect emotional equilibrium. There is zero asymmetric viewing, zero lurking, and zero editing after the tap.
-        </p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Rule 1 -->
-<div class="p-6 rounded-3xl bg-blush-day border border-peach-warm/60 relative flex flex-col justify-between">
-<div>
-<div class="w-12 h-12 rounded-2xl bg-wine-primary text-peach-light flex items-center justify-center font-mono font-bold text-xl mb-5 shadow-sm">
-              01
-            </div>
-<h3 class="serif-title text-xl font-bold text-wine-dark mb-2">Blind Submission</h3>
-<p class="text-xs sm:text-sm text-wine-dark/75 leading-relaxed">
-              When Player 1 types their answer, it immediately hashes and locks into an encrypted vault. Player 1 cannot see what they wrote after locking, preventing second-guessing or anxious rewrites.
-            </p>
-</div>
-<div class="mt-6 pt-4 border-t border-peach-warm/40 text-[11px] font-mono text-wine-primary font-bold">
-            🔒 State: LOCKED &amp; ENCRYPTED
-          </div>
-</div>
-<!-- Rule 2 -->
-<div class="p-6 rounded-3xl bg-blush-day border border-peach-warm/60 relative flex flex-col justify-between">
-<div>
-<div class="w-12 h-12 rounded-2xl bg-peach-warm text-wine-ink flex items-center justify-center font-mono font-bold text-xl mb-5 shadow-sm">
-              02
-            </div>
-<h3 class="serif-title text-xl font-bold text-wine-dark mb-2">The Waiting Orbit</h3>
-<p class="text-xs sm:text-sm text-wine-dark/75 leading-relaxed">
-              Player 2 sees only: <em class="text-wine-primary">"Partner is locked in waiting for you — submit your answer to unmask both simultaneously."</em> Neither player can peek early. Single-player viewing is technically impossible.
-            </p>
-</div>
-<div class="mt-6 pt-4 border-t border-peach-warm/40 text-[11px] font-mono text-wine-primary font-bold">
-            ⏳ State: PARTNER PENDING LOCK
-          </div>
-</div>
-<!-- Rule 3 -->
-<div class="p-6 rounded-3xl bg-gradient-to-br from-wine-primary to-wine-dark text-white p-6 rounded-3xl border-2 border-peach-warm shadow-card-lift relative flex flex-col justify-between">
-<div>
-<div class="w-12 h-12 rounded-2xl bg-white text-wine-primary flex items-center justify-center font-mono font-bold text-xl mb-5 shadow-sm">
-              03
-            </div>
-<h3 class="serif-title text-xl font-bold text-peach-warm mb-2">Simultaneous Unmasking</h3>
-<p class="text-xs sm:text-sm text-peach-light/90 leading-relaxed">
-              The exact millisecond Player 2 hits "Lock In", both phones emit a synchronized haptic pulse and both answers reveal side-by-side. You experience the raw emotion at the exact same breath.
-            </p>
-</div>
-<div class="mt-6 pt-4 border-t border-white/20 text-[11px] font-mono text-peach-warm font-bold">
-            ✨ State: MUTUAL MILLISECOND UNMASK
-          </div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: CoreLockRuleSection -->
-<!-- BEGIN: PlayableInteractiveDemoSection -->
-<section class="py-20 bg-blush-day relative" id="interactive-demo">
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-<!-- Demo Header -->
-<div class="text-center max-w-3xl mx-auto mb-12">
-<span class="px-3.5 py-1 rounded-full bg-peach-warm/40 text-wine-dark text-xs font-mono font-bold uppercase tracking-wider">Playable Prototype</span>
-<h2 class="serif-title text-3xl sm:text-5xl font-extrabold text-wine-dark mt-3 mb-4">
-          Try a 1-Day Snick Together Right Now
-        </h2>
-<p class="text-wine-dark/75 text-sm sm:text-base max-w-xl mx-auto">
-          Walk through the 2-player lock in real-time. Choose your answer as Aarav, simulate Meher's lock, watch the synchronous reveal, and export your Instagram Story card!
-        </p>
-</div>
-<!-- Interactive Widget Container -->
-<div class="bg-white rounded-3xl border-2 border-peach-warm shadow-card-lift p-6 sm:p-10 relative overflow-hidden">
-<!-- Interactive Progress Steps Indicator -->
-<div class="flex items-center justify-between max-w-xl mx-auto mb-10 pb-6 border-b border-peach-warm/30 text-xs font-mono">
-<div class="flex items-center gap-2" id="step-ind-1">
-<span class="w-6 h-6 rounded-full bg-wine-primary text-white flex items-center justify-center font-bold text-[11px]" id="step-badge-1">1</span>
-<span class="font-bold text-wine-primary" id="step-text-1">Aarav Locks In</span>
-</div>
-<div class="w-12 h-0.5 bg-peach-warm/50"></div>
-<div class="flex items-center gap-2 opacity-40" id="step-ind-2">
-<span class="w-6 h-6 rounded-full bg-peach-warm text-wine-dark flex items-center justify-center font-bold text-[11px]" id="step-badge-2">2</span>
-<span class="font-semibold text-wine-dark" id="step-text-2">Partner Locks In</span>
-</div>
-<div class="w-12 h-0.5 bg-peach-warm/50"></div>
-<div class="flex items-center gap-2 opacity-40" id="step-ind-3">
-<span class="w-6 h-6 rounded-full bg-wine-dark text-white flex items-center justify-center font-bold text-[11px]" id="step-badge-3">3</span>
-<span class="font-semibold text-wine-dark" id="step-text-3">Dual Reveal &amp; Story</span>
-</div>
-</div>
-<!-- Prompt Header Box -->
-<div class="bg-peach-faint border border-peach-warm/70 p-5 rounded-2xl mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-<div class="flex items-center gap-3">
-<span class="text-2xl">🌙</span>
-<div>
-<span class="text-[10px] font-mono uppercase text-wine-primary font-bold tracking-wider">Tonight's Intimate Daily Snick</span>
-<h3 class="serif-title text-lg sm:text-xl font-bold text-wine-dark italic mt-0.5">
-                "What is one tiny thing I do that secretly melts you?"
-              </h3>
-</div>
-</div>
-<span class="font-mono text-xs px-3 py-1 rounded-full bg-wine-primary/10 text-wine-primary font-bold whitespace-nowrap">
-            🔒 Sealed Until Both Lock
-          </span>
-</div>
-<!-- Interactive Stage View -->
-<div id="demo-stage">
-<!-- STEP 1: Aarav Input Stage -->
-<div class="space-y-6" id="demo-step-1">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-<!-- Aarav Controls (P1) -->
-<div class="p-6 rounded-2xl bg-[#FDF7F4] border border-peach-warm/80">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2.5">
-<div class="w-8 h-8 rounded-full bg-wine-primary text-peach-light flex items-center justify-center font-bold text-xs">
-                      A
-                    </div>
-<div>
-<span class="text-xs font-bold text-wine-dark block">Aarav (You / Player 1)</span>
-<span class="text-[10px] font-mono text-wine-primary">Drafting response...</span>
-</div>
-</div>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-peach-warm/30 text-wine-ink font-bold">Mumbai</span>
-</div>
-<label class="block text-xs font-bold text-wine-dark mb-2">Select or customize your secret answer:</label>
-<div class="space-y-2 mb-4">
-<button class="w-full text-left p-3 rounded-xl border border-peach-warm/60 bg-white hover:border-wine-primary text-xs text-wine-dark font-medium transition-colors cursor-pointer active:scale-98" onclick="selectAnswer('The way you hold my pinky finger in crowded metro trains without saying a word.')" type="button">
-                    "The way you hold my pinky finger in crowded metro trains without saying a word."
-                  </button>
-<button class="w-full text-left p-3 rounded-xl border border-peach-warm/60 bg-white hover:border-wine-primary text-xs text-wine-dark font-medium transition-colors cursor-pointer active:scale-98" onclick="selectAnswer('When you remember my favorite corner seat at our monsoon cafe.')" type="button">
-                    "When you remember my favorite corner seat at our monsoon cafe."
-                  </button>
-</div>
-<div class="mb-4">
-<label class="block text-[11px] font-mono uppercase text-wine-dark/70 mb-1">Or write your own unfiltered note:</label>
-<input class="w-full px-3.5 py-2.5 rounded-xl border border-peach-warm text-xs text-wine-dark bg-white focus:outline-none focus:border-wine-primary" id="p1-custom-input" type="text" value="The way you hold my pinky finger in crowded metro trains without saying a word.">
-</div>
-<button class="w-full py-3 rounded-xl bg-wine-primary text-white font-bold text-xs uppercase tracking-wider shadow-wine-glow hover:bg-wine-dark transition-all flex items-center justify-center gap-2 cursor-pointer" onclick="lockP1Answer()" type="button">
-<span class="">Lock In My Snick 🔒</span>
-</button>
-<p class="text-[10px] text-wine-dark/60 text-center mt-2 font-mono">
-                  Once locked, you cannot peek or change your answer.
-                </p>
-</div>
-<!-- Partner State (Meher) -->
-<div class="p-6 rounded-2xl bg-white border-2 border-dashed border-peach-warm flex flex-col justify-between h-full min-h-[300px]">
-<div>
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2.5">
-<div class="w-8 h-8 rounded-full bg-peach-warm text-wine-ink flex items-center justify-center font-bold text-xs">
-                        M
-                      </div>
-<div>
-<span class="text-xs font-bold text-wine-dark block">Meher (Player 2)</span>
-<span class="text-[10px] font-mono text-emerald-600 font-bold">Online in Bengaluru</span>
-</div>
-</div>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-peach-warm/20 text-wine-dark">BLR</span>
-</div>
-<div class="p-6 text-center rounded-xl bg-blush-day border border-peach-warm/50 my-6">
-<span class="text-3xl block mb-2">👁️‍🗨️</span>
-<h4 class="text-xs font-bold text-wine-dark mb-1">Awaiting Submission</h4>
-<p class="text-[11px] text-wine-dark/70 leading-relaxed">
-                      Meher will be notified as soon as you lock in. She will not see your answer until she locks in hers!
-                    </p>
-</div>
-</div>
-<div class="text-[11px] font-mono text-wine-primary text-center">
-                  • 2-Way Asymmetric Protection Active •
-                </div>
-</div>
-</div>
-</div>
-<!-- STEP 2: Partner Simulation (Meher Pending) -->
-<div class="hidden space-y-6" id="demo-step-2">
-<div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-mono flex items-center justify-between">
-<span class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-<strong>Aarav's Snick is Sealed!</strong> Stored in encrypted dusk buffer.
-              </span>
-<span class="text-emerald-700">0.00s Delta</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-<!-- Aarav Locked Card -->
-<div class="p-6 rounded-2xl bg-[#1E0E13] text-white border border-wine-primary">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-wine-primary text-white flex items-center justify-center font-bold text-xs">
-                      A
-                    </div>
-<span class="text-xs font-bold text-white">Aarav's Screen</span>
-</div>
-<span class="text-[10px] font-mono text-emerald-400 font-bold">● LOCKED</span>
-</div>
-<div class="p-4 rounded-xl bg-black/40 border border-white/10 text-center py-6">
-<div class="text-2xl mb-2">🔒</div>
-<div class="text-xs font-mono text-peach-light">Answer Encrypted in Black Ink</div>
-<div class="text-[11px] text-peach-warm mt-2 font-serif italic">
-                    "Waiting for Meher to submit her answer..."
-                  </div>
-</div>
-</div>
-<!-- Meher Ready to Lock Simulator -->
-<div class="p-6 rounded-2xl bg-white border-2 border-wine-primary shadow-card-lift">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-peach-warm text-wine-ink flex items-center justify-center font-bold text-xs">
-                      M
-                    </div>
-<span class="text-xs font-bold text-wine-dark">Meher's Screen</span>
-</div>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-peach-warm text-wine-dark font-bold">Ready to Match</span>
-</div>
-<div class="p-3 bg-blush-day rounded-xl border border-peach-warm/60 mb-4 text-xs">
-<span class="text-[10px] font-mono uppercase text-wine-primary block font-bold">Meher's Answer:</span>
-<p class="font-serif italic text-wine-dark mt-1" id="meher-preview-text">
-                    "When you make my special ginger chai without me even asking at 11 PM while I'm deep in work."
-                  </p>
-</div>
-<!-- Simulation Action Button -->
-<button class="w-full py-3.5 rounded-xl bg-gradient-to-r from-wine-primary to-wine-dark text-white font-bold text-xs uppercase tracking-wider border border-peach-warm shadow-wine-glow hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95" onclick="lockP2AnswerAndReveal()" type="button">
-<span class="animate-heartbeat">❤️</span>
-<span class="">Simulate Partner Submission (Meher) &amp; Reveal!</span>
-</button>
-<span class="block text-center text-[10px] font-mono text-wine-dark/70 mt-2">
-                  Triggers simultaneous millisecond unmask on both phones.
-                </span>
-</div>
-</div>
-</div>
-<!-- STEP 3: DUAL UNMASKING MOMENT & STORY EXPORT -->
-<div class="hidden space-y-8 animate-fade" id="demo-step-3">
-<!-- Mutual Reveal Celebration Bar -->
-<div class="bg-gradient-to-r from-wine-dark via-wine-primary to-wine-dark text-white p-5 rounded-2xl border-2 border-peach-warm shadow-peach-glow text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-<div class="flex items-center gap-3">
-<span class="text-3xl animate-bounce">🎉</span>
-<div class="text-left">
-<span class="text-xs font-mono uppercase font-bold text-peach-warm">DUAL UNMASKING CONFIRMED // SYNCHRONIZED REVEAL</span>
-<h4 class="serif-title text-lg text-white font-bold">Both answers unmasked in 0.002s! +20 XP awarded to shared tree.</h4>
-</div>
-</div>
-<span class="px-4 py-1.5 rounded-full bg-peach-warm text-wine-ink text-xs font-mono font-bold">
-                Resonance: 99.4% 🔥
-              </span>
-</div>
-<!-- Side-by-Side Unmasked Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Aarav Unmasked -->
-<div class="p-6 rounded-2xl bg-white border-2 border-wine-primary/60 shadow-md relative overflow-hidden">
-<div class="flex items-center justify-between mb-3">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-wine-primary text-white flex items-center justify-center font-bold text-xs">
-                      A
-                    </div>
-<span class="text-xs font-bold text-wine-dark">Aarav's Snick</span>
-</div>
-<span class="text-[10px] font-mono text-emerald-600 font-bold">UNMASKED 06:00:02 PM</span>
-</div>
-<div class="p-4 rounded-xl bg-[#FDF7F4] border border-peach-warm/60">
-<p class="serif-title italic text-sm text-wine-dark leading-relaxed" id="p1-final-reveal">
-                    "The way you hold my pinky finger in crowded metro trains without saying a word."
-                  </p>
-</div>
-</div>
-<!-- Meher Unmasked -->
-<div class="p-6 rounded-2xl bg-white border-2 border-peach-warm shadow-md relative overflow-hidden">
-<div class="flex items-center justify-between mb-3">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-full bg-peach-warm text-wine-ink flex items-center justify-center font-bold text-xs">
-                      M
-                    </div>
-<span class="text-xs font-bold text-wine-dark">Meher's Snick</span>
-</div>
-<span class="text-[10px] font-mono text-emerald-600 font-bold">UNMASKED 06:00:02 PM</span>
-</div>
-<div class="p-4 rounded-xl bg-[#FDF7F4] border border-peach-warm/60">
-<p class="serif-title italic text-sm text-wine-dark leading-relaxed">
-                    "When you make my special ginger chai without me even asking at 11 PM while I'm deep in work."
-                  </p>
-</div>
-</div>
-</div>
-<!-- IMMEDIATE VIRAL PROMPT: INSTAGRAM STORY PREVIEW -->
-<div class="mt-8 pt-8 border-t border-peach-warm/40">
-<div class="bg-blush-day rounded-3xl p-6 sm:p-8 border-2 border-peach-warm flex flex-col lg:flex-row items-center justify-between gap-8">
-<!-- Left: Why Share to Close Friends -->
-<div class="max-w-md space-y-4 text-left">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-wine-primary/10 text-wine-primary text-[11px] font-mono font-bold uppercase tracking-wider">
-<span class="">📸</span> Instant Share to Instagram Story
-                  </div>
-<h3 class="serif-title text-2xl sm:text-3xl font-extrabold text-wine-dark leading-tight">
-                    Turn your daily private ritual into an editorial keepsake.
-                  </h3>
-<p class="text-xs sm:text-sm text-wine-dark/75 leading-relaxed">
-                    Sharing your daily Snick memory to close friends on Instagram turns a quiet private moment into a keepsake and lets other couples know how you play.
-                  </p>
-<!-- Theme Mode Selector for the 9:16 Card -->
-<div class="pt-2">
-<label class="block text-[11px] font-mono uppercase text-wine-dark/70 font-bold mb-2">Select Story Frame Aesthetic:</label>
-<div class="flex gap-2">
-<button class="px-3 py-1.5 rounded-lg bg-wine-primary text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm" onclick="setStoryTheme('wine')" type="button">
-<span class="w-2.5 h-2.5 rounded-full bg-peach-warm"></span> Muted Wine
-                      </button>
-<button class="px-3 py-1.5 rounded-lg bg-peach-warm text-wine-ink text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm" onclick="setStoryTheme('peach')" type="button">
-<span class="w-2.5 h-2.5 rounded-full bg-wine-primary"></span> Peach Warm
-                      </button>
-<button class="px-3 py-1.5 rounded-lg bg-wine-dark text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm" onclick="setStoryTheme('noir')" type="button">
-<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Wine Noir
-                      </button>
-</div>
-</div>
-<!-- Viral Action Buttons -->
-<div class="flex flex-col sm:flex-row gap-3 pt-2">
-<button class="px-6 py-3 rounded-full bg-wine-primary hover:bg-wine-dark text-white font-bold text-xs uppercase tracking-wider shadow-wine-glow transition-all flex items-center justify-center gap-2 cursor-pointer" onclick="downloadStoryCard()" type="button">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">Download 9:16 Story Card</span>
-</button>
-<button class="px-5 py-3 rounded-full bg-white text-wine-dark border border-peach-warm hover:border-wine-primary font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer" onclick="alert('Story Card copied! Tag @snickylink on your close friends story to unlock the VIP Gold Duo Seal ✨')" type="button">
-<span class="">Tag @snickylink</span>
-<span class="text-peach-warm">🏷️</span>
-</button>
-</div>
-</div>
-<!-- Right: High-Res 9:16 Story Phone Preview Frame -->
-<div class="relative w-[280px] h-[520px] rounded-[42px] p-3 shadow-phone-shadow border-4 border-[#3A1620] bg-[#1E0E13] flex flex-col justify-between overflow-hidden">
-<!-- Top Camera Notch -->
-<div class="w-24 h-3.5 bg-black/60 rounded-full mx-auto mb-1 z-20"></div>
-<!-- Inner Canvas Phone Card -->
-<div class="story-canvas-wine w-full flex-grow rounded-[32px] p-4 flex flex-col justify-between relative overflow-hidden transition-all duration-300" id="story-frame-canvas">
-<!-- Background Subtle Radial Grid -->
-<div class="absolute inset-0 opacity-15 bg-[radial-gradient(#E8B99C_1px,transparent_1px)] [background-size:10px_10px] pointer-events-none"></div>
-<!-- Top Card Lockup & Crest -->
-<div class="relative z-10 flex items-center justify-between border-b border-white/15 pb-2.5">
-<div class="flex items-center gap-2">
-<div class="w-6 h-6 rounded-full overflow-hidden border border-peach-warm">
-<img alt="Crest" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WWaQ73uUOjlgzNNGCMlWrX4TnYE57wYgs_20nZbzqy5cfHGOjRO-fGOs9sv79JuBbqDHTCL-pgReE3MuLecjlefEY-e5RwJpfzGXxU_OM1bYoKGeia5PDkXu1gb4yBkwR5FvXdnGxRpIJOcCY3V_96jK69c7-xTlry7Cm2pE7OhNqP7Jfgf869bCKUsDAuK2HpD6ZZ5u6PWi-ApYJYdGCSGh6vJLV7GbiJF3VyKMVjTlEtRJN1g0tMuQ">
-</div>
-<div>
-<div class="text-[9px] font-bold tracking-tight text-white leading-tight">AARAV &amp; MEHER</div>
-<div class="text-[7px] font-mono text-peach-warm">DAY 14 // 99.4% SYNC</div>
-</div>
-</div>
-<span class="text-[7px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-peach-light">06:00:02 PM</span>
-</div>
-<!-- Center Quotation / Unmasked Moment -->
-<div class="relative z-10 py-3 text-center my-auto">
-<span class="text-[8px] font-mono uppercase tracking-widest text-peach-warm block mb-1">DUAL SNICK UNMASKED</span>
-<h5 class="serif-title italic text-sm text-white font-medium leading-snug mb-3" id="story-quote-preview">
-                        "The way you hold my pinky finger in crowded metro trains..."
-                      </h5>
-<div class="p-2 rounded-xl bg-black/25 border border-white/10 text-[9px] font-mono text-peach-light/90">
-                        Meher: "When you make my special ginger chai without me asking."
-                      </div>
-</div>
-<!-- Bottom Story Card Footer -->
-<div class="relative z-10 pt-2 border-t border-white/15 flex items-center justify-between text-[8px] font-mono text-peach-light/80">
-<span class="flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 2-WAY LOCK COMPLETED
-                      </span>
-<span class="text-peach-warm font-bold">@SNICKYLINK</span>
-</div>
-</div>
-<!-- Home Indicator Bar -->
-<div class="w-20 h-1 bg-white/40 rounded-full mx-auto mt-1 z-20"></div>
-</div>
-</div>
-<!-- Reset Demo Button -->
-<div class="text-center mt-6">
-<button class="text-xs font-mono font-bold text-wine-primary hover:text-wine-dark transition-colors underline cursor-pointer" onclick="resetInteractiveDemo()" type="button">
-                  ← Replay Interactive Demo from Step 1
-                </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: PlayableInteractiveDemoSection -->
-<!-- BEGIN: DailyResonanceArc -->
-<section class="py-12 bg-white/80 border-y border-peach-warm/40 snick-locked" id="daily-arc">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 snick-lock-target">
-<div class="flex flex-col md:flex-row items-center justify-between gap-6">
-<div>
-<div class="flex items-center gap-2 text-wine-primary font-mono text-xs uppercase font-bold tracking-wider">
-<span class="w-2.5 h-2.5 rounded-full bg-peach-warm inline-block"></span>
-            Resonance Arc Progress
-          </div>
-<h2 class="serif-title text-2xl sm:text-3xl font-bold text-wine-dark mt-1">
-            Today’s 4-Card Ritual Arc
-          </h2>
-</div>
-<!-- Visual Arc Trackers -->
-<div class="flex flex-col sm:flex-row items-center gap-6">
-<div class="flex items-center gap-2.5">
-<!-- Dot 1 -->
-<div class="w-9 h-9 rounded-full bg-wine-primary text-peach-light flex items-center justify-center font-mono text-xs font-bold ring-4 ring-peach-warm/30 shadow-sm" title="Morning Micro-Snick (Done)">
-              ✓
-            </div>
-<div class="w-6 h-1 bg-wine-primary rounded"></div>
-<!-- Dot 2 -->
-<div class="w-9 h-9 rounded-full bg-wine-primary text-peach-light flex items-center justify-center font-mono text-xs font-bold ring-4 ring-peach-warm/30 shadow-sm" title="Horizon Snap (Done)">
-              ✓
-            </div>
-<div class="w-6 h-1 bg-wine-primary rounded"></div>
-<!-- Dot 3 -->
-<div class="w-9 h-9 rounded-full bg-wine-primary text-peach-light flex items-center justify-center font-mono text-xs font-bold ring-4 ring-peach-warm/30 shadow-sm" title="Voice Whisper (Done)">
-              ✓
-            </div>
-<div class="w-6 h-1 bg-peach-warm/60 rounded"></div>
-<!-- Dot 4 (Pending Mystery) -->
-<div class="w-9 h-9 rounded-full bg-peach-warm text-wine-ink flex items-center justify-center font-mono text-xs font-bold animate-pulse ring-4 ring-wine-primary/20 shadow-sm" title="Mystery Snick Locked">
-              🔒
-            </div>
-</div>
-<div class="text-right">
-<div class="text-xs font-mono font-bold text-wine-primary">+60 XP Earned Today</div>
-<div class="text-xs text-wine-dark/70 font-medium">3 of 4 Daily Snicks Completed Together</div>
-</div>
-</div>
-</div>
-<!-- Dynamic Nudge Notification -->
-<div class="mt-6 bg-[#FDF7F4] border border-peach-warm/70 p-4 rounded-2xl flex items-center justify-between gap-4 text-xs">
-<div class="flex items-center gap-3">
-<span class="text-lg">⚡</span>
-<p class="text-wine-dark">
-<strong>Aarav tapped 4 minutes ago.</strong> Complete Card 4 (The Mystery Snick) before midnight to activate your <span class="text-wine-primary font-bold">7-Day Flame Protection Shield</span>!
-          </p>
-</div>
-<a class="hidden sm:inline-block px-4 py-1.5 rounded-full bg-wine-primary text-white font-bold text-[11px] hover:bg-wine-dark transition-colors" href="#coop-arcade">
-          Jump to Card 4
-        </a>
-</div>
-</div>
-<div class="snick-lock-overlay">
-<div class="text-4xl">🔒</div>
-<p class="text-white font-bold text-sm max-w-xs">Your Resonance Arc unlocks the moment you register.</p>
-<p class="text-peach-light/80 text-xs max-w-xs">Snicks stay sealed until both partners submit their Duo Pair Key request below.</p>
-<button class="mt-1 px-5 py-2.5 rounded-full bg-peach-warm text-wine-ink font-bold text-xs uppercase tracking-wider hover:brightness-105 transition-all cursor-pointer" onclick="scrollToRegister()" type="button">
-          Unlock with Duo Key 🔑
-        </button>
-</div>
-</section>
-<!-- END: DailyResonanceArc -->
-<!-- BEGIN: CoOpArcade -->
-<section class="py-20 snick-locked" id="coop-arcade">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 snick-lock-target">
-<!-- Arcade Header -->
-<div class="text-center max-w-2xl mx-auto mb-16">
-<span class="px-3 py-1 rounded-full bg-peach-warm/40 text-wine-dark text-xs font-mono font-bold uppercase tracking-widest">Co-Op Arcade</span>
-<h2 class="serif-title text-3xl sm:text-4xl font-extrabold text-wine-dark mt-3 mb-4">
-          4 Daily Ritual Cards. Zero Mindless Scrolling.
-        </h2>
-<p class="text-wine-dark/75 text-sm sm:text-base">
-          Every dusk at 6:00 PM IST, four playful interactive cards unlock synchronously. Answers stay sealed in black ink until both fingers confirm the lock.
-        </p>
-</div>
-<!-- The 4 Cards Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- CARD 1: Blind Prompt Duel -->
-<div class="bg-white rounded-3xl p-6 border-2 border-[#E8B99C]/60 shadow-card-lift flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-<div>
-<div class="flex items-center justify-between mb-4">
-<span class="text-xs font-mono font-bold px-2.5 py-1 bg-wine-primary/10 text-wine-primary rounded-full">CARD 01 // PROMPT</span>
-<span class="text-xs font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">+20 XP</span>
-</div>
-<h3 class="serif-title text-lg font-bold text-wine-dark mb-2">Blind Prompt Duel</h3>
-<p class="text-xs text-wine-dark/70 mb-4">Neither sees what the other wrote until both hit submit. No second-guessing.</p>
-<div class="bg-blush-day p-4 rounded-xl border border-peach-warm/40 mb-4">
-<span class="text-[10px] font-mono text-wine-primary uppercase font-bold tracking-wider">Tonight's Prompt:</span>
-<p class="text-xs italic font-serif text-wine-dark mt-1">"What is one weird tiny quirk I do that secretly makes you feel safe?"</p>
-</div>
-<!-- Unmask Preview Simulate -->
-<div class="space-y-2 mb-4">
-<div class="bg-wine-dark/5 p-2.5 rounded-lg text-[11px] text-wine-dark">
-<span class="font-bold text-wine-primary">Meher:</span> [Input Encrypted in Ink 🔒]
-              </div>
-<div class="bg-wine-dark/5 p-2.5 rounded-lg text-[11px] text-wine-dark">
-<span class="font-bold text-wine-primary">Aarav:</span> [Input Encrypted in Ink 🔒]
-              </div>
-</div>
-</div>
-<button class="w-full py-2.5 bg-wine-primary text-white text-xs font-bold rounded-xl hover:bg-wine-dark transition-colors shadow-sm cursor-pointer" onclick="alert('Both players must press &amp; hold the touch circle at the same second to unseal!')">
-            Press to Blind Unmask 👁️
-          </button>
-</div>
-<!-- CARD 2: Dual Horizon Snap -->
-<div class="bg-white rounded-3xl p-6 border-2 border-[#E8B99C]/60 shadow-card-lift flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-<div>
-<div class="flex items-center justify-between mb-4">
-<span class="text-xs font-mono font-bold px-2.5 py-1 bg-wine-primary/10 text-wine-primary rounded-full">CARD 02 // DUAL SNAP</span>
-<span class="text-xs font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">+35 XP</span>
-</div>
-<h3 class="serif-title text-lg font-bold text-wine-dark mb-2">Dual Horizon Snap</h3>
-<p class="text-xs text-wine-dark/70 mb-4">Same sunset minute. Two skies stitched into one dynamic polaroid.</p>
-<!-- Split Sky Graphic Mock -->
-<div class="h-36 rounded-2xl overflow-hidden border border-peach-warm/50 flex flex-col mb-4 relative">
-<div class="h-1/2 bg-gradient-to-r from-[#E8B99C] to-[#6B2B3C] p-2 flex items-center justify-between text-white text-[10px] font-mono">
-<span class="">Mumbai • Marine Drive 🌅</span>
-<span class="bg-black/30 px-1.5 rounded">06:24 PM</span>
-</div>
-<div class="h-0.5 bg-white z-10"></div>
-<div class="h-1/2 bg-gradient-to-r from-[#3A1620] to-[#E8B99C] p-2 flex items-center justify-between text-white text-[10px] font-mono">
-<span class="">BLR • Indiranagar Roof ☕</span>
-<span class="bg-black/30 px-1.5 rounded">06:24 PM</span>
-</div>
-</div>
-</div>
-<button class="w-full py-2.5 bg-[#FDF7F4] border border-wine-primary text-wine-primary text-xs font-bold rounded-xl hover:bg-wine-primary hover:text-white transition-all cursor-pointer" onclick="alert('Camera dual-sync: Both apertures opened synchronously!')">
-            Inspect Dual Polaroid 📸
-          </button>
-</div>
-<!-- CARD 3: 10-Second Audio Capsule -->
-<div class="bg-white rounded-3xl p-6 border-2 border-[#E8B99C]/60 shadow-card-lift flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-<div>
-<div class="flex items-center justify-between mb-4">
-<span class="text-xs font-mono font-bold px-2.5 py-1 bg-wine-primary/10 text-wine-primary rounded-full">CARD 03 // AUDIO</span>
-<span class="text-xs font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">+25 XP</span>
-</div>
-<h3 class="serif-title text-lg font-bold text-wine-dark mb-2">10-Sec Audio Capsule</h3>
-<p class="text-xs text-wine-dark/70 mb-3">No re-records. One breath. The audio capsule dissolves forever after one single listen.</p>
-<!-- Audio Wave Visualizer Simulation -->
-<div class="bg-wine-dark p-4 rounded-2xl mb-4 text-center">
-<div class="flex items-center justify-center gap-1.5 h-10 mb-2">
-<span class="w-1 bg-peach-warm rounded-full h-3"></span>
-<span class="w-1 bg-peach-warm rounded-full h-6"></span>
-<span class="w-1 bg-peach-warm rounded-full h-4"></span>
-<span class="w-1 bg-peach-warm rounded-full h-7"></span>
-<span class="w-1 bg-peach-warm rounded-full h-3"></span>
-<span class="w-1 bg-peach-warm rounded-full h-5"></span>
-<span class="w-1 bg-peach-warm rounded-full h-4"></span>
-</div>
-<div class="flex justify-between text-[10px] font-mono text-peach-light/80">
-<span class="">Meher's Whisper</span>
-<span class="">0:10 // Burn-on-play</span>
-</div>
-</div>
-</div>
-<button class="w-full py-2.5 bg-wine-primary text-white text-xs font-bold rounded-xl hover:bg-wine-dark transition-colors flex items-center justify-center gap-2 cursor-pointer" id="capsule-play-btn" onclick="playCapsuleAudio()">
-<span id="play-icon" class="">▶</span> <span id="play-text" class="">Listen Once &amp; Burn</span>
-</button>
-</div>
-<!-- CARD 4: MYSTERY SNICK -->
-<div class="bg-gradient-to-br from-wine-dark via-[#2A0E17] to-wine-ink text-white rounded-3xl p-6 border-2 border-peach-warm shadow-peach-glow flex flex-col justify-between relative overflow-hidden group" id="card-mystery">
-<div class="absolute inset-0 mystery-shimmer pointer-events-none"></div>
-<div class="relative z-10">
-<div class="flex items-center justify-between mb-4">
-<span class="text-xs font-mono font-bold px-2.5 py-1 bg-peach-warm text-wine-ink rounded-full">CARD 04 // LEGENDARY</span>
-<span class="text-xs font-mono text-peach-warm font-bold bg-white/10 px-2 py-0.5 rounded">+50 XP</span>
-</div>
-<h3 class="serif-title text-xl font-bold text-peach-warm mb-1">Mystery Snick</h3>
-<p class="text-xs text-peach-light/80 mb-4">Locked Vault Item. Only appears when both players finish Cards 1, 2, and 3.</p>
-<div class="my-4 text-center py-5 px-3 rounded-2xl bg-black/40 border border-peach-warm/30 backdrop-blur-sm">
-<div class="text-3xl mb-1 animate-bounce" id="mystery-lock-icon">🎁</div>
-<div class="text-xs font-medium text-peach-light" id="mystery-content">
-                "Tap below to break the seal and claim the Midnight Co-Op Dare"
-              </div>
-</div>
-</div>
-<button class="relative z-10 w-full py-2.5 bg-gradient-to-r from-peach-warm to-peach-light text-wine-dark text-xs font-extrabold rounded-xl hover:brightness-105 transition-all shadow-md active:scale-95 cursor-pointer" id="mystery-reveal-btn" onclick="unveilMysteryCard()">
-            TAP TO REVEAL (+50 XP) 🔓
-          </button>
-</div>
-</div>
-</div>
-<div class="snick-lock-overlay">
-<div class="text-4xl">🔒</div>
-<p class="text-white font-bold text-sm max-w-xs">All 4 Snicks are sealed until you register.</p>
-<p class="text-peach-light/80 text-xs max-w-xs">Blind Prompt Duel, Dual Horizon Snap, Audio Capsule &amp; the Mystery Snick unlock the moment your Duo Pair Key is confirmed.</p>
-<button class="mt-1 px-5 py-2.5 rounded-full bg-peach-warm text-wine-ink font-bold text-xs uppercase tracking-wider hover:brightness-105 transition-all cursor-pointer" onclick="scrollToRegister()" type="button">
-        Unlock with Duo Key 🔑
-      </button>
-</div>
-</section>
-<!-- END: CoOpArcade -->
-<!-- BEGIN: StoryExportShowcaseSection -->
-<section class="py-20 bg-white border-y border-peach-warm/40" id="story-export">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-2xl mx-auto mb-16">
-<span class="px-3 py-1 rounded-full bg-wine-primary/10 text-wine-primary text-xs font-mono font-bold uppercase tracking-widest">Story Export</span>
-<h2 class="serif-title text-3xl sm:text-4xl font-extrabold text-wine-dark mt-3 mb-3">
-          Your Relationship as an Editorial Tapestry
-        </h2>
-<p class="text-wine-dark/75 text-sm sm:text-base">
-          Generate stunning high-res 9:16 cards ready for your private close friends story. Minimalist, elevated, without cheesy cringe templates.
-        </p>
-</div>
-<div class="flex flex-col lg:flex-row items-center justify-center gap-12">
-<!-- 9:16 Phone Mockup -->
-<div class="w-[300px] h-[580px] bg-wine-dark rounded-[44px] p-3.5 shadow-2xl border-4 border-peach-warm relative flex flex-col justify-between">
-<!-- Notch -->
-<div class="w-32 h-4 bg-wine-ink rounded-full mx-auto mb-2"></div>
-<!-- Inner Story Screen -->
-<div class="flex-grow bg-gradient-to-b from-wine-primary via-[#3A1620] to-[#1E0E13] rounded-[34px] p-5 flex flex-col justify-between text-white relative overflow-hidden">
-<div class="absolute inset-0 opacity-15 bg-[radial-gradient(#E8B99C_1px,transparent_1px)] [background-size:12px_12px]"></div>
-<!-- Top Story Header -->
-<div class="relative z-10 flex items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-full border border-peach-warm overflow-hidden bg-white/10">
-<img alt="Story Crest" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WWaQ73uUOjlgzNNGCMlWrX4TnYE57wYgs_20nZbzqy5cfHGOjRO-fGOs9sv79JuBbqDHTCL-pgReE3MuLecjlefEY-e5RwJpfzGXxU_OM1bYoKGeia5PDkXu1gb4yBkwR5FvXdnGxRpIJOcCY3V_96jK69c7-xTlry7Cm2pE7OhNqP7Jfgf869bCKUsDAuK2HpD6ZZ5u6PWi-ApYJYdGCSGh6vJLV7GbiJF3VyKMVjTlEtRJN1g0tMuQ">
-</div>
-<div>
-<div class="text-[10px] font-bold text-white leading-tight">Aarav &amp; Meher</div>
-<div class="text-[8px] font-mono text-peach-warm">Day 342 • Oct 2026</div>
-</div>
-</div>
-<span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-peach-light">99.4% Resonance</span>
-</div>
-<!-- Center Big Stat Card -->
-<div class="relative z-10 text-center py-6">
-<span class="text-[10px] uppercase font-mono tracking-widest text-peach-warm">Evening Check-In #342</span>
-<h4 class="serif-title text-2xl font-serif italic text-white mt-1 mb-2">"Still choosing you in every parallel universe."</h4>
-<div class="inline-block px-3 py-1 rounded-full bg-peach-warm/20 text-peach-light text-[10px] font-mono mt-1">
-                Both revealed at 06:00:02 PM
-              </div>
-</div>
-<!-- Bottom Story Footer -->
-<div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-peach-light/80">
-<span class="">⚡ +80 XP EARNED</span>
-<span class="">SNICKYLINK CO-OP</span>
-</div>
-</div>
-<!-- Home indicator bar -->
-<div class="w-24 h-1 bg-white/40 rounded-full mx-auto mt-2"></div>
-</div>
-<!-- Story Customization Controls -->
-<div class="max-w-md space-y-6">
-<h3 class="serif-title text-2xl font-bold text-wine-dark">Instant Viral Instagram Card Engine</h3>
-<p class="text-sm text-wine-dark/80 leading-relaxed">
-            Export in your duo's signature aesthetic: Muted Wine, Deep Wine-Black, or Warm Peach parchment. Automatically watermarked with your secret shared seal and synchronicity timestamp.
-          </p>
-<div class="space-y-3">
 
+<!-- ============================ HERO ============================ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero__grain"></div>
 
-</div>
-<button class="w-full py-3.5 rounded-full bg-wine-primary hover:bg-wine-dark text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-wine-glow flex items-center justify-center gap-2 cursor-pointer" onclick="alert('Story card exported in 9:16 high resolution format! Ready to post on Instagram.')">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="">Download 9:16 Instagram Card</span>
-</button>
-</div>
-</div>
-</div>
-</section>
-<!-- END: StoryExportShowcaseSection -->
-<!-- BEGIN: ProgressionRoadmap -->
-<section class="py-20 bg-wine-dark text-white relative overflow-hidden" id="progression-map">
-<div class="absolute top-0 right-0 w-96 h-96 bg-wine-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<!-- Header -->
-<div class="max-w-3xl mb-16">
-<span class="text-peach-warm text-xs font-mono uppercase font-bold tracking-wider px-3 py-1 rounded bg-white/10">Bond Level Engine</span>
-<h2 class="serif-title text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3 text-white">
-          Level Up Your Bond. <br>From "Dating" to <span class="italic text-peach-warm">Celestial Resonance</span>.
-        </h2>
-<p class="text-peach-light/80 text-sm sm:text-base mt-3">
-          Every daily card, synchronous reaction, and blind unmask fuels your shared XP tree. Unlock physical real-world tokens as milestones.
-        </p>
-</div>
-<!-- 4 RPG Worlds Roadmap -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- World 01 -->
-<div class="bg-[#1E0E13]/90 rounded-2xl p-6 border border-peach-warm/20 relative">
-<div class="text-[10px] font-mono text-emerald-400 font-bold mb-2 flex items-center gap-1.5">
-<span class="">● COMPLETED</span>
-</div>
-<div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-xl mb-4">
-            🌿
-          </div>
-<span class="text-xs font-mono text-peach-warm font-semibold">WORLD 01 // LVL 1-10</span>
-<h3 class="serif-title text-lg font-bold text-white mt-1 mb-2">The Honeymoon Glade</h3>
-<p class="text-xs text-peach-light/70 leading-relaxed mb-4">
-            Casual playful icebreakers, daily light banter, and finding mutual comfort rhythms.
-          </p>
-<div class="pt-3 border-t border-white/10 text-[11px] font-mono text-peach-warm">
-            Reward: Secret Pet Name Generator
-          </div>
-</div>
-<!-- World 02 (Current Active) -->
-<div class="bg-gradient-to-b from-wine-primary to-[#2A0E17] rounded-2xl p-6 border-2 border-peach-warm relative shadow-peach-glow">
-<div class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-peach-warm text-wine-dark text-[10px] font-mono font-extrabold">
-            YOU ARE HERE (LVL 18)
-          </div>
-<div class="text-[10px] font-mono text-peach-warm font-bold mb-2 flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-peach-warm animate-ping"></span> CURRENT ORBIT
-          </div>
-<div class="w-10 h-10 rounded-xl bg-peach-warm text-wine-dark flex items-center justify-center text-xl mb-4 font-bold">
-            🔥
-          </div>
-<span class="text-xs font-mono text-peach-light font-semibold">WORLD 02 // LVL 11-25</span>
-<h3 class="serif-title text-lg font-bold text-white mt-1 mb-2">Synchronous Orbit</h3>
-<p class="text-xs text-peach-light/90 leading-relaxed mb-4">
-            Zero lag dusk check-ins, sunset dual snaps, and unmasking unspoken emotional needs.
-          </p>
-<div class="pt-3 border-t border-white/20 text-[11px] font-mono text-peach-warm font-bold">
-            Active: 14-Day Flame Streak Protected
-          </div>
-</div>
-<!-- World 03 -->
-<div class="bg-[#1E0E13]/90 rounded-2xl p-6 border border-white/10 relative opacity-90">
-<div class="text-[10px] font-mono text-peach-warm/60 font-bold mb-2 flex items-center gap-1.5">
-<span class="">🔒 UNLOCKS AT LVL 26</span>
-</div>
-<div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl mb-4">
-            🗝️
-          </div>
-<span class="text-xs font-mono text-white/50 font-semibold">WORLD 03 // LVL 26-60</span>
-<h3 class="serif-title text-lg font-bold text-white mt-1 mb-2">Vulnerability Dungeon</h3>
-<p class="text-xs text-white/60 leading-relaxed mb-4">
-            Tough conversations tackled collaboratively with game mechanics instead of anxiety.
-          </p>
-<div class="pt-3 border-t border-white/10 text-[11px] font-mono text-white/50">
-            Reward: The Midnight Boss Capsule
-          </div>
-</div>
-<!-- World 04: Physical Trophy -->
-<div class="bg-[#1E0E13]/90 rounded-2xl p-6 border border-peach-warm/40 relative">
-<div class="text-[10px] font-mono text-peach-warm font-bold mb-2 flex items-center gap-1.5">
-<span class="">✨ PHYSICAL RELIC SHIPMENT</span>
-</div>
-<div class="w-10 h-10 rounded-xl bg-peach-warm/20 flex items-center justify-center text-xl mb-4">
-            🪙
-          </div>
-<span class="text-xs font-mono text-peach-warm font-semibold">WORLD 04 // LVL 100+</span>
-<h3 class="serif-title text-lg font-bold text-white mt-1 mb-2">Celestial Resonance</h3>
-<p class="text-xs text-peach-light/70 leading-relaxed mb-4">
-            Custom-engraved solid brass duo coin forged with your coordinates delivered to your doorstep.
-          </p>
-<div class="pt-3 border-t border-white/10 text-[11px] font-mono text-peach-warm">
-            Status: 2,420 / 10,000 XP Collected
-          </div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: ProgressionRoadmap -->
-<!-- BEGIN: LootVaultSection -->
-<section class="py-20 bg-blush-day" id="loot-vault">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<!-- Left: Narrative & Description -->
-<div class="lg:col-span-6 space-y-6">
-<span class="text-xs font-mono uppercase font-bold tracking-widest text-wine-primary bg-peach-warm/30 px-3 py-1 rounded-full">The Loot Vault</span>
-<h2 class="serif-title text-3xl sm:text-4xl font-extrabold text-wine-dark leading-tight">
-            Real Love Deserves <br><span class="italic text-wine-primary">Physical Artifacts</span>, Not Disappearing Feeds.
-          </h2>
-<p class="text-wine-dark/80 text-sm sm:text-base leading-relaxed">
-            When Aarav and Meher reach Level 50 in SnickyLink, our studio produces their physical Couple Memory Sigil: an engraved solid brass physical token stamped with the exact day they solved their 50th simultaneous prompt.
-          </p>
-<div class="space-y-3 pt-2">
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-wine-primary text-white flex items-center justify-center text-xs mt-0.5">✓</span>
-<div>
-<h4 class="text-xs font-bold text-wine-dark uppercase tracking-wider">The Ember Key</h4>
-<p class="text-xs text-wine-dark/70">Unlocks encrypted archives when either partner has an anxious day.</p>
-</div>
-</div>
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-wine-primary text-white flex items-center justify-center text-xs mt-0.5">✓</span>
-<div>
-<h4 class="text-xs font-bold text-wine-dark uppercase tracking-wider">Physical Engraved Brass Token</h4>
-<p class="text-xs text-wine-dark/70">Precision milled with both cities (Mumbai ↔ BLR) and your first play timestamp.</p>
-</div>
-</div>
-<div class="flex items-start gap-3">
-<span class="w-5 h-5 rounded-full bg-wine-primary text-white flex items-center justify-center text-xs mt-0.5">✓</span>
-<div>
-<h4 class="text-xs font-bold text-wine-dark uppercase tracking-wider">Zero Cloud Leak Architecture</h4>
-<p class="text-xs text-wine-dark/70">Encrypted on your own two devices. No ad networks, no data brokers.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Right: Visual Trophy Presentation -->
-<div class="lg:col-span-6 flex justify-center">
-<div class="relative w-full max-w-md bg-wine-dark text-white rounded-3xl p-8 border-2 border-peach-warm shadow-2xl overflow-hidden">
-<div class="absolute -top-16 -right-16 w-44 h-44 bg-peach-warm/20 rounded-full blur-2xl"></div>
-<!-- Crest display within token frame -->
-<div class="text-center mb-6">
-<div class="w-32 h-32 mx-auto rounded-full border-4 border-peach-warm p-1 shadow-peach-glow bg-blush-day/10 mb-4 animate-float overflow-hidden">
-<img alt="Couple Bridge Moonlit Logo Badge" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida/AEtjO1WWaQ73uUOjlgzNNGCMlWrX4TnYE57wYgs_20nZbzqy5cfHGOjRO-fGOs9sv79JuBbqDHTCL-pgReE3MuLecjlefEY-e5RwJpfzGXxU_OM1bYoKGeia5PDkXu1gb4yBkwR5FvXdnGxRpIJOcCY3V_96jK69c7-xTlry7Cm2pE7OhNqP7Jfgf869bCKUsDAuK2HpD6ZZ5u6PWi-ApYJYdGCSGh6vJLV7GbiJF3VyKMVjTlEtRJN1g0tMuQ">
-</div>
-<h3 class="serif-title text-xl font-bold text-peach-warm">Duo Sigil #084</h3>
-<p class="text-xs font-mono text-peach-light/80 mt-1">AARAV &amp; MEHER • OCT 2026</p>
-</div>
-<!-- Specifications Grid -->
-<div class="bg-black/30 rounded-2xl p-4 border border-white/10 text-xs font-mono space-y-2">
-<div class="flex justify-between">
-<span class="text-peach-light/60">Material:</span>
-<span class="text-white font-bold">Aged Vintage Brass</span>
-</div>
-<div class="flex justify-between">
-<span class="text-peach-light/60">Coordinates:</span>
-<span class="text-white font-bold">18.9220°N // 12.9716°N</span>
-</div>
-<div class="flex justify-between">
-<span class="text-peach-light/60">Streak Unlocked:</span>
-<span class="text-peach-warm font-bold">342 Days Straight</span>
-</div>
-</div>
-<div class="mt-6 text-center">
-<span class="text-[11px] text-peach-warm font-mono">Shipped to 4,800+ couples across 28 countries</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: LootVaultSection -->
-<!-- BEGIN: CohortRegistrationFooter -->
-<section class="py-20 bg-wine-dark text-white relative overflow-hidden border-t-2 border-peach-warm" id="request-duo-key">
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-<!-- Vector Lockup Mini Crest -->
-<div class="w-16 h-16 mx-auto rounded-full bg-white/10 border-2 border-peach-warm p-1 mb-6 overflow-hidden">
-<img alt="Crest Mini" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkE2tf4NfArUe5Dum5xdthS_xew_-gImBWE1s0JJM9L-olhXIP0C9lWlPYKRzC6iCLquKWPc5-Ya7WJ_PPqwnUHeYov23hCwlYJuNCA_2UTSR6MXj1CpnljsknntdgRUtcoSDHC9jDG2kxrUQJlu93cEoYAtQShOi4gIOqRZMF9O06k2zhdJb8azTCNEYWaVQxB5AZCGZmjDfd5y2mKOoIARJ31eqRfTWX-_fVUbRI1Sdru9qPT2tYonCe76VdcEO6iZz7auOHE3Ecvg">
-</div>
-<span class="text-xs font-mono uppercase font-bold tracking-widest text-peach-warm">Strictly 2 Players • Zero Single Accounts</span>
-<h2 class="serif-title text-3xl sm:text-5xl font-extrabold mt-3 mb-4 text-white">
-        Join the Evening Cohort. <br>Claim Your Duo Pair Key.
-      </h2>
-<p class="text-sm sm:text-base text-peach-light/80 max-w-xl mx-auto mb-10">
-        SnickyLink requires both email addresses at registration. When Player 1 inputs Player 2, a paired cryptographic key invite is beamed to both inboxes.
-      </p>
-<!-- Duo Email Form -->
-<form class="bg-[#1E0E13] p-6 sm:p-8 rounded-3xl border border-peach-warm/40 shadow-2xl max-w-2xl mx-auto" id="duo-key-form">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-<div class="text-left">
-<label class="block text-[11px] font-mono uppercase text-peach-warm mb-1.5 font-bold" for="player1-email">Player 1 Email (You)</label>
-<input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-peach-warm" id="player1-email" placeholder="aarav@mumbai.in" required="" type="email">
-</div>
-<div class="text-left">
-<label class="block text-[11px] font-mono uppercase text-peach-warm mb-1.5 font-bold" for="player2-email">Player 2 Email (Partner)</label>
-<input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-peach-warm" id="player2-email" placeholder="meher@blr.in" required="" type="email">
-</div>
-</div>
-<p class="hidden text-left text-xs text-red-300 mb-4 -mt-2" id="duo-key-error"></p>
-<button class="w-full py-4 bg-wine-primary hover:bg-wine-primary/80 text-white font-bold text-sm uppercase tracking-wider rounded-xl border-2 border-peach-warm shadow-peach-glow transition-all duration-200 cursor-pointer active:scale-98" id="duo-key-submit-btn" type="submit">
-<span id="duo-key-submit-label">PRESS TO PAIR // REQUEST DUO KEY 🗝️</span>
-</button>
-<div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-peach-light/60">
-<span class="">🔒 Zero Cloud History</span>
-<span class="">•</span>
-<span class="">💌 Mutual Consent Required</span>
-<span class="">•</span>
-<span class="">Next Drop: Today 06:00 PM</span>
-</div>
-</form>
-<div class="hidden mt-6 p-4 rounded-2xl bg-peach-warm text-wine-ink font-mono text-xs font-bold" id="key-success-msg">
-        ✨ Duo Pair Key dispatched to both inboxes! When you both tap within 10 minutes, the Dusk Portal synchronizes.
+  <!-- the very first shoot of the Grow Together vine -->
+  <div class="hero__shoot" aria-hidden="true">
+    <svg viewBox="0 0 60 60" width="46" height="46">
+      <path d="M30 56 C30 40 30 30 30 20" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M30 30 C24 26 18 27 14 22" fill="none" stroke="var(--peach)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M30 20 C22 18 18 12 20 6" fill="none" stroke="var(--peach)" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- floating dots (two people motif) -->
+  <div class="hero__dots" aria-hidden="true">
+    <div class="pdot pdot--a"><span class="pdot__label">you</span></div>
+    <div class="pdot pdot--b"><span class="pdot__label">them</span></div>
+  </div>
+
+  <!-- floating chat scraps around the title -->
+  <div class="scrap scrap--1" aria-hidden="true">
+    <div class="bubble bubble--them">u up?</div>
+    <div class="scrap__time">02:14</div>
+  </div>
+  <div class="scrap scrap--2" aria-hidden="true">
+    <div class="bubble bubble--you">lol yeah</div>
+  </div>
+  <div class="scrap scrap--3" aria-hidden="true">
+    <div class="bubble bubble--them">😂😂</div>
+  </div>
+  <div class="scrap scrap--4" aria-hidden="true">
+    <div class="bubble bubble--you">seen this?</div>
+    <div class="scrap__time">reel · 0:14</div>
+  </div>
+  <div class="scrap scrap--5" aria-hidden="true">
+    <div class="bubble bubble--them">omg</div>
+  </div>
+
+  <div class="hero__inner">
+
+    <!-- campaign stamp -->
+    <div class="stamp">
+      <div class="stamp__ring">
+        <svg viewBox="0 0 200 200" width="140" height="140">
+          <defs>
+            <path id="stampPath" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/>
+          </defs>
+          <text font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="4" fill="currentColor">
+            <textPath href="#stampPath" startOffset="0">A CAMPAIGN FOR TWO · MORE THAN A CHAT · SNICKYLINK · </textPath>
+          </text>
+        </svg>
       </div>
-</div>
+      <div class="stamp__core">
+        <span class="stamp__soon">coming</span>
+        <span class="stamp__label">SOON</span>
+        <span class="stamp__meta">for two only</span>
+      </div>
+    </div>
+
+    <div class="eyebrow hero__eyebrow">
+      <span>a slow reveal ✨</span>
+      <span class="pill">08.31.26</span>
+      <span class="pill pill--live"><i></i>live tease</span>
+    </div>
+
+    <h1 class="hero__title" aria-label="Not more than a chat.">
+      <span class="word"><span>Not</span></span>
+      <span class="word"><span>more</span></span>
+      <span class="word"><span>than</span></span>
+      <br>
+      <span class="word"><span>a</span></span>
+      <span class="word"><span><em>chat</em></span></span><span class="period">.</span>
+    </h1>
+
+    <div class="hero__strike" aria-hidden="true">
+      <span class="strike">not another dating app</span>
+      <span class="strike">not another group chat</span>
+      <span class="strike">not another feed</span>
+      <span class="strike is-live">something for two<i></i></span>
+    </div>
+
+    <p class="hero__sub">
+      Move your cursor. Notice the two little things.<br>
+      <em>they're already looking for each other.</em>
+    </p>
+
+    <div class="hero__cta">
+      <button class="btn btn--primary" data-scroll-to=".reveal">
+        See what's coming <span class="arrow">→</span>
+      </button>
+      <button class="btn btn--ghost btn--ghost-dark" data-scroll-to=".story">
+        First, the truth <span class="arrow">↓</span>
+      </button>
+    </div>
+
+    <!-- proof strip -->
+    <div class="proof">
+      <div class="proof__cell"><b>2</b><span>people. that's the whole guest list.</span></div>
+      <div class="proof__cell"><b>4</b><span>little snicks to start.</span></div>
+      <div class="proof__cell"><b>0</b><span>feeds, likes, or strangers.</span></div>
+      <div class="proof__cell"><b>∞</b><span>tiny reasons to look up.</span></div>
+    </div>
+
+    <figure class="editorial-photo editorial-photo--hero" aria-hidden="true">
+      <img src="https://picsum.photos/seed/snickylink-hero/440/560" alt="" loading="lazy">
+    </figure>
+
+  </div>
+
+  <!-- bottom ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>MORE THAN A CHAT</span><i>✦</i>
+      <span>BRING YOUR PERSON</span><i>✦</i>
+      <span>DON'T SPOIL IT</span><i>✦</i>
+      <span>A SECRET LITTLE WORLD FOR TWO</span><i>✦</i>
+      <span>CONNECT · PLAY · GROW</span><i>✦</i>
+      <span>MORE THAN A CHAT</span><i>✦</i>
+      <span>BRING YOUR PERSON</span><i>✦</i>
+      <span>DON'T SPOIL IT</span><i>✦</i>
+      <span>A SECRET LITTLE WORLD FOR TWO</span><i>✦</i>
+      <span>CONNECT · PLAY · GROW</span><i>✦</i>
+    </div>
+  </div>
+
+  <div class="hero__hint">scroll · slowly</div>
 </section>
-<!-- END: CohortRegistrationFooter -->
-</main>
-<!-- BEGIN: SiteFooter -->
-<footer class="bg-wine-ink py-10 text-white/60 text-xs border-t border-white/10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-<div class="flex items-center gap-2">
-<span class="font-bold text-white tracking-wider">SNICKYLINK</span>
-<span class="">— Designed for Lovers, Rivals &amp; Best Friends.</span>
+
+<!-- ============================ STORY BEATS ============================ -->
+<section class="story" data-screen-label="02 Story">
+  <div class="story__wrap">
+
+    <div class="beat">
+      <div class="beat__kicker">1 — a normal tuesday</div>
+      <div class="beat__line">
+        You <span class="fx"><span><em>text</em>.</span></span>
+      </div>
+      <p class="beat__aside">little grey bubbles. read receipts. the usual soft dopamine.</p>
+      <figure class="editorial-photo editorial-photo--story beat__extra" aria-hidden="true">
+        <img src="https://picsum.photos/seed/snickylink-story/420/540" alt="" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">2 — around 4pm</div>
+      <div class="beat__line">
+        You send <span class="fx"><span><em>reels</em>.</span></span>
+      </div>
+      <div style="margin-top:34px;display:flex;gap:16px;justify-content:flex-end;align-items:flex-end">
+        <div class="beat__extra reel-card"><div class="play"></div><div class="meta"><span>@you</span><span>0:12</span></div></div>
+        <div class="beat__extra reel-card" style="transform:rotate(4deg);width:150px;height:230px"><div class="play"></div><div class="meta"><span>@them</span><span>0:07</span></div></div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="beat__kicker">3 — sometime later</div>
+      <div class="beat__line">
+        You say <span class="fx"><span><em>"wyd?"</em></span></span>
+      </div>
+      <div class="beat__extra" style="margin-top:28px">
+        <div class="bubble__row"><div class="bubble bubble--you">wyd?</div></div>
+        <div class="bubble__row"><div class="bubble bubble--them">nothing.</div></div>
+        <div class="bubble__row"><div class="bubble bubble--you bubble--muted">…same</div></div>
+      </div>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">4 — 11:47pm</div>
+      <div class="beat__line">
+        You say <span class="fx"><span><em>"goodnight ❤"</em></span></span>
+      </div>
+      <p class="beat__aside">and then you both keep scrolling for another 40 minutes. alone.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ CAMPAIGN MARQUEE STRIP ============================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+    <span>MORE&nbsp;THAN&nbsp;A&nbsp;CHAT</span><i class="mstar">✦</i>
+  </div>
 </div>
-<div class="flex items-center gap-6 font-mono text-[11px]">
-<span class="">Option 3: Velvet &amp; Ember (#6B2B3C • #E8B99C)</span>
-<span class="">Zero Third-Party Trackers</span>
-<span class="">© 2026</span>
+
+<!-- ============================ BUT MOMENT ============================ -->
+<section class="but" data-screen-label="03 But">
+  <div class="but__sticky">
+    <div class="but__text">but</div>
+    <div class="but__whisper">wait for it…</div>
+  </div>
+</section>
+
+<!-- ============================ MYSTERY ============================ -->
+<section class="mystery" data-screen-label="04 Mystery">
+  <div class="mystery__glow mystery__glow--a"></div>
+  <div class="mystery__glow mystery__glow--b"></div>
+
+  <div class="story__wrap">
+    <div class="beat">
+      <div class="beat__kicker">a serious question</div>
+      <div class="beat__line" style="max-width:16ch">
+        When was the last time <br>
+        you <span class="fx"><span><em>actually</em></span></span>
+        <span class="fx"><span>did something</span></span>
+        <br>
+        <span class="fx"><span>together?</span></span>
+      </div>
+      <p class="beat__aside">not "sent each other something." did something. as a duo. with your bodies.</p>
+    </div>
+
+    <div class="beat beat--right">
+      <div class="beat__kicker">the uncomfortable part</div>
+      <div class="beat__line" style="max-width:14ch">
+        A relationship shouldn't
+        <br>
+        <span class="fx"><span>live inside a </span></span>
+        <span class="fx"><span><em>chat box.</em></span></span>
+      </div>
+
+      <div class="cage" aria-hidden="true" style="margin-left:auto;margin-right:0">
+        <div class="cage__bars"></div>
+        <div class="bubble__row"><div class="bubble">hey</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">hii</div></div>
+        <div class="bubble__row"><div class="bubble">wyd</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">nothing u</div></div>
+        <div class="bubble__row"><div class="bubble">same</div></div>
+        <div class="bubble__row right"><div class="bubble bubble--you">🫶</div></div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="beat__kicker">the pivot</div>
+      <div class="beat__line">
+        Let's <span class="fx"><span><em>change</em></span></span>
+        <span class="fx"><span>that.</span></span>
+      </div>
+      <figure class="editorial-photo editorial-photo--mystery beat__extra" aria-hidden="true">
+        <img src="https://picsum.photos/seed/snickylink-mystery/420/540" alt="" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REVEAL ============================ -->
+<section class="reveal" data-screen-label="05 Reveal">
+  <div class="reveal__stage">
+    <div class="eyebrow" style="justify-content:center;color:rgba(232,185,156,.7)">okay… you're both here</div>
+
+    <div class="reveal__campaign">
+      <span class="cross">Not</span> <em>more</em> than a chat.
+    </div>
+
+    <div class="beat__line" style="margin-top:18px">
+      <span class="fx"><span>Meet</span></span>
+    </div>
+
+    <div class="connect-viz" aria-hidden="true">
+      <div class="cv-line"></div>
+      <div class="cv-dot cv-dot--a"></div>
+      <div class="cv-dot cv-dot--b"></div>
+      <div class="cv-spark"></div>
+    </div>
+
+    <div class="logo-reveal">
+      <img src="assets/snickylink-logo.png" alt="Snickylink">
+    </div>
+
+    <p class="reveal__tag">
+      a secret little world for two people.<br>
+      connect · play · grow together.
+    </p>
+
+    <p class="reveal__invite">
+      If you wanna experience your relationship<br>
+      in a special way…
+    </p>
+    <p class="reveal__invite reveal__invite--sub">Start with <em>4 Snicks.</em></p>
+
+    <div class="reveal__cta-row">
+      <button class="btn btn--primary" id="startExperienceBtn">
+        Start our experience <span class="arrow">→</span>
+      </button>
+      <button class="btn btn--ghost" data-scroll-to=".snicks">
+        Peek inside <span class="arrow">↓</span>
+      </button>
+    </div>
+
+    <p class="reveal__hint" id="needPersonHint">but you'll need your person. 👀</p>
+  </div>
+</section>
+
+<!-- ============================ PAIR / SECRET CODE REGISTRATION ============================ -->
+<section class="pair" data-screen-label="06 Pair">
+  <div class="pair__head">
+    <div class="kicker">but first…</div>
+    <h2 aria-label="You'll need your person.">
+      You'll <span class="fx"><span>need</span></span> your <span class="fx"><span><em>person</em>.</span></span>
+    </h2>
+    <p style="margin-top:18px;font-family:var(--serif);font-style:italic;color:rgba(251,238,228,.6);max-width:520px;margin-left:auto;margin-right:auto">
+      one of you starts. the other joins with a code. no accounts. no feed. no strangers.
+    </p>
+  </div>
+
+  <div class="pair__viz" aria-hidden="true">
+    <div class="avatar avatar--a">
+      <div class="avatar__ring"></div>
+      <span id="avatarAInitial">y</span>
+      <div class="avatar__label" id="avatarALabel">you · person 1</div>
+    </div>
+    <div style="width:60px"></div>
+    <div class="avatar avatar--b">
+      <div class="avatar__ring"></div>
+      <span id="avatarBInitial">t</span>
+      <div class="avatar__label" id="avatarBLabel">them · person 2</div>
+    </div>
+  </div>
+
+  <!-- tabs: create vs join -->
+  <div class="pair__panel" id="pairPanel">
+
+    <div class="pair__tabs" role="tablist" id="pairTabs">
+      <button class="pair__tab is-active" data-tab="create" type="button">Create Our Experience</button>
+      <button class="pair__tab" data-tab="join" type="button">I Have a Code</button>
+    </div>
+
+    <!-- CREATE (person one) -->
+    <div class="pair__view" data-view="create">
+      <form class="pair__form" id="createForm" autocomplete="off">
+        <label class="field">
+          <span>your name</span>
+          <input type="text" name="name" id="p1Name" placeholder="Rahul" required>
+        </label>
+        <label class="field">
+          <span>your email</span>
+          <input type="email" name="email" id="p1Email" placeholder="you@email.com" required>
+        </label>
+        <button class="btn btn--primary" type="submit">Create Our Experience <span class="arrow">→</span></button>
+        <p class="pair__error" id="createError" hidden></p>
+      </form>
+
+      <div class="code-card" id="codeCard" hidden>
+        <div class="code-card__label">your secret code</div>
+        <div class="code-card__code" id="codeCardValue">SNK7X2</div>
+        <div class="code-card__hint">send this to your person. don't spoil what's next.</div>
+        <div class="code-card__actions">
+          <button class="code-card__copy" type="button" id="copyCodeBtn">copy code</button>
+          <button class="code-card__copy" type="button" id="shareCodeBtn">share code</button>
+        </div>
+        <p class="code-card__wait" id="waitingLine">waiting for your person to join…</p>
+      </div>
+    </div>
+
+    <!-- JOIN (person two) -->
+    <div class="pair__view" data-view="join" hidden>
+      <p class="pair__whisper">someone brought you here. 👀</p>
+      <form class="pair__form" id="joinForm" autocomplete="off">
+        <label class="field">
+          <span>enter your code</span>
+          <input type="text" name="code" id="joinCodeInput" maxlength="6" placeholder="SNK7X2" required style="text-transform:uppercase;letter-spacing:.2em">
+        </label>
+        <button class="btn btn--primary" type="submit">Find them <span class="arrow">→</span></button>
+      </form>
+      <div class="pair__found" id="pairFound" hidden>
+        <p class="pair__found-line" id="pairFoundLine"><span id="foundName">Rahul</span> is waiting for you.</p>
+        <label class="field">
+          <span>your name</span>
+          <input type="text" name="p2name" id="p2Name" placeholder="Meher" required>
+        </label>
+        <label class="field">
+          <span>your email</span>
+          <input type="email" name="p2email" id="p2Email" placeholder="you@email.com" required>
+        </label>
+        <button class="btn btn--primary" id="joinExperienceBtn" type="button">Join Their Experience <span class="arrow">→</span></button>
+        <p class="pair__error" id="joinError" hidden></p>
+      </div>
+      <p class="pair__error" id="pairError" hidden>hmm, that code doesn't match anything yet. double-check it?</p>
+    </div>
+
+    <!-- CONNECTED state -->
+    <div class="pair__connected" id="pairConnected" hidden>
+      <p class="pair__connected-big">YOU'RE BOTH IN.</p>
+      <p class="pair__connected-sub">okay… let's see what you've got.</p>
+      <button class="btn btn--primary" data-scroll-to=".snicks" id="revealSnick01Btn">Reveal Snick #01 <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <p class="pair__footnote">when they join, the first Snick unlocks itself. we'll take it from there.</p>
+</section>
+
+<!-- ============================ SNICKS — unlockable secrets ============================ -->
+<section class="snicks" data-screen-label="07 Snicks">
+  <div class="snicks__head">
+    <div class="eyebrow">four little unlocks</div>
+    <h2>Start with <em style="font-style:italic;color:var(--peach)">4 Snicks.</em></h2>
+    <p>Small missions. Real moments. Complete them in order — no peeking ahead.</p>
+    <div class="snicks__progress" id="snicksProgress" aria-hidden="true">
+      <span class="sp-dot" data-i="0"></span>
+      <span class="sp-dot" data-i="1"></span>
+      <span class="sp-dot" data-i="2"></span>
+      <span class="sp-dot" data-i="3"></span>
+    </div>
+  </div>
+
+  <div class="snick-track" id="snickTrack">
+    <article class="snick" data-snick="0" tabindex="0" aria-label="Snick 01: Notice">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 01</div>
+        <div class="snick__tag">notice</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · tap to open</div>
+        <h3 class="snick__title">Notice<br>Something.</h3>
+        <p class="snick__hint">find one little thing about them you genuinely love. tell them.</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="1" tabindex="0" aria-label="Snick 02: Play">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 02</div>
+        <div class="snick__tag">play</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #01</div>
+        <h3 class="snick__title">Make Them<br>Laugh.</h3>
+        <p class="snick__hint">60 seconds. no repeats — no old jokes, memes, or pickup lines.</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="2" tabindex="0" aria-label="Snick 03: Connect">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 03</div>
+        <div class="snick__tag">connect</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #02</div>
+        <h3 class="snick__title">Ask Something<br>Real.</h3>
+        <p class="snick__hint">what's something you've always wanted us to do together?</p>
+      </div>
+    </article>
+
+    <article class="snick" data-snick="3" tabindex="0" aria-label="Snick 04: Create">
+      <div class="snick__glow"></div>
+      <div class="snick__lock" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="snick__num">SNICK · 04</div>
+        <div class="snick__tag">create</div>
+      </div>
+      <div class="snick__body">
+        <div class="status-line">locked · needs #03</div>
+        <h3 class="snick__title">Make A<br>Moment.</h3>
+        <p class="snick__hint">one photo, together. don't pose. don't make it perfect.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ SNICK TASK MODAL ============================ -->
+<div class="snick-modal" id="snickModal" hidden>
+  <div class="snick-modal__backdrop" id="snickModalBackdrop"></div>
+  <div class="snick-modal__card" role="dialog" aria-modal="true">
+    <button class="snick-modal__close" id="snickModalClose" aria-label="close">✕</button>
+    <div class="snick-modal__eyebrow" id="modalEyebrow">SNICK · 01 — notice</div>
+    <h3 class="snick-modal__title" id="modalTitle">Notice Something</h3>
+    <p class="snick-modal__prompt" id="modalPrompt">Look at your partner for a moment. Find one little thing about them that you genuinely love. Tell them.</p>
+
+    <div class="snick-modal__body" id="modalBody">
+      <!-- injected per-snick interaction -->
+    </div>
+
+    <button class="btn btn--primary snick-modal__complete" id="modalCompleteBtn" type="button">Done <span class="arrow">→</span></button>
+    <p class="snick-modal__done-line" id="modalDoneLine" hidden></p>
+  </div>
 </div>
-</div>
+
+<!-- ============================ FINAL MOMENT ============================ -->
+<section class="moment" data-screen-label="08 Moment" id="momentSection">
+  <div class="moment__stage">
+    <div class="moment__photo" id="momentPhoto" aria-hidden="true">
+      <img id="momentPhotoImg" alt="" hidden>
+      <div class="moment__photo-empty" id="momentPhotoEmpty">📸</div>
+    </div>
+
+    <p class="moment__line moment__line--1">YOU MADE A MOMENT.</p>
+    <p class="moment__line moment__line--2">Imagine having a moment like this every day.</p>
+    <p class="moment__line moment__line--3">That's <em>SNICKYLINK.</em></p>
+
+    <div class="logo-reveal moment__logo">
+      <img src="assets/snickylink-logo.png" alt="Snickylink">
+    </div>
+    <p class="moment__tag">CONNECT · PLAY · GROW TOGETHER</p>
+
+    <button class="btn btn--primary moment__cta" data-scroll-to=".foot">
+      Join Snickylink <span class="arrow">→</span>
+    </button>
+  </div>
+</section>
+
+<!-- ============================ FOOTER WHISPER ============================ -->
+<footer class="foot">
+  <p class="foot__sub">the last thing</p>
+  <h2 class="foot__big" aria-label="Don't worry. It gets better.">
+    <span class="fx"><span>Don't</span></span>
+    <span class="fx"><span>worry.</span></span>
+    <br>
+    <span class="fx"><span>It gets</span></span>
+    <span class="fx"><span><em>better</em>.</span></span>
+  </h2>
+
+  <div class="foot__row">
+    <span>© 2026 snickylink</span>
+    <span>connect · play · grow together</span>
+    <span>made for two</span>
+  </div>
 </footer>
-<!-- END: SiteFooter -->
-<!-- BEGIN: InteractiveScripts -->
-<script data-purpose="interactive-actions">
-  // 1-Day Snick Interactive Widget Logic
-  let p1Answer = "The way you hold my pinky finger in crowded metro trains without saying a word.";
-  
-  function selectAnswer(ans) {
-    p1Answer = ans;
-    const input = document.getElementById('p1-custom-input');
-    if (input) input.value = ans;
-  }
 
-  function lockP1Answer() {
-    const custom = document.getElementById('p1-custom-input').value;
-    if (custom.trim()) p1Answer = custom.trim();
-
-    // Update steps UI
-    document.getElementById('demo-step-1').classList.add('hidden');
-    document.getElementById('demo-step-2').classList.remove('hidden');
-
-    // Step indicators
-    document.getElementById('step-ind-1').classList.remove('opacity-40');
-    document.getElementById('step-badge-1').innerHTML = '✓';
-    document.getElementById('step-ind-2').classList.remove('opacity-40');
-    document.getElementById('step-badge-2').classList.add('bg-wine-primary', 'text-white');
-  }
-
-  function lockP2AnswerAndReveal() {
-    document.getElementById('demo-step-2').classList.add('hidden');
-    document.getElementById('demo-step-3').classList.remove('hidden');
-
-    // Set unmasked answer in final view
-    document.getElementById('p1-final-reveal').innerText = `"${p1Answer}"`;
-    document.getElementById('story-quote-preview').innerText = `"${p1Answer}"`;
-
-    // Step indicators
-    document.getElementById('step-badge-2').innerHTML = '✓';
-    document.getElementById('step-ind-3').classList.remove('opacity-40');
-    document.getElementById('step-badge-3').classList.add('bg-wine-primary', 'text-white');
-  }
-
-  function resetInteractiveDemo() {
-    document.getElementById('demo-step-3').classList.add('hidden');
-    document.getElementById('demo-step-2').classList.add('hidden');
-    document.getElementById('demo-step-1').classList.remove('hidden');
-
-    // Reset step indicator badges
-    document.getElementById('step-badge-1').innerHTML = '1';
-    document.getElementById('step-badge-2').innerHTML = '2';
-    document.getElementById('step-badge-2').classList.remove('bg-wine-primary', 'text-white');
-    document.getElementById('step-ind-2').classList.add('opacity-40');
-    document.getElementById('step-badge-3').innerHTML = '3';
-    document.getElementById('step-badge-3').classList.remove('bg-wine-primary', 'text-white');
-    document.getElementById('step-ind-3').classList.add('opacity-40');
-  }
-
-  // Instagram Story Theme Toggle
-  function setStoryTheme(theme) {
-    const canvas = document.getElementById('story-frame-canvas');
-    canvas.classList.remove('story-canvas-wine', 'story-canvas-peach', 'story-canvas-noir');
-    if (theme === 'wine') canvas.classList.add('story-canvas-wine');
-    if (theme === 'peach') canvas.classList.add('story-canvas-peach');
-    if (theme === 'noir') canvas.classList.add('story-canvas-noir');
-  }
-
-  function downloadStoryCard() {
-    alert('✨ 9:16 Instagram Story Card generated! Saved to your downloads. Remember to tag @snickylink on your close friends story!');
-  }
-
-  // Hero Mutual Reveal Simulator
-  function triggerMutualReveal() {
-    const toast = document.getElementById('reveal-toast');
-    const btn = document.getElementById('hero-reveal-btn');
-    toast.classList.remove('hidden');
-    btn.innerText = 'Revealed in 0.002s ✨';
-    btn.classList.add('bg-white', 'text-wine-primary');
-  }
-
-  // Audio Capsule Simulator
-  let isPlaying = false;
-  function playCapsuleAudio() {
-    const playText = document.getElementById('play-text');
-    const playIcon = document.getElementById('play-icon');
-    const capsuleBtn = document.getElementById('capsule-play-btn');
-
-    if (!isPlaying) {
-      isPlaying = true;
-      playText.innerText = 'Whispering (0:07 remaining)...';
-      playIcon.innerText = '🔊';
-      capsuleBtn.classList.add('bg-peach-warm', 'text-wine-dark');
-      capsuleBtn.classList.remove('bg-wine-primary', 'text-white');
-
-      setTimeout(() => {
-        playText.innerText = 'Capsule Burned & Dissolved 💨';
-        playIcon.innerText = '✓';
-        capsuleBtn.disabled = true;
-        capsuleBtn.classList.add('opacity-50', 'cursor-not-allowed');
-      }, 5000);
-    }
-  }
-
-  // Mystery Card Unveil
-  function unveilMysteryCard() {
-    const lockIcon = document.getElementById('mystery-lock-icon');
-    const content = document.getElementById('mystery-content');
-    const btn = document.getElementById('mystery-reveal-btn');
-
-    lockIcon.innerText = '🌟';
-    content.innerHTML = '<span class="text-peach-warm font-bold">Midnight Quest:</span> "Call each other for exactly 90 seconds. Speak only in words starting with the first letter of each other\'s names."';
-    btn.innerText = 'QUEST ACTIVE (+50 XP CLAIMED) 🎉';
-    btn.classList.add('bg-white', 'text-wine-dark');
-  }
+<!-- libs -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js?v=7"></script>
+<script>
+  // simple smooth-scroll for reveal buttons
+  document.querySelectorAll('[data-scroll-to]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const t = document.querySelector(b.dataset.scrollTo);
+      if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
 </script>
-<!-- END: InteractiveScripts -->
-<script src="js/main.js"></script>
-</body></html>
+</body>
+</html>

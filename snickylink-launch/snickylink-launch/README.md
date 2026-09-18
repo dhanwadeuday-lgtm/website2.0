@@ -1,192 +1,88 @@
-# SnickyLink (Vercel-native)
+# SnickyLink — Launch Site (Website 2.0 design + real pairing backend)
 
-Landing page + waitlist API, rebuilt to deploy cleanly on Vercel —
-serverless functions instead of a persistent Express server, and
-Redis (Vercel KV / Upstash) instead of a JSON file, so data actually
-survives between requests.
+This is the "Website 2.0" cinematic redesign (`website2_0-main-redesigned.zip`
+— scroll-driven storytelling, the growing vine/bloom motif, the 4-Snick
+preview, and the secret-code pairing flow), deployed on Vercel with the
+same real-backend approach used throughout this project: static
+frontend + Vercel serverless functions + Upstash Redis, no build step.
 
-## Why this version instead of the Express one
-The previous version ran a single long-lived Express server and wrote
-signups to a local JSON file. That doesn't work on Vercel:
-- Vercel runs your code as short-lived serverless functions, not a
-  persistent process — an `app.listen()` server isn't the deployment
-  model it expects.
-- Vercel's filesystem is **read-only** at runtime except `/tmp`, and
-  `/tmp` doesn't persist between requests — so file-based storage
-  silently loses every signup.
+## What changed from the original design bundle
 
-This version fixes both: plain serverless functions under `/api`, and
-a small Redis database for storage.
+The original bundle (`index.html` / `styles.css` / `app.js`) was a
+**design prototype**: high-fidelity visuals and motion, but the
+"create code" / "join code" pairing flow only worked via
+`localStorage`, which only works across two browser tabs on the
+*same* device — not two different partners on two different phones.
+The code even had a comment marking where a real backend call should
+go (`// swap the marked line below for a real fetch()`).
 
-## Project structure
-```
-snickylink/
-├── index.html            # Landing page (served as a static file)
-├── js/main.js            # Wires the invite form to the API
-├── api/
-│   ├── _lib/
-│   │   └── waitlistStore.js   # Redis read/write logic (shared)
-│   └── waitlist/
-│       ├── index.js           # POST /api/waitlist
-│       └── count.js           # GET  /api/waitlist/count
-├── package.json
-├── .env.example
-├── .gitignore
-└── README.md
-```
-No `vercel.json` needed — Vercel auto-detects the static files at the
-root and the functions in `/api` with zero config.
+That's now wired up for real:
 
-## 1. Set up a free Redis database
-Pick one:
+### New API endpoints (`api/pair/*`)
+- **`POST /api/pair/create`** — `{ name, email }` → generates a unique
+  pairing code (e.g. `SNKX2A`), stores it in Redis, returns `{ code, position }`.
+- **`POST /api/pair/join`** — `{ code, name, email }` → looks up the
+  code; if found and not already paired, records person 2 and marks
+  the pair as connected. Returns `{ person1Name, code }`.
+- **`GET /api/pair/status?code=XXX`** — read-only lookup, used two ways:
+  1. By the **join** form, to check a code exists and show "Rahul is
+     waiting for you" before the joiner commits.
+  2. By the **create** side, polled every 3s, to detect the moment
+     person 2 joins and trigger the "you're both in" reveal — without
+     needing WebSockets.
+- Storage lives in `api/_lib/pairStore.js` (Redis hash `snickylink:pairs`,
+  keyed by code), with the same small IP rate-limiter pattern used
+  elsewhere in this project.
 
-**Option A — Vercel KV (easiest, same dashboard)**
-1. Vercel dashboard → your project → **Storage** tab → **Create Database** → **KV**
-2. Once created, click **Connect Project** and select this project.
-   Vercel automatically adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`
-   to your project's environment variables — no manual copy-paste.
+### Frontend changes (`app.js`, `index.html`)
+- `createForm` now calls `/api/pair/create` instead of `genCode()` +
+  `localStorage`, and polls `/api/pair/status` instead of listening
+  for the `storage` event.
+- The join flow previously only asked for a code and hard-coded the
+  joiner's name as `"you"` — it never actually captured person 2's
+  name or email. Added **name + email fields** to the join form
+  (`#p2Name`, `#p2Email`) so the real join call has real data, and
+  wired the "Join Their Experience" button to `POST /api/pair/join`.
+- Added inline error messages (`#createError`, `#joinError`,
+  `#pairError`) for validation and API failures (bad code, code
+  already used, network errors) — the prototype had no error states
+  for these.
+- Everything else — the vine/bloom growth animation, scroll
+  storytelling (hero → story → "but" → mystery → reveal), the 4-Snick
+  lock/unlock sequence, GSAP/Lenis motion — is untouched.
 
-**Option B — Standalone Upstash Redis**
-1. Go to [upstash.com](https://upstash.com) → free account → **Create Database**
-2. Copy the **REST URL** and **REST Token** from the database details page
-3. Add them to your Vercel project → **Settings → Environment Variables**
-   as `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
+### The "locked until registered" mechanism (carried over from the
+previous v8 design's requirement) — **already built into this design**
+This design already had the exact behavior asked for: every Snick
+card renders as `is-mystery`/`is-locked` on load, and
+`unlockToIndex(0)` is only ever called from inside `becomeConnected()`
+— i.e. after a real pairing succeeds. No changes were needed here
+beyond making pairing itself real; the lock/unlock logic in
+`app.js` (`renderSnickStates`, `unlockToIndex`) was left as-is.
 
-## 2. Run locally
-```bash
-npm install
-npm i -g vercel        # one-time, if you don't have the CLI
-cp .env.example .env   # fill in your Redis credentials
-vercel dev
-```
-Open the URL it prints (usually `http://localhost:3000`).
+### Kept as a design prototype, not rebuilt in Next.js
+The bundle included a `design_handoff_snickylink_launch/README.md`
+recommending a full Next.js/React rewrite for production. This
+project intentionally stays a static HTML/CSS/JS site with Vercel
+serverless functions instead — consistent with the rest of this
+project and far faster to ship. Say the word if you do want the
+Next.js rebuild later.
 
-## 3. Push to Git
-```bash
-git init
-git add .
-git commit -m "Initial commit — SnickyLink (Vercel serverless)"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
-```
+## SEO
+`index.html`, `robots.txt`, and `sitemap.xml` use the placeholder
+domain `https://snickylink.vercel.app`. Once you have your real
+Vercel URL or custom domain, find-and-replace it in those three files
+and redeploy. Meta description, Open Graph tags, Twitter Card tags,
+canonical URL, and JSON-LD `Organization` schema are already in place
+(this design's og:image points at the real logo asset — no expiring
+temporary CDN link this time).
 
-## 4. Deploy on Vercel
-1. Vercel dashboard → **Add New → Project** → import this repo
-2. **Root Directory:** leave it as `./` (this repo's files are at the
-   repo root — this is what fixes the "Root Directory does not exist"
-   build error from before)
-3. Make sure the Redis env vars from step 1 are present under
-   **Settings → Environment Variables** for the Production environment
-4. Deploy
-
-## API
-### `POST /api/waitlist`
-```json
-// request
-{ "email": "you@example.com" }
-
-// response (200)
-{ "position": 42, "ticket": "SNK-7712-PAIR" }
-
-// response (400)
-{ "error": "Please enter a valid email address." }
-
-// response (429)
-{ "error": "Too many requests. Please try again later." }
-```
-Rate-limited to 10 requests per IP per 15 minutes (tracked in Redis, so
-it works correctly across serverless invocations).
-
-### `GET /api/waitlist/count`
-```json
-{ "count": 42 }
-```
-
-## SEO setup (important — do this after you deploy)
-`index.html`, `robots.txt`, and `sitemap.xml` currently use the
-placeholder domain `https://snickylink.vercel.app/` for the canonical
-URL, Open Graph tags, Twitter Card tags, the JSON-LD `Organization`
-schema, and the sitemap's `Sitemap:` line. Once you know your real
-Vercel URL (or custom domain), find-and-replace
-`https://snickylink.vercel.app` with it in those three files —
-otherwise search engines and link previews (WhatsApp, Twitter, etc.)
-will point at the wrong URL.
-
-Also swap the `og:image` / `twitter:image` — they currently point at
-the temporary Stitch/Google CDN image — for a proper 1200×630 image
-hosted on your own domain once you have one, so link previews don't
-break if that CDN link expires.
-
-## SEO setup (important — do this after you deploy)
-`index.html`, `robots.txt`, and `sitemap.xml` currently use the
-placeholder domain `https://snickylink.vercel.app` for the canonical
-URL, Open Graph tags, Twitter Card tags, and the JSON-LD
-`Organization` schema. Once you know your real Vercel URL (or custom
-domain), find-and-replace it in those files.
-
-Also swap the `og:image` — it currently points at the temporary
-Stitch/Google CDN image — for a proper 1200×630 image hosted on your
-own domain once you have one.
-
-## Design version (2026-09-18 update): Snick Lock mechanism
-`index.html` now uses the newest Stitch export
-(`stitch_snickylink_interactive_brand_redesign__8_.zip`, "Velvet &
-Ember") as the visual design, with the working waitlist backend and a
-new **registration-gated lock** wired in:
-
-- **What's locked:** the "Today's 4-Card Ritual Arc" section
-  (`#daily-arc`) and the full "Co-Op Arcade" (`#coop-arcade`, all 4
-  snick cards including the Mystery Snick) are blurred and
-  non-interactive by default, with a lock overlay and an "Unlock with
-  Duo Key 🔑" button.
-- **What stays open:** the hero's mutual-reveal button and the "Try a
-  1-Day Snick Together" walkthrough further up the page are left
-  unlocked on purpose — they're the marketing demo meant to show
-  first-time visitors how the mechanic works *before* they commit to
-  registering. Say the word if you'd rather these were locked too.
-- **How it unlocks:** the "Join the Evening Cohort" form at the bottom
-  (`#request-duo-key`, Player 1 + Player 2 email) now posts for real
-  to `POST /api/waitlist`. On success, both snick sections play a
-  soft "bloom" reveal animation and unlock permanently for that
-  visitor (remembered via `localStorage`, so refreshing the page
-  doesn't re-lock it). The success message shows the real ticket
-  number and queue position returned by the API.
-- All of this logic lives in `js/main.js`; the lock/blur/bloom styling
-  is in the `<style>` block of `index.html` (search for "Snick Lock
-  Mechanism").
-- The old export's hard-coded debug attributes on `<html>`
-  (`style="width:1280px; height:7147px; overflow:hidden"`, left over
-  from the design tool's screenshot capture) were removed — that
-  would have clipped the live page at ~7147px tall and blocked
-  scrolling.
-
-## About this update (previous update)
-`index.html` now uses the new "Velvet & Ember" redesign (the Stitch
-export from `stitch_snickylink_interactive_brand_redesign__6_.zip`),
-wired into this project's real waitlist backend instead of the static
-demo markup it shipped with:
-- The invite form now collects **your email + your partner's email**
-  and POSTs both to `POST /api/waitlist`.
-- `api/waitlist/index.js` and `api/_lib/waitlistStore.js` accept an
-  optional `partnerEmail` field, validate it, and store it alongside
-  the signup entry in Redis.
-- `js/main.js` was rewritten to match the new form's field IDs
-  (`email-self` / `email-partner`) and to populate the real ticket
-  number + queue position returned by the API into the success card.
-- All the page's other interactive bits (ambient audio toggle, partner
-  presence simulator, the format-unlock sequence) are unchanged —
-  they're cosmetic demo scripts local to `index.html` and don't touch
-  the backend.
-
-## Known follow-ups (not yet done)
-- Images in `index.html` are currently hosted on Google's temporary
-  `lh3.googleusercontent.com` CDN (from the Stitch export) — these can
-  expire. Download them and reference local files (e.g. `/assets/`)
-  before relying on this in production.
-- Tailwind is loaded via CDN (`cdn.tailwindcss.com`) for simplicity —
-  fine for a quick launch, but compile it properly for production
-  performance.
-- No transactional email is wired up — signups are stored, but no
-  activation email is actually sent yet. Add a provider (Resend,
-  Postmark, SES) inside `api/waitlist/index.js` once you're ready.
+## Deploying on Vercel
+1. Push this folder to a GitHub repo (or run `vercel` from inside it).
+2. Vercel dashboard → **Add New Project** → import the repo. Root
+   directory: `./`.
+3. **Environment variables** (see `.env.example`): add your Upstash
+   Redis / Vercel KV `URL` + `TOKEN` pair before deploying, or the
+   `/api/pair/*` calls will fail. Vercel's Storage tab can provision a
+   free Upstash Redis database for you in one click.
+4. Deploy.
