@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://snickylink.com/sitemap.xml
+Sitemap: https://snickylink.vercel.app/sitemap.xml

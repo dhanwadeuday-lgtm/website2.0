@@ -1,7 +1,7 @@
 {
   "name": "snickylink",
-  "version": "2.1.0",
-  "description": "SnickyLink landing page (Velvet & Ember redesign) + waitlist API (Vercel serverless + Upstash Redis)",
+  "version": "3.0.0",
+  "description": "SnickyLink landing page (Velvet & Ember, registration-gated snick lock) + waitlist API (Vercel serverless + Upstash Redis)",
   "private": true,
   "scripts": {
     "dev": "vercel dev"

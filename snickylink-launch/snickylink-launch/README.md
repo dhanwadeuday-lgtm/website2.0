@@ -118,7 +118,50 @@ the temporary Stitch/Google CDN image — for a proper 1200×630 image
 hosted on your own domain once you have one, so link previews don't
 break if that CDN link expires.
 
-## About this update
+## SEO setup (important — do this after you deploy)
+`index.html`, `robots.txt`, and `sitemap.xml` currently use the
+placeholder domain `https://snickylink.vercel.app` for the canonical
+URL, Open Graph tags, Twitter Card tags, and the JSON-LD
+`Organization` schema. Once you know your real Vercel URL (or custom
+domain), find-and-replace it in those files.
+
+Also swap the `og:image` — it currently points at the temporary
+Stitch/Google CDN image — for a proper 1200×630 image hosted on your
+own domain once you have one.
+
+## Design version (2026-09-18 update): Snick Lock mechanism
+`index.html` now uses the newest Stitch export
+(`stitch_snickylink_interactive_brand_redesign__8_.zip`, "Velvet &
+Ember") as the visual design, with the working waitlist backend and a
+new **registration-gated lock** wired in:
+
+- **What's locked:** the "Today's 4-Card Ritual Arc" section
+  (`#daily-arc`) and the full "Co-Op Arcade" (`#coop-arcade`, all 4
+  snick cards including the Mystery Snick) are blurred and
+  non-interactive by default, with a lock overlay and an "Unlock with
+  Duo Key 🔑" button.
+- **What stays open:** the hero's mutual-reveal button and the "Try a
+  1-Day Snick Together" walkthrough further up the page are left
+  unlocked on purpose — they're the marketing demo meant to show
+  first-time visitors how the mechanic works *before* they commit to
+  registering. Say the word if you'd rather these were locked too.
+- **How it unlocks:** the "Join the Evening Cohort" form at the bottom
+  (`#request-duo-key`, Player 1 + Player 2 email) now posts for real
+  to `POST /api/waitlist`. On success, both snick sections play a
+  soft "bloom" reveal animation and unlock permanently for that
+  visitor (remembered via `localStorage`, so refreshing the page
+  doesn't re-lock it). The success message shows the real ticket
+  number and queue position returned by the API.
+- All of this logic lives in `js/main.js`; the lock/blur/bloom styling
+  is in the `<style>` block of `index.html` (search for "Snick Lock
+  Mechanism").
+- The old export's hard-coded debug attributes on `<html>`
+  (`style="width:1280px; height:7147px; overflow:hidden"`, left over
+  from the design tool's screenshot capture) were removed — that
+  would have clipped the live page at ~7147px tall and blocked
+  scrolling.
+
+## About this update (previous update)
 `index.html` now uses the new "Velvet & Ember" redesign (the Stitch
 export from `stitch_snickylink_interactive_brand_redesign__6_.zip`),
 wired into this project's real waitlist backend instead of the static
