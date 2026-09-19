@@ -77,6 +77,22 @@ canonical URL, and JSON-LD `Organization` schema are already in place
 (this design's og:image points at the real logo asset — no expiring
 temporary CDN link this time).
 
+## Typed backend (`api/`)
+The `api/pair/*` serverless functions and `api/_lib/pairStore.js` are now
+TypeScript (`.ts`), with a shared `api/_lib/types.ts` defining `PairRecord`,
+request bodies (`CreatePairBody`, `JoinPairBody`), and response shapes
+(`CreatePairResponse`, `JoinPairResponse`, `StatusResponse`,
+`ApiErrorResponse`). A small `sendJson<T>()` helper in `api/_lib/respond.ts`
+makes every `res.json(...)` call check against its declared response type
+at compile time, so a typo or shape mismatch fails `npm run type-check`
+instead of shipping. Vercel compiles `.ts` API routes automatically at
+deploy time — no build step or config change needed beyond the added
+`devDependencies` (`typescript`, `@vercel/node`, `@types/node`) and
+`tsconfig.json`. Run `npm install && npm run type-check` locally to verify.
+
+The frontend (`index.html`, `app.js`, `styles.css`) and the
+"locked/blurred until connected" Snick behavior below are unchanged.
+
 ## Deploying on Vercel
 1. Push this folder to a GitHub repo (or run `vercel` from inside it).
 2. Vercel dashboard → **Add New Project** → import the repo. Root
