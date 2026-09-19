@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://snickylink.vercel.app/sitemap.xml
