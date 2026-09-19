@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SnickyLink — The Synchronous Ritual for Two</title>
+<meta name="description" content="SnickyLink is a daily shared window for couples — it opens the moment both partners arrive and closes the moment either one leaves. Request your duo activation key and join the private beta."/>
+<meta name="keywords" content="couples app, daily connection app, private couples app, relationship app, synchronous messaging for couples, SnickyLink"/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="SnickyLink"/>
+<link rel="canonical" href="https://snickylink.vercel.app/"/>
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://snickylink.vercel.app/"/>
+<meta property="og:title" content="SnickyLink — The Synchronous Ritual for Two"/>
+<meta property="og:description" content="A daily shared window for couples — it opens the moment both partners arrive and closes the moment either one leaves. Request your duo activation key."/>
+<meta property="og:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuA2VRWiEKe5du72hfbWC6b-Gz5ieG3wZvp53o75J3SHs4LxoLZt9eUnE_gvGFVA_cjf_oflJYF5tuysM51s3iCIIa4Rz-T1qdc7d_WMgP6EUZ4RfedWl3SVqUL-RsMgB2R5E_VSitLotApzuvNU-bVvPw8i8LyPrUMAod1o50lfaXwwpcEzRx0OAb3zaCvXnKWh1n1rl6C5ozqUYS8PAkajqv1sprzn-fuCfaI2qIBnJDCsSr2fK-t684JHViagubM_fw"/>
+<meta property="og:site_name" content="SnickyLink"/>
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="SnickyLink — The Synchronous Ritual for Two"/>
+<meta name="twitter:description" content="A daily shared window for couples — it opens the moment both partners arrive and closes the moment either one leaves."/>
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuA2VRWiEKe5du72hfbWC6b-Gz5ieG3wZvp53o75J3SHs4LxoLZt9eUnE_gvGFVA_cjf_oflJYF5tuysM51s3iCIIa4Rz-T1qdc7d_WMgP6EUZ4RfedWl3SVqUL-RsMgB2R5E_VSitLotApzuvNU-bVvPw8i8LyPrUMAod1o50lfaXwwpcEzRx0OAb3zaCvXnKWh1n1rl6C5ozqUYS8PAkajqv1sprzn-fuCfaI2qIBnJDCsSr2fK-t684JHViagubM_fw"/>
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SnickyLink",
+  "url": "https://snickylink.vercel.app/",
+  "description": "SnickyLink is a daily shared window for couples — it opens the moment both partners arrive and closes the moment either one leaves.",
+  "sameAs": []
+}
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #160D12;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #160D12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3A1620;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6B2B3C;
+    }
+
+    /* Floating Ember Keyframes */
+    @keyframes float-ember-drift {
+      0% {
+        transform: translateY(105vh) translateX(0) scale(0.6);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(50vh) translateX(35px) scale(1.1);
+        opacity: 0.9;
+        filter: drop-shadow(0 0 6px rgba(232,185,156,0.8));
+      }
+      80% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(-20px) scale(0.7);
+        opacity: 0;
+      }
+    }
+    .ember-particle {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      animation: float-ember-drift linear infinite;
+    }
+
+    /* Soundwave bars animation */
+    @keyframes barPulse {
+      0%, 100% { height: 4px; }
+      50% { height: 18px; }
+    }
+    @keyframes barPulseTall {
+      0%, 100% { height: 6px; }
+      50% { height: 26px; }
+    }
+    .animate-wave-1 { animation: barPulse 1.2s ease-in-out infinite; }
+    .animate-wave-2 { animation: barPulse 0.9s ease-in-out infinite 0.2s; }
+    .animate-wave-3 { animation: barPulse 1.4s ease-in-out infinite 0.4s; }
+    .animate-wave-4 { animation: barPulse 0.8s ease-in-out infinite 0.1s; }
+
+    .animate-wave-tall-1 { animation: barPulseTall 1.1s ease-in-out infinite; }
+    .animate-wave-tall-2 { animation: barPulseTall 0.8s ease-in-out infinite 0.25s; }
+    .animate-wave-tall-3 { animation: barPulseTall 1.3s ease-in-out infinite 0.5s; }
+    .animate-wave-tall-4 { animation: barPulseTall 0.95s ease-in-out infinite 0.15s; }
+    .animate-wave-tall-5 { animation: barPulseTall 1.2s ease-in-out infinite 0.35s; }
+
+    /* Stardust Dissolve Effect with Glitch/Smoke Fade */
+    @keyframes dissolveSmoke {
+      0% {
+        filter: blur(0px) brightness(1);
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        filter: blur(4px) brightness(1.4);
+        transform: scale(0.98);
+        opacity: 0.5;
+      }
+      100% {
+        filter: blur(8px) brightness(0.7);
+        transform: scale(0.96);
+        opacity: 0;
+      }
+    }
+    @keyframes appearBloom {
+      0% {
+        opacity: 0;
+        filter: blur(6px);
+        transform: scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+      }
+    }
+    .room-bloom {
+      animation: appearBloom 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .room-smoke {
+      animation: dissolveSmoke 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Orbital Dash Rings */
+    @keyframes orbitRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes orbitCounterRotate {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    .animate-orbit {
+      animation: orbitRotate 24s linear infinite;
+    }
+    .animate-orbit-reverse {
+      animation: orbitCounterRotate 34s linear infinite;
+    }
+
+    /* Moon bridge breath glow */
+    @keyframes breatheGlow {
+      0%, 100% {
+        box-shadow: 0 0 25px rgba(232, 185, 156, 0.25), 0 0 50px rgba(107, 43, 60, 0.4);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 45px rgba(232, 185, 156, 0.5), 0 0 80px rgba(184, 101, 74, 0.55);
+        transform: scale(1.02);
+      }
+    }
+    .moon-breathe {
+      animation: breatheGlow 4.5s ease-in-out infinite;
+    }
+
+    /* Dual Presence Heartbeat Radar Ripple */
+    @keyframes heartbeatRipple {
+      0% {
+        transform: scale(0.96);
+        opacity: 0.7;
+      }
+      25% {
+        transform: scale(1.03);
+        opacity: 0.9;
+      }
+      40% {
+        transform: scale(0.99);
+        opacity: 0.75;
+      }
+      60% {
+        transform: scale(1.05);
+        opacity: 1;
+        box-shadow: 0 0 35px rgba(232, 185, 156, 0.35);
+      }
+      100% {
+        transform: scale(0.96);
+        opacity: 0.7;
+      }
+    }
+    .active-heartbeat {
+      animation: heartbeatRipple 3s ease-in-out infinite;
+    }
+
+    /* Shimmer gleam on buttons & diamonds */
+    @keyframes buttonShimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+    .shimmer-button {
+      background-size: 200% 100%;
+      background-image: linear-gradient(110deg, #6B2B3C 0%, #6B2B3C 35%, #E8B99C 50%, #6B2B3C 65%, #6B2B3C 100%);
+      animation: buttonShimmer 5s ease-in-out infinite;
+    }
+    .shimmer-button:hover {
+      animation-duration: 2.2s;
+    }
+
+    /* Gem gentle gleam rotation */
+    @keyframes gemGleam {
+      0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(232, 185, 156, 0.4));
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        filter: drop-shadow(0 0 18px rgba(244, 203, 181, 0.75));
+        transform: translateY(-3px) rotate(3deg);
+      }
+    }
+    .gem-pulse {
+      animation: gemGleam 4s ease-in-out infinite;
+    }
+
+    /* Interactive hover card lifts with luxury glass reflection */
+    .ritual-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .ritual-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(232, 185, 156, 0.08), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.75s ease;
+      pointer-events: none;
+    }
+    .ritual-card:hover::before {
+      left: 140%;
+    }
+    .ritual-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px -8px rgba(107, 43, 60, 0.35), 0 0 20px rgba(232, 185, 156, 0.18);
+      border-color: rgba(232, 185, 156, 0.45);
+    }
+
+    /* Sync dot micro-pulse */
+    @keyframes liveSyncPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.9;
+        box-shadow: 0 0 4px #E8B99C;
+      }
+      50% {
+        transform: scale(1.4);
+        opacity: 1;
+        box-shadow: 0 0 10px #F4CBB5;
+      }
+    }
+    .live-sync-dot {
+      animation: liveSyncPulse 2s ease-in-out infinite;
+    }
+
+    /* Suspense Redaction Scan Line */
+    @keyframes redactionScan {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .redaction-bar {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(107, 43, 60, 0.9),
+        rgba(107, 43, 60, 0.9) 12px,
+        rgba(58, 22, 32, 0.95) 12px,
+        rgba(58, 22, 32, 0.95) 24px
+      );
+      box-shadow: inset 0 0 12px rgba(232, 185, 156, 0.25);
+    }
+
+    /* Pulse Glow for Unlocking Suspense */
+    @keyframes pulseRingGlow {
+      0% { transform: scale(0.9); opacity: 0.9; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+    .pulse-ring-anim {
+      animation: pulseRingGlow 1.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    }
+
+    /* Frosted glass veil transition */
+    .shroud-veil {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .shroud-veil.veil-dissolved {
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.05);
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "wine-ink": "#160D12",
+            "wine-dark": "#22131A",
+            "wine-surface": "#2B1621",
+            "wine-card": "#24141B",
+            "wine-primary": "#6B2B3C",
+            "wine-soft": "#84364B",
+            "peach-accent": "#E8B99C",
+            "peach-glow": "#F4CBB5",
+            "blush-white": "#FFF8F5",
+            "copper-rose": "#B8654A",
+            "text-muted": "#D6BCB4",
+            "outline-soft": "#4D2633",
+            "outline-glow": "rgba(232, 185, 156, 0.25)"
+          },
+          fontFamily: {
+            "display-hero": ["Playfair Display", "serif"],
+            "headline-lg": ["Playfair Display", "serif"],
+            "headline-md": ["Playfair Display", "serif"],
+            "headline-sm": ["Playfair Display", "serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-mono": ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-wine-ink font-body-md text-blush-white min-h-screen selection:bg-wine-primary selection:text-peach-glow relative overflow-x-hidden">
+<!-- Ambient Particle Canvas Dust Layer (Dynamic drifting embers across page) -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="ember-layer">
+<div class="ember-particle bg-peach-accent/80 w-1.5 h-1.5 shadow-[0_0_8px_#E8B99C]" style="left: 12%; animation-duration: 14s; animation-delay: 0s;"></div>
+<div class="ember-particle bg-copper-rose/70 w-2 h-2 shadow-[0_0_10px_#B8654A]" style="left: 78%; animation-duration: 18s; animation-delay: 3s;"></div>
+<div class="ember-particle bg-peach-glow/90 w-1 h-1 shadow-[0_0_6px_#F4CBB5]" style="left: 42%; animation-duration: 12s; animation-delay: 1.5s;"></div>
+<div class="ember-particle bg-wine-soft/90 w-2.5 h-2.5 shadow-[0_0_12px_#84364B]" style="left: 28%; animation-duration: 21s; animation-delay: 5s;"></div>
+<div class="ember-particle bg-peach-accent/60 w-1.5 h-1.5 shadow-[0_0_8px_#E8B99C]" style="left: 89%; animation-duration: 16s; animation-delay: 4s;"></div>
+<div class="ember-particle bg-copper-rose/75 w-2 h-2 shadow-[0_0_10px_#B8654A]" style="left: 58%; animation-duration: 15s; animation-delay: 2.2s;"></div>
+<div class="ember-particle bg-peach-glow/70 w-1.5 h-1.5 shadow-[0_0_7px_#F4CBB5]" style="left: 22%; animation-duration: 19s; animation-delay: 7s;"></div>
+<div class="ember-particle bg-peach-accent/80 w-1 h-1 shadow-[0_0_6px_#E8B99C]" style="left: 68%; animation-duration: 13s; animation-delay: 6s;"></div>
+<div class="ember-particle bg-copper-rose/65 w-2.5 h-2.5 shadow-[0_0_12px_#B8654A]" style="left: 3%; animation-duration: 22s; animation-delay: 8s;"></div>
+<div class="ember-particle bg-peach-glow/85 w-1 h-1 shadow-[0_0_6px_#F4CBB5]" style="left: 94%; animation-duration: 17s; animation-delay: 9s;"></div>
+</div>
+<!-- Ambient Velvet & Ember Glows -->
+<div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(107,43,60,0.38),transparent_70%)] z-0"></div>
+<div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(184,101,74,0.18),transparent_75%)] z-0"></div>
+<!-- Ambient Vinyl & Midnight Rain Sound Bar Floating Trigger -->
+<aside class="fixed bottom-6 right-6 z-50">
+<button class="group flex items-center gap-3 px-4 py-2.5 rounded-full bg-wine-dark/95 backdrop-blur-md border border-peach-accent/30 text-blush-white shadow-2xl hover:border-peach-accent hover:shadow-[0_0_20px_rgba(232,185,156,0.3)] transition-all duration-300" id="ambient-audio-toggle" onclick="toggleAmbientAudio()">
+<div class="flex items-center gap-1 h-4 w-4 justify-center" id="audio-wave-bars">
+<span class="w-[2.5px] bg-peach-accent rounded-full animate-wave-1"></span>
+<span class="w-[2.5px] bg-peach-glow rounded-full animate-wave-2"></span>
+<span class="w-[2.5px] bg-copper-rose rounded-full animate-wave-3"></span>
+<span class="w-[2.5px] bg-peach-accent rounded-full animate-wave-4"></span>
+</div>
+<div class="flex flex-col text-left">
+<span class="text-[10px] font-label-mono uppercase tracking-wider text-peach-glow" id="audio-status-label">Vinyl &amp; Dusk Rain</span>
+<span class="text-[9px] text-text-muted/70 font-body-sm" id="audio-sub-label">Listening Ambient • Active</span>
+</div>
+<span class="material-symbols-outlined text-[15px] text-peach-accent group-hover:rotate-45 transition-transform" id="audio-icon">volume_up</span>
+</button>
+</aside>
+<!-- ================= CLEAN LUXURY NAVIGATION ================= -->
+<header class="fixed top-0 w-full z-40 bg-wine-ink/85 backdrop-blur-md border-b border-outline-soft/40 transition-all duration-300">
+<div class="max-w-7xl mx-auto h-20 px-6 lg:px-12 flex items-center justify-between">
+<!-- Brand Logo & Wordmark -->
+<a class="flex items-center gap-3.5 group" href="#">
+<div class="relative w-10 h-10 rounded-full overflow-hidden border border-peach-accent/30 bg-wine-dark flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(232,185,156,0.2)] group-hover:border-peach-accent/80 group-hover:shadow-[0_0_22px_rgba(232,185,156,0.5)] transition-all duration-300">
+<img alt="SnickyLink Mark" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTgbRgwdp1gPNCt9oh9IKGNrCQi9UaMU6mjwBsjwPGqSDjEl_mWOiZ9nBJCZJUwDikVwsRyTDKOWXJbYGcpOss4HqhX4tkC3Lsg7JypNVdpUUiQA-S1CTqUgsHXNdHfbZX7tiylkqORaIzL6QYFhYzUqHKIOUMx9uGN3Pc1snE9k8eLyHV_sbZ3twHeYfeqHrWOc0PFi_OBieqSaW0KRF-o62TLOFccHQSR_RIiNvahUApxo0OEV1QDHCRmVeCjleH_g"/>
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-lg font-semibold tracking-wide text-blush-white group-hover:text-peach-glow transition-colors">SNICKYLINK</span>
+<span class="text-[10px] tracking-widest uppercase text-text-muted/70 font-label-mono">A RITUAL FOR TWO</span>
+</div>
+</a>
+<!-- Minimalist Navigation Links -->
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-text-muted">
+<a class="hover:text-peach-glow transition-colors flex items-center gap-1.5" href="#formats">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent/60"></span>
+      The 3 Formats
+    </a>
+<a class="hover:text-peach-glow transition-colors" href="#anatomy">Ritual Anatomy</a>
+<a class="hover:text-peach-glow transition-colors" href="#contrast">Modern vs. Snick</a>
+<a class="hover:text-peach-glow transition-colors" href="#milestones">The Shrine</a>
+<a class="hover:text-peach-glow transition-colors" href="#founder-note">The Ethos</a>
+</nav>
+<!-- Primary Action -->
+<div class="flex items-center gap-4">
+<a class="shimmer-button inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-blush-white font-body-sm font-medium tracking-wide text-xs uppercase border border-peach-accent/30 hover:border-peach-accent transition-all duration-300 shadow-[0_4px_20px_rgba(107,43,60,0.35)] hover:shadow-[0_0_24px_rgba(232,185,156,0.35)]" href="#gate"><span class="">Request Duo Key</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span></a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 relative z-10">
+<div class="flex flex-col w-full text-blush-white">
+<!-- ================= SECTION 01: CINEMATIC INTIMATE HERO + DUAL-PRESENCE SIMULATOR ================= -->
+<section class="relative w-full min-h-[920px] flex flex-col justify-center px-6 lg:px-16 py-16 lg:py-24 border-b border-outline-soft/30">
+<div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+<!-- Left Column: Intimate Narrative Typography -->
+<div class="lg:col-span-6 flex flex-col items-start gap-6">
+<!-- Subtle Tag -->
+<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-wine-dark border border-outline-soft/80 text-xs font-label-mono text-peach-glow tracking-wider shadow-inner">
+<span class="w-2 h-2 rounded-full bg-peach-accent live-sync-dot"></span>
+<span class="">THE ANTI-TRANSACTIONAL RITUAL</span>
+</div>
+<h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[54px] leading-[1.14] tracking-tight text-blush-white">
+  In a world of unread receipts, <br/>
+<span class="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-peach-glow via-peach-accent to-copper-rose">
+    we made a room that exists only while you're looking at each other.
+  </span>
+</h1>
+<p class="font-body-lg text-lg text-text-muted max-w-xl leading-relaxed">
+  SnickyLink is synchronous intimacy. One shared window each day — it unlocks the exact second both partners arrive, and vaporizes the millisecond either leaves.
+</p>
+<!-- Human Trust & Call to Action with Direct Suspense Routing -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto">
+<a class="shimmer-button inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-blush-white font-body-sm font-semibold tracking-wider text-xs uppercase transition-all duration-300 border border-peach-accent/40 shadow-[0_8px_30px_rgba(107,43,60,0.45)] hover:shadow-[0_0_30px_rgba(232,185,156,0.4)]" href="#formats" onclick="document.getElementById('formats').scrollIntoView({behavior: 'smooth'})">
+<span class="">Unveil Hidden Snicks</span>
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</a>
+<a class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-wine-dark/80 hover:bg-wine-card text-text-muted hover:text-blush-white text-xs uppercase font-body-sm tracking-wider border border-outline-soft/60 hover:border-peach-accent/40 transition-all shadow-sm group" href="#simulator">
+<span class="">Try Threshold Below</span>
+<span class="material-symbols-outlined text-[15px] animate-pulse text-peach-accent group-hover:rotate-12 transition-transform">sensors</span>
+</a>
+</div>
+<!-- Soft Privacy Assurance & Stats -->
+<div class="flex flex-wrap items-center gap-6 pt-4 text-xs text-text-muted/80 border-t border-outline-soft/40 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-peach-accent">verified_user</span>
+<span>Zero logs stored</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-peach-accent">schedule</span>
+<span>Auto-dissolve on exit</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-peach-accent">key</span>
+<span class="font-label-mono">14,3<span class="bg-wine-primary/60 px-1 py-0.5 rounded text-peach-glow font-medium">82</span> keys unlocked</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Emblem + Interactive Dual-Presence Threshold Simulator -->
+<div class="lg:col-span-6 flex flex-col items-center justify-center relative" id="simulator">
+<!-- Subtle Backlight Glow -->
+<div class="absolute -top-10 w-80 h-80 rounded-full bg-radial from-wine-primary/40 via-peach-accent/15 to-transparent blur-3xl pointer-events-none"></div>
+<!-- The Bridge Icon Medallion Header with Breathing Glow & Delicate Rotating Orbital Rings -->
+<div class="relative w-36 h-36 sm:w-40 sm:h-40 flex items-center justify-center mb-6">
+<!-- Outer delicate dashed orbital ring -->
+<div class="absolute inset-0 rounded-full border border-dashed border-peach-accent/35 animate-orbit pointer-events-none"></div>
+<!-- Inner counter-rotating ring with small satellite node -->
+<div class="absolute inset-2 rounded-full border border-outline-soft/70 animate-orbit-reverse pointer-events-none flex items-start justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent -mt-1 shadow-[0_0_8px_#E8B99C]"></span>
+</div>
+<!-- Main medallion image container with breathing glow -->
+<div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1.5 border border-peach-accent/50 bg-wine-dark moon-breathe flex items-center justify-center transition-transform">
+<img alt="Two figures under the moon on a bridge" class="w-full h-full object-cover rounded-full border border-peach-accent/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5j9GXMbytv-qFuWAQ0YDJghSG40dtaSTUU7bbD8e_oZNw4HykkptfdNd2qTqfjJhH4l8alFVIckzC8zPnoTWqqux6Lj9KIMoeN42-lp7KABKHcR0puhzSkPkLMvAW1YF1GrFBMlh2evVd6rDImwp53XOU_O4aNrZOqbsgWJuY3GoiT3TWVaF647q48nRykKOmixh4rDUXL-8iYRl6jdIFV8_oRqV44IXKHDg3hVsS4ROUYtn3I1sWZJxFYLNjR4zl0Q"/>
+<div class="absolute -bottom-2 bg-wine-ink border border-peach-accent/40 px-2.5 py-0.5 rounded-full text-[9px] font-label-mono text-peach-glow uppercase shadow-md">
+        COHORT 04
+      </div>
+</div>
+</div>
+<!-- LIVE SIMULATOR DEVICE SHELL -->
+<div class="w-full max-w-md bg-wine-dark/95 border border-outline-soft/90 rounded-3xl p-6 sm:p-7 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl relative transition-all duration-500 active-heartbeat" id="portal-card">
+<div class="flex items-center justify-between pb-4 border-b border-outline-soft/60">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 live-sync-dot" id="portal-dot"></span>
+<span class="text-xs font-label-mono uppercase tracking-wider text-peach-glow" id="portal-title">THRESHOLD SIMULATOR</span>
+</div>
+<span class="text-[10px] font-label-mono px-2 py-0.5 rounded bg-wine-surface border border-outline-soft text-peach-glow transition-all" id="presence-badge">2/2 PRESENT</span>
+</div>
+<!-- Toggle Controls: Partner A & Partner B Presence -->
+<div class="grid grid-cols-2 gap-3 my-5">
+<button class="flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-surface border-peach-accent/50 text-peach-glow shadow-[0_0_12px_rgba(232,185,156,0.15)] active:scale-95 cursor-pointer hover:border-peach-accent" id="btn-partner-a" onclick="togglePartner('A')">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-emerald-400" id="dot-partner-a"></span>
+<span class="text-xs font-semibold">Partner A</span>
+</div>
+<span class="text-[10px] font-label-mono text-peach-accent" id="status-partner-a">Present (Arrived)</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-surface border-peach-accent/50 text-peach-glow shadow-[0_0_12px_rgba(232,185,156,0.15)] active:scale-95 cursor-pointer hover:border-peach-accent" id="btn-partner-b" onclick="togglePartner('B')">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-emerald-400" id="dot-partner-b"></span>
+<span class="text-xs font-semibold">Partner B</span>
+</div>
+<span class="text-[10px] font-label-mono text-peach-accent" id="status-partner-b">Present (Arrived)</span>
+</button>
+</div>
+<!-- Dynamic Room Content Area: Active Secret vs. Vaporized Dissolve -->
+<div class="bg-wine-card p-5 rounded-2xl border border-peach-accent/30 shadow-inner flex flex-col gap-3 transition-all duration-500 room-bloom relative overflow-hidden" id="room-active-content">
+<div class="flex items-center justify-between text-[11px] font-label-mono text-peach-accent uppercase">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">lock_open</span> Room Open
+        </span>
+<span class="text-peach-glow animate-pulse">04:18 left</span>
+</div>
+<!-- Redaction / Unmasked Text Suspense Container -->
+<div class="relative py-1">
+<p class="font-display-hero text-lg sm:text-xl text-blush-white italic leading-relaxed transition-all duration-500" id="room-prompt-text">
+        "Tell me the one thing you were too proud to say out loud this afternoon."
+      </p>
+<!-- Redaction overlay tape if redacting -->
+<div class="hidden absolute inset-0 redaction-bar rounded-lg flex items-center justify-center text-[11px] font-label-mono text-peach-glow/90 uppercase tracking-wider shadow-lg" id="prompt-redaction-bar">
+<span class="material-symbols-outlined text-[15px] mr-1.5 animate-spin">sync</span> Shrouded until twin finger contact
+      </div>
+</div>
+<div class="pt-2 flex items-center justify-between text-[11px] text-text-muted border-t border-outline-soft/40">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span> Synchronized feed
+        </span>
+<span class="font-label-mono text-peach-glow">Zero camera roll</span>
+</div>
+</div>
+<!-- Vaporized Dissolve State (Shown when either leaves) -->
+<div class="hidden bg-wine-card/40 p-6 rounded-2xl border border-outline-soft/40 flex-col items-center text-center gap-2.5 transition-all duration-500" id="room-dissolve-content">
+<span class="material-symbols-outlined text-[28px] text-peach-accent/60 animate-bounce">cloud_off</span>
+<p class="font-display-hero text-base text-blush-white italic">"Threshold Dissolved into Stardust."</p>
+<p class="text-xs text-text-muted max-w-xs">One partner left the screen. The room instantly vanished. 0 traces or chat logs retained.</p>
+<span class="text-[10px] font-label-mono px-2.5 py-1 rounded-full bg-wine-dark border border-outline-soft text-peach-glow mt-1 hover:border-peach-accent transition-colors">Tap both buttons above to re-ignite</span>
+</div>
+<div class="mt-4 flex items-center justify-between text-[10px] font-label-mono text-text-muted/70">
+<span class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-peach-accent animate-ping"></span> TAP TO TEST SYNC ENGINE</span>
+<span>EPHEMERAL ENCRYPTION // 256-BIT</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 02: THE 3 EPHEMERAL FORMATS (WITH SUSPENSE REVEAL MECHANIC) ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-dark/50 border-b border-outline-soft/40" id="formats">
+<div class="max-w-6xl mx-auto flex flex-col gap-12">
+<!-- Section Heading & Suspense Unmask Controls -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-outline-soft/30 pb-8">
+<div class="max-w-2xl flex flex-col items-start gap-2.5">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-wine-surface border border-peach-accent/30 text-[11px] font-label-mono text-peach-glow">
+<span class="w-1.5 h-1.5 rounded-full bg-copper-rose animate-ping"></span>
+<span>CLASSIFIED DAILY SNICK FORMATS</span>
+</div>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white tracking-tight">
+        The 3 Ephemeral Formats
+      </h2>
+<p class="text-text-muted text-base leading-relaxed">
+        Bound to the exact second you both commit. Tap below to simulate the mutual biometric unmasking ritual.
+      </p>
+</div>
+<!-- Master Suspense Reveal Button / Relay -->
+<div class="flex items-center gap-3">
+<button class="shimmer-button flex items-center gap-2.5 px-6 py-3 rounded-full text-blush-white font-body-sm font-semibold tracking-wider text-xs uppercase transition-all duration-300 border border-peach-accent/50 shadow-[0_0_25px_rgba(232,185,156,0.25)] hover:shadow-[0_0_35px_rgba(232,185,156,0.45)] cursor-pointer" id="master-unlock-btn" onclick="triggerSnickUnlockSequence()">
+<span class="material-symbols-outlined text-[17px] text-peach-glow" id="master-unlock-icon">fingerprint</span>
+<span id="master-unlock-text">Hold to Unlock Ritual</span>
+</button>
+<button class="hidden px-4 py-3 rounded-full bg-wine-surface hover:bg-wine-card text-text-muted hover:text-blush-white border border-outline-soft text-xs font-label-mono uppercase tracking-wider transition-colors items-center gap-2" id="relock-btn" onclick="relockSnicks()">
+<span class="material-symbols-outlined text-[15px]">lock</span>
+<span>Seal Ritual</span>
+</button>
+</div>
+</div>
+<!-- High Suspense Audio / Biometric Countdown Modal / Banner (Appears during unlock) -->
+<div class="hidden bg-gradient-to-r from-wine-primary/80 via-wine-surface to-wine-primary/80 border border-peach-accent/60 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_0_40px_rgba(107,43,60,0.6)] room-bloom relative overflow-hidden" id="countdown-banner">
+<div class="absolute inset-0 bg-radial from-peach-accent/15 via-transparent to-transparent pointer-events-none"></div>
+<div class="flex items-center gap-4 z-10">
+<div class="relative w-12 h-12 rounded-full bg-wine-ink border border-peach-accent flex items-center justify-center text-peach-accent">
+<div class="absolute inset-0 rounded-full border border-peach-accent/40 pulse-ring-anim"></div>
+<span class="material-symbols-outlined text-[24px]" id="countdown-icon">fingerprint</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="text-xs font-label-mono uppercase text-peach-accent font-semibold flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-peach-accent live-sync-dot"></span>
+<span id="countdown-title">SYNCHRONIZING MUTUAL TOUCH SENSORS...</span>
+</span>
+<span class="font-display-hero italic text-blush-white text-base" id="countdown-quote">
+            "What you are about to see only exists for both of you."
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-4 z-10">
+<div class="text-right hidden sm:flex flex-col">
+<span class="text-[10px] font-label-mono text-text-muted">EPHEMERAL HANDSHAKE</span>
+<span class="text-xs font-label-mono text-peach-glow" id="countdown-sub">VERIFYING DUO PULSES</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-wine-ink border border-peach-accent/50 flex items-center justify-center font-label-mono text-xl font-bold text-peach-glow shadow-inner" id="countdown-number">
+          3
+        </div>
+</div>
+</div>
+<!-- 3 Format Cards with Shrouded Veil by default -->
+<div class="relative grid grid-cols-1 md:grid-cols-3 gap-6" id="snick-cards-grid">
+<!-- Shrouded Frosted Veil Overlay across the 3 cards (Active by default) -->
+<div class="shroud-veil absolute inset-0 z-30 bg-wine-ink/75 border border-peach-accent/30 rounded-3xl p-8 flex flex-col items-center justify-center text-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.8)]" id="frosted-veil">
+<div class="relative w-20 h-20 rounded-full bg-wine-surface/90 border border-peach-accent/50 flex items-center justify-center text-peach-glow shadow-[0_0_30px_rgba(232,185,156,0.25)] moon-breathe">
+<div class="absolute inset-0 rounded-full border border-dashed border-peach-accent/40 animate-orbit"></div>
+<span class="material-symbols-outlined text-[36px]">encrypted</span>
+</div>
+<div class="flex flex-col items-center gap-2 max-w-md">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-wine-dark border border-outline-soft text-[10px] font-label-mono text-peach-accent uppercase tracking-widest">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>
+<span>SEALED RITUAL // CO-PRESENCE REQUIRED</span>
+</div>
+<h3 class="font-display-hero text-2xl sm:text-3xl text-blush-white">
+            Formats Shrouded in Ephemeral Mist
+          </h3>
+<p class="text-xs sm:text-sm text-text-muted leading-relaxed">
+            The intimate mechanics of SnickyLink are guarded by mutual cryptographic agreement. Break the seal together to inspect the raw protocols.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-3">
+<button class="shimmer-button flex items-center gap-2 px-7 py-3.5 rounded-full text-blush-white font-body-sm font-semibold tracking-wider text-xs uppercase transition-all duration-300 border border-peach-accent/50 shadow-[0_0_20px_rgba(232,185,156,0.3)] hover:scale-105 cursor-pointer" onclick="triggerSnickUnlockSequence()">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span>Tap to Break Seal &amp; Try</span>
+</button>
+<span class="text-[11px] font-label-mono text-text-muted/70">Estimated reveal: 3-second sync</span>
+</div>
+</div>
+<!-- Format 1: Dual Horizon Shutter -->
+<div class="ritual-card bg-wine-card/90 p-8 rounded-3xl border border-outline-soft/70 flex flex-col justify-between gap-8 group relative" id="card-format-1">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-wine-surface border border-peach-accent/30 flex items-center justify-center text-peach-glow group-hover:scale-110 group-hover:border-peach-accent transition-all duration-300 shadow-inner">
+<span class="material-symbols-outlined text-[24px]">camera_front</span>
+</div>
+<span class="text-[10px] font-label-mono px-2 py-0.5 rounded-full bg-wine-surface border border-peach-accent/30 text-peach-glow">01 / DUAL HORIZON</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">Synchronous Drop</span>
+</div>
+<h3 class="font-headline-sm text-2xl text-blush-white font-semibold group-hover:text-peach-glow transition-colors">Dual Horizon Shutter</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+          You cannot see your partner’s photo until your camera shutter clicks at the exact same second. No gallery uploads. No retouching. Pure raw reality.
+        </p>
+<!-- Interactive Sample Snippet -->
+<div class="p-3.5 rounded-xl bg-wine-surface/80 border border-outline-soft/80 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-peach-accent text-[17px]">photo_camera</span>
+<span class="text-text-muted">Twin shutter trigger</span>
+</div>
+<button class="text-[10px] font-label-mono text-peach-glow bg-wine-dark px-2.5 py-1 rounded border border-outline-soft hover:border-peach-accent transition-colors" onclick="simulateShutterFlash()">
+            Flash Snap
+          </button>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>Simultaneous shutter</span>
+<span class="font-label-mono text-peach-glow">Twin View</span>
+</div>
+</div>
+<!-- Format 2: Single-Breath Voice Note with animated audio bars -->
+<div class="ritual-card bg-wine-card/90 p-8 rounded-3xl border border-outline-soft/70 flex flex-col justify-between gap-8 group relative" id="card-format-2">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-wine-surface border border-peach-accent/30 flex items-center justify-center text-peach-glow group-hover:scale-110 group-hover:border-peach-accent transition-all duration-300 shadow-inner">
+<span class="material-symbols-outlined text-[24px]">mic_external_on</span>
+</div>
+<!-- Gentle animated equalizer bars -->
+<div class="flex items-end gap-1 h-7 px-2.5 py-1 rounded-lg bg-wine-surface border border-outline-soft">
+<span class="w-1 bg-peach-accent rounded-full animate-wave-tall-1"></span>
+<span class="w-1 bg-peach-glow rounded-full animate-wave-tall-2"></span>
+<span class="w-1 bg-copper-rose rounded-full animate-wave-tall-3"></span>
+<span class="w-1 bg-peach-accent rounded-full animate-wave-tall-4"></span>
+<span class="w-1 bg-peach-glow rounded-full animate-wave-tall-5"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">02 / Pure Cadence</span>
+</div>
+<h3 class="font-headline-sm text-2xl text-blush-white font-semibold group-hover:text-peach-glow transition-colors">Single-Breath Voice Note</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+          A 60-second audio recorded in dark mode. Plays exactly once. No scrub bar, no replay button, no waveform preview. Pure voice and unfiltered breath.
+        </p>
+<!-- Interactive Audio Player Teaser -->
+<div class="p-3.5 rounded-xl bg-wine-surface/80 border border-outline-soft/80 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-copper-rose text-[17px]">graphic_eq</span>
+<span class="text-text-muted">60s Audio Capsule</span>
+</div>
+<button class="text-[10px] font-label-mono text-peach-glow bg-wine-dark px-2.5 py-1 rounded border border-outline-soft hover:border-peach-accent transition-colors" id="whisper-listen-btn" onclick="testWhisperPlay()">
+            Preview Cadence
+          </button>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-copper-rose live-sync-dot"></span>Plays once only</span>
+<span class="font-label-mono text-peach-glow">0 Waveform replay</span>
+</div>
+</div>
+<!-- Format 3: The Unspoken Prompt -->
+<div class="ritual-card bg-wine-card/90 p-8 rounded-3xl border border-outline-soft/70 flex flex-col justify-between gap-8 group relative" id="card-format-3">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-2xl bg-wine-surface border border-peach-accent/30 flex items-center justify-center text-peach-glow group-hover:scale-110 group-hover:border-peach-accent transition-all duration-300 shadow-inner">
+<span class="material-symbols-outlined text-[24px]">dark_mode</span>
+</div>
+<span class="text-[10px] font-label-mono px-2 py-0.5 rounded-full bg-wine-surface border border-peach-accent/30 text-peach-glow">03 / DUSK SPARK</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-label-mono text-peach-accent uppercase">Twilight Unmask</span>
+</div>
+<h3 class="font-headline-sm text-2xl text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Unspoken Prompt</h3>
+<p class="text-sm text-text-muted leading-relaxed">
+          Curated question arrives at twilight: <em>"Answer without saying yes or no."</em> Both type blindly. Text unveils together, then dissolves into smoke.
+        </p>
+<!-- Interactive Blind Type Sample -->
+<div class="p-3.5 rounded-xl bg-wine-surface/80 border border-outline-soft/80 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-peach-accent text-[17px]">stylus_note</span>
+<span class="text-text-muted">Blind typed entry</span>
+</div>
+<button class="text-[10px] font-label-mono text-peach-glow bg-wine-dark px-2.5 py-1 rounded border border-outline-soft hover:border-peach-accent transition-colors" onclick="samplePromptReveal()">
+            Simulate Unmask
+          </button>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-soft/40 flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>Mutual unmask</span>
+<span class="font-label-mono text-peach-glow">Zero retention</span>
+</div>
+</div>
+</div>
+<!-- Interactive Whisper Quote -->
+<div class="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-wine-card via-wine-surface to-wine-card border border-peach-accent/30 shadow-[0_10px_35px_rgba(107,43,60,0.25)] flex flex-col sm:flex-row items-center justify-between gap-6 transition-all hover:border-peach-accent/60">
+<div class="max-w-2xl">
+<p class="font-display-hero text-xl sm:text-2xl text-blush-white italic">
+      "What if you said what you actually felt, knowing it could never be weaponized, forwarded, or screenshotted?"
+    </p>
+<p class="text-xs text-text-muted mt-2 uppercase tracking-wider font-label-mono">THE CORE PROMISE OF SYNCHRONOUS CO-PRESENCE</p>
+</div>
+<a class="whitespace-nowrap px-7 py-3.5 rounded-full bg-peach-accent hover:bg-peach-glow text-wine-ink font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(232,185,156,0.4)]" href="#gate">
+    Begin with Partner
+  </a>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 03: THE ANATOMY OF A SNICK (STEP-BY-STEP) ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-ink" id="anatomy">
+<div class="max-w-6xl mx-auto flex flex-col gap-16">
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-3">
+<span class="text-xs uppercase tracking-widest text-peach-accent font-label-mono">STEP-BY-STEP ARCHITECTURE</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white tracking-tight">
+      The Anatomy of a Snick
+    </h2>
+<p class="text-text-muted text-base">
+      Four distinct psychological thresholds that transform mundane screen time into an intentional sacred rendezvous.
+    </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 1 -->
+<div class="ritual-card bg-wine-card/70 border border-outline-soft/80 p-6 rounded-2xl flex flex-col justify-between gap-6 group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs px-2.5 py-1 rounded bg-wine-surface border border-outline-soft text-peach-glow group-hover:border-peach-accent/50 transition-colors">PHASE 01</span>
+<span class="material-symbols-outlined text-peach-accent text-[20px] group-hover:scale-110 transition-transform">notifications_active</span>
+</div>
+<h4 class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Chime at Dusk</h4>
+<p class="text-xs text-text-muted leading-relaxed">
+          One single, un-intrusive haptic vibration rings on both phones at dusk. No push alerts all day. Just one synchronized invitation to meet.
+        </p>
+</div>
+<div class="text-[11px] font-label-mono text-peach-accent/80 border-t border-outline-soft/40 pt-3">
+        15-minute rendezvous window
+      </div>
+</div>
+<!-- Step 2 -->
+<div class="ritual-card bg-wine-card/70 border border-outline-soft/80 p-6 rounded-2xl flex flex-col justify-between gap-6 group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs px-2.5 py-1 rounded bg-wine-surface border border-outline-soft text-peach-glow group-hover:border-peach-accent/50 transition-colors">PHASE 02</span>
+<span class="material-symbols-outlined text-peach-accent text-[20px] group-hover:scale-110 transition-transform">fingerprint</span>
+</div>
+<h4 class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Mutual Key</h4>
+<p class="text-xs text-text-muted leading-relaxed">
+          Both partners hold their thumbs against the screen simultaneously. The biometric connection verifies co-presence and unlocks the chamber.
+        </p>
+</div>
+<div class="text-[11px] font-label-mono text-peach-accent/80 border-t border-outline-soft/40 pt-3">
+        Cryptographic handshake
+      </div>
+</div>
+<!-- Step 3 -->
+<div class="ritual-card bg-wine-card/70 border border-outline-soft/80 p-6 rounded-2xl flex flex-col justify-between gap-6 group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs px-2.5 py-1 rounded bg-wine-surface border border-outline-soft text-peach-glow group-hover:border-peach-accent/50 transition-colors">PHASE 03</span>
+<span class="material-symbols-outlined text-peach-accent text-[20px] group-hover:scale-110 transition-transform">shield</span>
+</div>
+<h4 class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Sanctuary</h4>
+<p class="text-xs text-text-muted leading-relaxed">
+          Screen recording is hardware-blocked. Outside notifications are paused. For these minutes, neither of you exists to anyone else in the world.
+        </p>
+</div>
+<div class="text-[11px] font-label-mono text-peach-accent/80 border-t border-outline-soft/40 pt-3">
+        Zero spectators permitted
+      </div>
+</div>
+<!-- Step 4 -->
+<div class="ritual-card bg-wine-card/70 border border-outline-soft/80 p-6 rounded-2xl flex flex-col justify-between gap-6 group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs px-2.5 py-1 rounded bg-wine-surface border border-outline-soft text-peach-glow group-hover:border-peach-accent/50 transition-colors">PHASE 04</span>
+<span class="material-symbols-outlined text-peach-accent text-[20px] group-hover:scale-110 transition-transform">auto_delete</span>
+</div>
+<h4 class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Dissolve</h4>
+<p class="text-xs text-text-muted leading-relaxed">
+          The moment either person closes the app or switches apps, the memory securely self-destructs into stardust. No logs, no remorse.
+        </p>
+</div>
+<div class="text-[11px] font-label-mono text-peach-accent/80 border-t border-outline-soft/40 pt-3">
+        Absolute ephemerality
+      </div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 04: THE CONTRAST MATRIX ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-dark/40 border-y border-outline-soft/40" id="contrast">
+<div class="max-w-5xl mx-auto flex flex-col gap-14">
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-3">
+<span class="text-xs uppercase tracking-widest text-peach-accent font-label-mono">THE CONTRAST</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white tracking-tight">
+      Modern Texting vs. SnickyLink
+    </h2>
+<p class="text-text-muted text-base">
+      Why traditional messaging apps slowly turn romantic connection into administrative drudgery.
+    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Modern Texting Column -->
+<div class="bg-wine-ink/80 p-8 rounded-3xl border border-red-950/40 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-red-950/60 border border-red-800/40 flex items-center justify-center text-red-300">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</span>
+<span class="font-headline-sm text-xl text-red-200 font-semibold">Modern Texting</span>
+</div>
+<ul class="space-y-4 text-sm text-text-muted/80">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-400 text-[18px] shrink-0 mt-0.5">remove</span>
+<span>48 unread tabs, group chat pings, and grocery lists mixed with confessions.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-400 text-[18px] shrink-0 mt-0.5">remove</span>
+<span>Anxiety over "seen" stamps, "typing..." bubbles, and delayed replies.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-400 text-[18px] shrink-0 mt-0.5">remove</span>
+<span>Screenshots forwarded to third parties or saved forever in cloud backups.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-400 text-[18px] shrink-0 mt-0.5">remove</span>
+<span>Endless asynchronous noise that fragments presence and drains emotional intimacy.</span>
+</li>
+</ul>
+<div class="pt-4 border-t border-outline-soft/30 text-xs font-label-mono text-red-400/80">
+        RESULT: Emotional fatigue &amp; transactional chatter
+      </div>
+</div>
+<!-- SnickyLink Column -->
+<div class="bg-gradient-to-b from-wine-card to-wine-surface p-8 rounded-3xl border border-peach-accent/40 shadow-2xl flex flex-col gap-6 relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-44 h-44 bg-wine-primary/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-peach-accent/20 border border-peach-accent/50 flex items-center justify-center text-peach-glow">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</span>
+<span class="font-headline-sm text-xl text-peach-glow font-semibold">SnickyLink</span>
+</div>
+<ul class="space-y-4 text-sm text-blush-white">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-peach-accent text-[18px] shrink-0 mt-0.5">check_circle</span>
+<span>One synchronized rendezvous at dusk. 100% undivided co-presence.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-peach-accent text-[18px] shrink-0 mt-0.5">check_circle</span>
+<span>Zero logs retained. The moment either leaves, all traces dissolve.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-peach-accent text-[18px] shrink-0 mt-0.5">check_circle</span>
+<span>Hardware screenshot protection. Cryptographic pair-lock between two phones only.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-peach-accent text-[18px] shrink-0 mt-0.5">check_circle</span>
+<span>No algorithms, no likes, no ads, no spectators. Pure unfiltered honesty.</span>
+</li>
+</ul>
+<div class="pt-4 border-t border-peach-accent/30 text-xs font-label-mono text-peach-accent flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>
+        RESULT: Genuine connection that feels like bedroom whispers
+      </div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 05: THE SECRET VAULT & MILESTONE DIAMOND PREVIEW ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-ink" id="milestones">
+<div class="max-w-6xl mx-auto flex flex-col gap-16">
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-3">
+<span class="text-xs uppercase tracking-widest text-peach-accent font-label-mono">THE PRIVATE SHRINE</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-blush-white tracking-tight">
+      Milestones Forged in Quiet Devotion
+    </h2>
+<p class="text-text-muted text-base">
+      While chat logs vanish into smoke, your consistency solidifies. Unlock tactile Milestone Diamonds and encrypted duo souvenirs.
+    </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left: 3 Milestone Diamonds Cards with Gem Gleam Animations -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5">
+<!-- 25 Snicks -->
+<div class="ritual-card p-6 rounded-2xl bg-wine-card/80 border border-outline-soft hover:border-peach-accent/50 transition-all flex flex-col items-center text-center gap-4 group">
+<div class="w-16 h-16 rounded-full bg-wine-surface border border-peach-accent/30 flex items-center justify-center text-peach-glow shadow-inner group-hover:scale-110 transition-transform gem-pulse">
+<span class="material-symbols-outlined text-[30px]">diamond</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">The Ember Key</span>
+<span class="text-[11px] font-label-mono text-peach-accent">25 SYNCHRONOUS SNICKS</span>
+</div>
+<p class="text-xs text-text-muted">Unlocks the custom audio whisper note duration &amp; dusk mood presets.</p>
+</div>
+<!-- 50 Snicks -->
+<div class="ritual-card p-6 rounded-2xl bg-wine-card/80 border border-peach-accent/40 hover:border-peach-accent transition-all flex flex-col items-center text-center gap-4 group relative">
+<div class="absolute -top-2.5 px-2.5 py-0.5 rounded-full bg-wine-primary text-[9px] font-label-mono text-peach-glow border border-peach-accent/40 shadow-sm">
+          MOST COVETED
+        </div>
+<div class="w-16 h-16 rounded-full bg-wine-surface border border-peach-accent/60 flex items-center justify-center text-peach-accent shadow-[0_0_20px_rgba(232,185,156,0.25)] group-hover:scale-110 transition-transform gem-pulse">
+<span class="material-symbols-outlined text-[32px]">flare</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">Velvet Orbit</span>
+<span class="text-[11px] font-label-mono text-peach-accent">50 SYNCHRONOUS SNICKS</span>
+</div>
+<p class="text-xs text-text-muted">Enables double horizon video glimpses and mutual touch sensor pulses.</p>
+</div>
+<!-- 100 Snicks -->
+<div class="ritual-card p-6 rounded-2xl bg-wine-card/80 border border-outline-soft hover:border-peach-accent/50 transition-all flex flex-col items-center text-center gap-4 group">
+<div class="w-16 h-16 rounded-full bg-wine-surface border border-peach-accent/30 flex items-center justify-center text-copper-rose shadow-inner group-hover:scale-110 transition-transform gem-pulse">
+<span class="material-symbols-outlined text-[30px]">military_tech</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-lg text-blush-white font-semibold group-hover:text-peach-glow transition-colors">Eternal Moon</span>
+<span class="text-[11px] font-label-mono text-copper-rose">100 SYNCHRONOUS SNICKS</span>
+</div>
+<p class="text-xs text-text-muted">A solid brass engraved token dispatched to your physical door in Mumbai or Bengaluru.</p>
+</div>
+</div>
+<!-- Right: 9:16 "Our Story" Export Card Mockup -->
+<div class="lg:col-span-5 flex justify-center">
+<div class="w-72 sm:w-80 rounded-3xl p-5 bg-wine-dark border border-peach-accent/40 shadow-[0_20px_50px_rgba(0,0,0,0.7)] flex flex-col gap-4 relative transition-transform hover:scale-[1.02] duration-300">
+<div class="flex items-center justify-between text-[11px] font-label-mono text-peach-glow">
+<span>OUR PRIVATE SHRINE</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>YEAR 01</span>
+</div>
+<!-- Inner Card Visual -->
+<div class="w-full aspect-[9/13] rounded-2xl overflow-hidden relative border border-outline-soft bg-wine-surface p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between z-10">
+<span class="text-[10px] font-label-mono tracking-widest text-peach-accent uppercase">SNICKYLINK // #482</span>
+<span class="material-symbols-outlined text-peach-accent text-[16px]">lock</span>
+</div>
+<div class="my-auto text-center flex flex-col items-center gap-3 z-10">
+<div class="w-20 h-20 rounded-full overflow-hidden border border-peach-accent/40 p-1 moon-breathe">
+<img alt="Shrine icon" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR67KQpUURoskj217WvVl14rpm-bKLoWAqlrY5KiveJI_SjO1iY8v_lBsTs9sd0jGfdYi2Srl2S84jJ4fDPHB4PHZmlq7kQsvVep2erjhFWkqHamUzDQcxcz-wTU1sF3W8P7BSqYQMQXCz7poaOf6kZK2LdDP27f11VpiwAQ6GVypfW-mKdisrgRddqGeq4Z2nKSLNwDC8WP-AviJi8TZbC-EvnO3iruHFmSv9lKMQduYZrjAJLgE-FQLb_bGLgmYebQ"/>
+</div>
+<p class="font-display-hero text-lg italic text-blush-white">"54 quiet sunsets shared without a word to the outside world."</p>
+<div class="flex items-center gap-2 text-[10px] font-label-mono text-peach-glow">
+<span>Aarav</span>
+<span>•</span>
+<span>Meher</span>
+</div>
+</div>
+<div class="pt-3 border-t border-outline-soft/60 flex items-center justify-between text-[9px] font-label-mono text-text-muted z-10">
+<span>MUMBAI ↔ BENGALURU</span>
+<span>0 LEAKS // 100% SEALED</span>
+</div>
+<!-- Background glow -->
+<div class="absolute inset-0 bg-radial from-wine-primary/30 to-transparent pointer-events-none"></div>
+</div>
+<p class="text-[11px] text-center text-text-muted/70 font-label-mono">PRIVATE CO-PRESENCE CERTIFICATE</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 06: FOUNDER ETHOS NOTE & COHORT STORIES ================= -->
+<section class="relative w-full py-24 px-6 lg:px-16 bg-wine-dark/40 border-t border-outline-soft/40" id="founder-note">
+<div class="max-w-4xl mx-auto flex flex-col gap-12">
+<!-- Note Container -->
+<div class="bg-wine-card p-8 sm:p-12 rounded-3xl border border-outline-soft/70 shadow-2xl flex flex-col gap-6 relative">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center text-peach-accent shadow-[0_0_10px_rgba(232,185,156,0.3)]">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</div>
+<span class="text-xs font-label-mono uppercase tracking-widest text-peach-accent font-semibold">A NOTE FROM THE CREATORS</span>
+</div>
+<h3 class="font-display-hero text-2xl sm:text-3xl text-blush-white leading-snug">
+      "We built Snick because messaging had turned into an administrative chore. We wanted something that felt like whispering across a dark room again."
+    </h3>
+<p class="text-text-muted text-sm sm:text-base leading-relaxed">
+      Every modern social tool is engineered around permanent archives, search bars, algorithmic feeds, and endless screenshot culture. But real intimacy has always been ephemeral. What makes a memory intensely poignant is knowing that you were there when it unfolded—and that no server or bystander will ever witness it again.
+    </p>
+<div class="pt-4 border-t border-outline-soft/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-text-muted">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-peach-accent live-sync-dot"></span>
+<span class="font-medium text-blush-white">— Aarav &amp; Meher, Co-creators (Mumbai, India)</span>
+</div>
+<span class="font-label-mono text-peach-glow">Crafted for iOS &amp; Android</span>
+</div>
+</div>
+<!-- Authentic Cohort Stories (City Pairs) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="ritual-card p-6 rounded-2xl bg-wine-card/80 border border-outline-soft/60 flex flex-col justify-between gap-4 group">
+<p class="font-headline-sm text-base text-blush-white italic leading-relaxed">
+        "We live in different cities for work. Snick is the only app where we don't exchange calendars or flight details—it forces us into twenty minutes of pure, uninterrupted presence every evening."
+      </p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center font-display-hero text-xs font-semibold text-peach-glow">
+          A&amp;I
+        </div>
+<div>
+<p class="text-xs font-semibold text-blush-white">Ananya &amp; Ishaan</p>
+<p class="text-[11px] text-text-muted font-label-mono">Cohort 02 • Mumbai ↔ Bengaluru</p>
+</div>
+</div>
+</div>
+<div class="ritual-card p-6 rounded-2xl bg-wine-card/80 border border-outline-soft/60 flex flex-col justify-between gap-4 group">
+<p class="font-headline-sm text-base text-blush-white italic leading-relaxed">
+        "Knowing that the audio dissolved the second I hung up removed the self-consciousness I always had over standard voice notes. It feels human, raw, and completely safe."
+      </p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-wine-primary flex items-center justify-center font-display-hero text-xs font-semibold text-peach-glow">
+          K&amp;R
+        </div>
+<div>
+<p class="text-xs font-semibold text-blush-white">Kavya &amp; Rohan</p>
+<p class="text-[11px] text-text-muted font-label-mono">Cohort 03 • Bandra, Mumbai</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 07: CLEARANCE GATE / DUO INVITATION KEY ================= -->
+<section class="relative w-full py-24 lg:py-32 px-6 lg:px-16 bg-wine-ink border-t border-outline-soft/60" id="gate">
+<!-- Subtle Center Glow -->
+<div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-wine-primary/25 blur-[140px] pointer-events-none"></div>
+<div class="max-w-2xl mx-auto flex flex-col items-center text-center gap-8 relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-wine-dark border border-peach-accent/30 text-xs font-label-mono text-peach-glow shadow-inner">
+<span class="w-2 h-2 rounded-full bg-peach-accent live-sync-dot"></span>
+<span>COMING SOON • COHORT 04 PRIVATE BETA</span>
+</div>
+<div class="flex flex-col gap-3">
+<h2 class="font-display-hero text-3xl sm:text-5xl text-blush-white tracking-tight">
+      An intimate space for you and your person.
+    </h2>
+<p class="text-text-muted text-base max-w-lg mx-auto">
+      Invitations unlock in measured weekly cohorts to preserve server privacy and calmness. Submit your pair emails to request your mutual activation key.
+    </p>
+</div>
+<!-- Duo Application Form -->
+<div class="w-full bg-wine-dark p-6 sm:p-8 rounded-3xl border border-outline-soft shadow-2xl text-left flex flex-col gap-4">
+<form id="invite-form">
+<div class="flex flex-col gap-4" id="form-state">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider font-label-mono text-peach-accent" for="email-self">
+              Your Email
+            </label>
+<input class="w-full bg-wine-surface text-blush-white font-body-sm text-sm px-4 py-3 rounded-xl border border-outline-soft focus:border-peach-accent focus:ring-0 focus:outline-none placeholder:text-text-muted/40 transition-colors" id="email-self" placeholder="you@example.com" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider font-label-mono text-peach-accent" for="email-partner">
+              Partner's Email
+            </label>
+<input class="w-full bg-wine-surface text-blush-white font-body-sm text-sm px-4 py-3 rounded-xl border border-outline-soft focus:border-peach-accent focus:ring-0 focus:outline-none placeholder:text-text-muted/40 transition-colors" id="email-partner" placeholder="partner@example.com" required="" type="email"/>
+</div>
+</div>
+<p class="hidden text-xs text-red-300 -mt-1" id="form-error"></p>
+<button class="shimmer-button w-full mt-2 py-3.5 rounded-xl text-blush-white font-semibold text-xs tracking-wider uppercase transition-all duration-300 border border-peach-accent/30 flex items-center justify-center gap-2 shadow-lg hover:shadow-[0_0_25px_rgba(232,185,156,0.35)]" id="invite-submit-btn" type="submit">
+<span id="invite-submit-label">Request Duo Cryptographic Key</span>
+<span class="material-symbols-outlined text-[16px]">key</span>
+</button>
+<div class="flex items-center justify-between text-xs text-text-muted pt-2 border-t border-outline-soft/40">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-peach-accent">lock</span>
+            Cryptographically paired
+          </span>
+<span class="font-label-mono text-peach-glow flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>Join 2,400+ couples awaiting dusk</span>
+</div>
+</div>
+<!-- Success State -->
+<div class="hidden p-6 bg-wine-surface border border-peach-accent/40 rounded-2xl flex flex-col gap-3 room-bloom" id="success-state">
+<div class="flex items-center gap-2 text-peach-glow font-semibold text-sm">
+<span class="material-symbols-outlined text-[20px] text-peach-accent">mark_email_read</span>
+<span>Mutual Key Dispatched</span>
+</div>
+<p class="text-xs text-text-muted leading-relaxed" id="success-message">
+          Both email addresses have been queued for Cohort 04. When the portal opens, you both will receive dual activation tokens simultaneously.
+        </p>
+<div class="pt-2 text-[11px] font-label-mono text-peach-accent flex items-center justify-between">
+<span id="success-ticket">PAIR TICKET: #SNK-9041-DUO</span>
+<span>EST. ACCESS: NEXT DUSK</span>
+</div>
+</div>
+</form>
+</div>
+<!-- Micro Pillars -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full text-left pt-2">
+<div class="ritual-card p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">Two Accounts Only</span>
+<span class="text-xs text-text-muted">Bound strictly to each other. No third-party adds.</span>
+</div>
+<div class="ritual-card p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">Zero Archiving</span>
+<span class="text-xs text-text-muted">No cloud server holds your midnight confessions.</span>
+</div>
+<div class="ritual-card p-4 rounded-xl bg-wine-card/50 border border-outline-soft/40">
+<span class="text-xs font-semibold text-blush-white block mb-1">One Dusk Chime</span>
+<span class="text-xs text-text-muted">Exactly one gentle chime when the ritual opens.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ================= LUXURY MINIMAL FOOTER ================= -->
+<footer class="w-full bg-wine-ink border-t border-outline-soft/50 py-16 relative z-10">
+<div class="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col gap-10">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-outline-soft/40">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-peach-accent/30 bg-wine-dark flex items-center justify-center p-0.5 shadow-inner">
+<img alt="SnickyLink" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2VRWiEKe5du72hfbWC6b-Gz5ieG3wZvp53o75J3SHs4LxoLZt9eUnE_gvGFVA_cjf_oflJYF5tuysM51s3iCIIa4Rz-T1qdc7d_WMgP6EUZ4RfedWl3SVqUL-RsMgB2R5E_VSitLotApzuvNU-bVvPw8i8LyPrUMAod1o50lfaXwwpcEzRx0OAb3zaCvXnKWh1n1rl6C5ozqUYS8PAkajqv1sprzn-fuCfaI2qIBnJDCsSr2fK-t684JHViagubM_fw"/>
+</div>
+<span class="font-display-hero text-lg font-semibold tracking-wide text-blush-white">SNICKYLINK</span>
+</div>
+<div class="flex flex-wrap items-center gap-8 text-xs text-text-muted">
+<a class="hover:text-peach-glow transition-colors" href="#formats">The 3 Formats</a>
+<a class="hover:text-peach-glow transition-colors" href="#anatomy">Ritual Anatomy</a>
+<a class="hover:text-peach-glow transition-colors" href="#contrast">Modern vs. Snick</a>
+<a class="hover:text-peach-glow transition-colors" href="#milestones">The Shrine</a>
+<a class="hover:text-peach-glow transition-colors" href="#founder-note">Founder Ethos</a>
+<a class="text-peach-accent hover:text-peach-glow transition-colors" href="#gate">Request Key</a>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted/70">
+<p class="text-center sm:text-left">
+Crafted with care for couples in Mumbai, Bengaluru, and beyond. Designed for iOS &amp; Android.
+</p>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-peach-accent live-sync-dot"></span>
+<span class="font-display-hero italic text-blush-white">"Some things are only meant to be shared in the quiet dark."</span>
+</div>
+</div>
+<div class="text-center sm:text-left text-[11px] font-label-mono text-text-muted/40">
+© 2025 SNICKYLINK INC. ALL RIGHTS RESERVED. ZERO-PERSISTENCE ARCHITECTURE.
+</div>
+</div>
+</footer>
+<!-- Interactive Scripts for Dual-Presence Simulator, Suspense Unmask Sequence, Audio & Snick Reveals -->
+<script>
+  let partnerA = true;
+  let partnerB = true;
+  let audioPlaying = true;
+  let snicksUnlocked = false;
+  let countdownTimer = null;
+
+  // Partner Simulator Toggle
+  function togglePartner(who) {
+    if (who === 'A') {
+      partnerA = !partnerA;
+      const btn = document.getElementById('btn-partner-a');
+      const dot = document.getElementById('dot-partner-a');
+      const status = document.getElementById('status-partner-a');
+      if (partnerA) {
+        btn.className = "flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-surface border-peach-accent/50 text-peach-glow shadow-[0_0_12px_rgba(232,185,156,0.15)] active:scale-95 cursor-pointer hover:border-peach-accent";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+        status.innerText = "Present (Arrived)";
+      } else {
+        btn.className = "flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-card/40 border-outline-soft text-text-muted/60 active:scale-95 cursor-pointer";
+        dot.className = "w-2 h-2 rounded-full bg-red-400";
+        status.innerText = "Departed (Left)";
+      }
+    } else if (who === 'B') {
+      partnerB = !partnerB;
+      const btn = document.getElementById('btn-partner-b');
+      const dot = document.getElementById('dot-partner-b');
+      const status = document.getElementById('status-partner-b');
+      if (partnerB) {
+        btn.className = "flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-surface border-peach-accent/50 text-peach-glow shadow-[0_0_12px_rgba(232,185,156,0.15)] active:scale-95 cursor-pointer hover:border-peach-accent";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+        status.innerText = "Present (Arrived)";
+      } else {
+        btn.className = "flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 bg-wine-card/40 border-outline-soft text-text-muted/60 active:scale-95 cursor-pointer";
+        dot.className = "w-2 h-2 rounded-full bg-red-400";
+        status.innerText = "Departed (Left)";
+      }
+    }
+
+    const activeContent = document.getElementById('room-active-content');
+    const dissolveContent = document.getElementById('room-dissolve-content');
+    const badge = document.getElementById('presence-badge');
+    const portalDot = document.getElementById('portal-dot');
+    const portalCard = document.getElementById('portal-card');
+    const redactionBar = document.getElementById('prompt-redaction-bar');
+    const promptText = document.getElementById('room-prompt-text');
+
+    if (partnerA && partnerB) {
+      dissolveContent.classList.remove('room-smoke');
+      activeContent.classList.remove('hidden');
+      activeContent.classList.remove('room-smoke');
+      activeContent.classList.add('room-bloom');
+      dissolveContent.classList.add('hidden');
+      dissolveContent.classList.remove('flex');
+      badge.innerText = "2/2 PRESENT";
+      badge.className = "text-[10px] font-label-mono px-2 py-0.5 rounded bg-wine-surface border border-outline-soft text-peach-glow";
+      portalDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 live-sync-dot";
+      portalCard.classList.add('active-heartbeat');
+      portalCard.classList.add('shadow-[0_25px_60px_rgba(107,43,60,0.35)]');
+      
+      // Un-redact with brief suspense
+      redactionBar.classList.remove('hidden');
+      promptText.classList.add('blur-sm');
+      setTimeout(() => {
+        if (partnerA && partnerB) {
+          redactionBar.classList.add('hidden');
+          promptText.classList.remove('blur-sm');
+        }
+      }, 400);
+    } else {
+      activeContent.classList.add('room-smoke');
+      setTimeout(() => {
+        if (!partnerA || !partnerB) {
+          activeContent.classList.add('hidden');
+          dissolveContent.classList.remove('hidden');
+          dissolveContent.classList.add('flex');
+          dissolveContent.classList.add('room-bloom');
+        }
+      }, 250);
+      const count = (partnerA ? 1 : 0) + (partnerB ? 1 : 0);
+      badge.innerText = count + "/2 PRESENT";
+      badge.className = "text-[10px] font-label-mono px-2 py-0.5 rounded bg-wine-surface border border-outline-soft text-red-300";
+      portalDot.className = "w-2.5 h-2.5 rounded-full bg-red-400";
+      portalCard.classList.remove('active-heartbeat');
+      portalCard.classList.remove('shadow-[0_25px_60px_rgba(107,43,60,0.35)]');
+    }
+  }
+
+  // Audio Ambient Simulation Toggle
+  function toggleAmbientAudio() {
+    audioPlaying = !audioPlaying;
+    const waveBars = document.getElementById('audio-wave-bars');
+    const statusLabel = document.getElementById('audio-status-label');
+    const subLabel = document.getElementById('audio-sub-label');
+    const icon = document.getElementById('audio-icon');
+
+    if (audioPlaying) {
+      waveBars.classList.remove('opacity-20');
+      statusLabel.innerText = "Vinyl & Dusk Rain";
+      subLabel.innerText = "Listening Ambient • Active";
+      icon.innerText = "volume_up";
+    } else {
+      waveBars.classList.add('opacity-20');
+      statusLabel.innerText = "Ambient Muted";
+      subLabel.innerText = "Tap to resume vinyl crackle";
+      icon.innerText = "volume_off";
+    }
+  }
+
+  // Suspense Reveal Sequence for 3 Formats
+  function triggerSnickUnlockSequence() {
+    if (snicksUnlocked) return;
+    
+    const banner = document.getElementById('countdown-banner');
+    const countdownNum = document.getElementById('countdown-number');
+    const masterBtn = document.getElementById('master-unlock-btn');
+    const masterText = document.getElementById('master-unlock-text');
+    const masterIcon = document.getElementById('master-unlock-icon');
+    const relockBtn = document.getElementById('relock-btn');
+    const veil = document.getElementById('frosted-veil');
+
+    banner.classList.remove('hidden');
+    masterBtn.disabled = true;
+    masterBtn.classList.add('opacity-80');
+    masterIcon.innerText = "sensors";
+    masterText.innerText = "Verifying Co-Presence...";
+
+    let count = 3;
+    countdownNum.innerText = count;
+
+    countdownTimer = setInterval(() => {
+      count--;
+      if (count > 0) {
+        countdownNum.innerText = count;
+      } else {
+        clearInterval(countdownTimer);
+        countdownNum.innerText = "✓";
+        document.getElementById('countdown-title').innerText = "BIOMETRIC CIPHER MATCHED";
+        document.getElementById('countdown-quote').innerText = "Veil dissolved. Formats revealed for your duo only.";
+        
+        // Dissolve Frosted Veil with warm bloom
+        veil.classList.add('veil-dissolved');
+        snicksUnlocked = true;
+
+        setTimeout(() => {
+          banner.classList.add('room-smoke');
+          setTimeout(() => banner.classList.add('hidden'), 500);
+          masterBtn.classList.add('hidden');
+          relockBtn.classList.remove('hidden');
+          relockBtn.classList.add('inline-flex');
+        }, 1200);
+      }
+    }, 800);
+  }
+
+  function relockSnicks() {
+    snicksUnlocked = false;
+    const veil = document.getElementById('frosted-veil');
+    const relockBtn = document.getElementById('relock-btn');
+    const masterBtn = document.getElementById('master-unlock-btn');
+    const masterText = document.getElementById('master-unlock-text');
+    const masterIcon = document.getElementById('master-unlock-icon');
+    const banner = document.getElementById('countdown-banner');
+
+    veil.classList.remove('veil-dissolved');
+    relockBtn.classList.add('hidden');
+    relockBtn.classList.remove('inline-flex');
+    masterBtn.classList.remove('hidden');
+    masterBtn.disabled = false;
+    masterBtn.classList.remove('opacity-80');
+    masterIcon.innerText = "fingerprint";
+    masterText.innerText = "Hold to Unlock Ritual";
+    banner.classList.add('hidden');
+    banner.classList.remove('room-smoke');
+  }
+
+  // Interactive Micro Samples within Revealed Cards
+  function simulateShutterFlash() {
+    const card = document.getElementById('card-format-1');
+    card.classList.add('brightness-150');
+    setTimeout(() => {
+      card.classList.remove('brightness-150');
+      alert("Synchronous Shutter Triggered! In real-time, photo only unveils if partner pressed shutter at the same second.");
+    }, 200);
+  }
+
+  function testWhisperPlay() {
+    const btn = document.getElementById('whisper-listen-btn');
+    const orig = btn.innerText;
+    btn.innerText = "Playing (0:02)...";
+    btn.classList.add('border-peach-accent', 'text-peach-accent');
+    setTimeout(() => {
+      btn.innerText = "Dissolving Audio...";
+      setTimeout(() => {
+        btn.innerText = "Audio Vaporized";
+        btn.classList.remove('text-peach-accent');
+        btn.classList.add('text-text-muted/50');
+        btn.disabled = true;
+      }, 1500);
+    }, 2000);
+  }
+
+  function samplePromptReveal() {
+    const card = document.getElementById('card-format-3');
+    const origBg = card.className;
+    card.classList.add('shadow-[0_0_35px_rgba(232,185,156,0.5)]');
+    alert("Duo Question Unmasked: 'What memory of ours still keeps you awake at 2 AM?' (Vanishing into smoke in 60 seconds)");
+    setTimeout(() => {
+      card.className = origBg;
+    }, 1000);
+  }
+</script>
+<script src="js/main.js"></script>
+</body></html>
