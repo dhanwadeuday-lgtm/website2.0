@@ -1,730 +1,527 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>SNICKYLINK — Two people. One connection. One thing that grows.</title>
+<meta name="description" content="A little world that only opens when two people show up. Connect. Play. Grow together. Join the SNICKYLINK waitlist for early access." />
+<meta name="keywords" content="SnickyLink, couples app, relationship app, daily challenges for couples, connect play grow together, couples waitlist" />
+<meta name="author" content="SNICKYLINK" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://snickylink.co/" />
 
-<!-- ===== Primary SEO ===== -->
-<title>SnickyLink — More Than a Chat. A Secret World for Two</title>
-<meta name="description" content="SnickyLink turns ordinary conversations into small shared experiences, challenges, and playful rituals — a secret little world built for two."/>
-<meta name="keywords" content="SnickyLink, couples app, relationship app, daily challenges for couples, couple activities, connection app, more than a chat"/>
-<meta name="author" content="SnickyLink"/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://www.snickylink.com/"/>
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://snickylink.co/" />
+<meta property="og:site_name" content="SNICKYLINK" />
+<meta property="og:title" content="SNICKYLINK — Two people. One connection. One thing that grows." />
+<meta property="og:description" content="A little world that only opens when two people show up. Connect. Play. Grow together." />
+<meta property="og:image" content="https://snickylink.co/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
-<!-- ===== Open Graph (Facebook, WhatsApp, LinkedIn, iMessage previews) ===== -->
-<meta property="og:type" content="website"/>
-<meta property="og:site_name" content="SnickyLink"/>
-<meta property="og:title" content="SnickyLink — More Than a Chat"/>
-<meta property="og:description" content="A secret little world for two. Small shared experiences, playful challenges, and rituals — one Snick at a time."/>
-<meta property="og:url" content="https://www.snickylink.com/"/>
-<meta property="og:image" content="https://www.snickylink.com/assets/bridge-couple.png"/>
-<meta property="og:image:width" content="1024"/>
-<meta property="og:image:height" content="1024"/>
-<meta property="og:locale" content="en_US"/>
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SNICKYLINK — Two people. One connection. One thing that grows." />
+<meta name="twitter:description" content="A little world that only opens when two people show up. Connect. Play. Grow together." />
+<meta name="twitter:image" content="https://snickylink.co/assets/og-image.jpg" />
 
-<!-- ===== Twitter / X Card ===== -->
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="SnickyLink — More Than a Chat"/>
-<meta name="twitter:description" content="A secret little world for two. Small shared experiences, playful challenges, and rituals — one Snick at a time."/>
-<meta name="twitter:image" content="https://www.snickylink.com/assets/bridge-couple.png"/>
+<!-- Theme / PWA -->
+<meta name="theme-color" content="#180a0f" />
+<link rel="manifest" href="/site.webmanifest" />
 
-<!-- ===== Theme + icons ===== -->
-<meta name="theme-color" content="#3A1620"/>
-<link rel="icon" href="assets/logo.png" type="image/png"/>
-<link rel="apple-touch-icon" href="assets/logo.png"/>
-
-<!-- ===== Structured data ===== -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "SnickyLink",
-  "url": "https://www.snickylink.com/",
-  "description": "SnickyLink turns ordinary conversations into small shared experiences, challenges, and playful rituals for couples — more than a chat.",
-  "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "iOS, Android",
-  "image": "https://www.snickylink.com/assets/bridge-couple.png",
-  "slogan": "More than a chat."
-}
-</script>
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SNICKYLINK",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "iOS, Android, Web",
+  "description": "A little world that only opens when two people show up. Connect. Play. Grow together.",
+  "url": "https://snickylink.co/",
+  "image": "https://snickylink.co/assets/og-image.jpg",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/PreOrder"
+  }
+}
+</script>
 </head>
 <body>
 
-<div class="grain"></div>
-
-<!-- NAV -->
-<nav class="top" id="topnav">
-  <div class="logo"><img src="assets/logo.png" alt="Snickylink" class="logo-mark"/> Snickylink</div>
-  <div class="status">
-    <div class="pair" id="pair-status"><span class="d1"></span><span class="d2"></span> <span id="pair-label">1 of 2 · waiting</span></div>
-  </div>
-  <button class="nav-cta" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?usp=header','_blank')">Join the waitlist →</button>
-</nav>
-
-<!-- ============= 01 HERO ============= -->
-<section class="hero" data-screen-label="01 Hero">
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <div class="eyebrow">SNICKYLINK · EST. FOR TWO</div>
-      <h1>More than<br/>a <em>chat</em>.<br/>A secret little<br/>world for <em>two</em>.</h1>
-      <p class="sub">Some things are better when both of you show up.</p>
-      <p class="tag">Snickylink turns ordinary conversations into small shared experiences, challenges, memories and playful rituals — one Snick at a time.</p>
-      <div class="hero-cta-row">
-        <button class="btn-primary" onclick="document.getElementById('snicks').scrollIntoView({behavior:'smooth'})">
-          Peek inside <span class="arrow">→</span>
-        </button>
-        <button class="btn-ghost" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?usp=header','_blank')">
-          Join the waitlist 🫶
-        </button>
-      </div>
+<!-- ============ FIXED ROSE STAGE ============ -->
+<div class="stage" id="stage" aria-hidden="true">
+  <div class="stage-cam" id="cam">
+    <div class="helix" id="helix"></div>
+    <div class="rose-wrap" id="rose">
+      <!-- rose svg injected here -->
     </div>
-
-    <div class="hero-stage" id="hero-stage">
-      <div class="whisper">move your cursor · feel the thread</div>
-      <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <radialGradient id="youGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#E8B99C" stop-opacity="1"/>
-            <stop offset="40%" stop-color="#B8654A" stop-opacity=".8"/>
-            <stop offset="100%" stop-color="#6B2B3C" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="themGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#E8B99C" stop-opacity=".9"/>
-            <stop offset="40%" stop-color="#B8654A" stop-opacity=".6"/>
-            <stop offset="100%" stop-color="#6B2B3C" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="threadGrad" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0%" stop-color="#6B2B3C"/>
-            <stop offset="50%" stop-color="#E8B99C"/>
-            <stop offset="100%" stop-color="#6B2B3C"/>
-          </linearGradient>
-          <filter id="softGlow"><feGaussianBlur stdDeviation="8"/></filter>
-        </defs>
-        <!-- ambient orbits -->
-        <circle cx="150" cy="300" r="180" fill="none" stroke="rgba(107,43,60,.08)" stroke-dasharray="2 6"/>
-        <circle cx="350" cy="300" r="180" fill="none" stroke="rgba(107,43,60,.08)" stroke-dasharray="2 6"/>
-        <!-- glows -->
-        <circle id="youGlow" cx="150" cy="300" r="90" fill="url(#youGrad)" opacity=".6" filter="url(#softGlow)"/>
-        <circle id="themGlow" cx="350" cy="300" r="70" fill="url(#themGrad)" opacity=".25" filter="url(#softGlow)"/>
-        <!-- thread -->
-        <path id="thread" d="M 150 300 Q 250 300 350 300" fill="none" stroke="url(#threadGrad)" stroke-width="1.2" opacity=".5"/>
-        <path id="thread2" d="M 150 300 Q 250 300 350 300" fill="none" stroke="#E8B99C" stroke-width="0.4" opacity=".3" stroke-dasharray="1 8"/>
-        <!-- dots -->
-        <circle id="youDot" cx="150" cy="300" r="8" fill="#6B2B3C"/>
-        <circle id="themDot" cx="350" cy="300" r="6" fill="none" stroke="#8a6a6f" stroke-width="1.5"/>
-        <!-- floating symbols -->
-        <text x="250" y="120" text-anchor="middle" font-size="18" fill="#B8654A" opacity=".4">✦</text>
-        <text x="120" y="180" font-size="14" fill="#B8654A" opacity=".3">✦</text>
-        <text x="380" y="200" font-size="12" fill="#B8654A" opacity=".3">✦</text>
-        <text x="250" y="450" text-anchor="middle" font-size="14" fill="#B8654A" opacity=".3">🫶</text>
-      </svg>
-      <div class="label you">● YOU</div>
-      <div class="label them">○ YOUR PERSON</div>
-    </div>
-  </div>
-</section>
-
-<!-- Marquee -->
-<div class="marquee">
-  <div class="marquee-track">
-    <span>notice 👀<span class="dot"></span>play 🎈<span class="dot"></span>create 📸<span class="dot"></span>ask something real 💭<span class="dot"></span>mystery ✨<span class="dot"></span>show up 🫶<span class="dot"></span>connect 🔐<span class="dot"></span>grow 🌱<span class="dot"></span></span>
-    <span>notice 👀<span class="dot"></span>play 🎈<span class="dot"></span>create 📸<span class="dot"></span>ask something real 💭<span class="dot"></span>mystery ✨<span class="dot"></span>show up 🫶<span class="dot"></span>connect 🔐<span class="dot"></span>grow 🌱<span class="dot"></span></span>
+    <div class="particles" id="particles"></div>
+    <div class="dof-veil"></div>
   </div>
 </div>
 
-<!-- ============= 02 BLURRED SNICKS ============= -->
-<section class="snicks" id="snicks" data-screen-label="02 Blurred Snicks">
-  <div class="snicks-inner">
-    <div class="section-head">
-      <h2>Something is <em>hidden</em> behind each of these.</h2>
-      <div class="head-right">
-        <strong>Snicks</strong> are tiny shared experiences — noticings, plays, creations, questions. Each one opens only when both of you show up. You can look. You cannot spoil.
-      </div>
-    </div>
-
-    <div class="snick-grid" id="snick-grid">
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 01</div>
-            <div class="tag">👀 NOTICE</div>
-          </div>
-          <div class="body">
-            <div class="title">Find one little thing about them you—</div>
-            <div class="desc">Something you've never mentioned. Not the obvious.</div>
-          </div>
-          <div class="glyph">👁</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">nice try 👀</span></div>
-      </div>
-
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 02</div>
-            <div class="tag">🎈 PLAY</div>
-          </div>
-          <div class="body">
-            <div class="title">Make them laugh in under—</div>
-            <div class="desc">You have 30 seconds. Voice note only.</div>
-          </div>
-          <div class="glyph">🎈</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">need two for this one</span></div>
-      </div>
-
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 03</div>
-            <div class="tag">📸 CREATE</div>
-          </div>
-          <div class="body">
-            <div class="title">Take a photo of what you see—</div>
-            <div class="desc">Same moment. Two windows. One memory.</div>
-          </div>
-          <div class="glyph">📸</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">bring your person</span></div>
-      </div>
-
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 04</div>
-            <div class="tag">💭 ASK</div>
-          </div>
-          <div class="body">
-            <div class="title">The one question you never—</div>
-            <div class="desc">You'll both answer at the same time. No peeking.</div>
-          </div>
-          <div class="glyph">💭</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">nice try 👀</span></div>
-      </div>
-
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 05</div>
-            <div class="tag">🌙 LATE NIGHT</div>
-          </div>
-          <div class="body">
-            <div class="title">A confession you can only—</div>
-            <div class="desc">Unlocks after 11pm. Only tonight.</div>
-          </div>
-          <div class="glyph">🌙</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">need two for this one</span></div>
-      </div>
-
-      <div class="snick-card locked" data-snick>
-        <div class="blur-content">
-          <div class="top">
-            <div class="num">SNICK · 06</div>
-            <div class="tag">✨ MYSTERY</div>
-          </div>
-          <div class="body">
-            <div class="title">████ ██ ████████████—</div>
-            <div class="desc">████ ████ ██████ ████ ██████.</div>
-          </div>
-          <div class="glyph">✨</div>
-        </div>
-        <div class="lock-badge"><span>🔒 Locked for two</span><span class="peek">you'll know when you get there</span></div>
-      </div>
-    </div>
-
-    <p class="snick-hint">There are <em>47 more</em> waiting. Some only unlock past midnight. Some only for couples with a 30-day streak.</p>
+<!-- ============ TOP RAIL ============ -->
+<header class="rail">
+  <div class="rail-brand">
+    <img src="/assets/logo-icon.png" alt="SNICKYLINK logo" class="brand-logo" width="28" height="28" />
+    <span class="wm">SNICKYLINK</span>
   </div>
-</section>
+  <div class="rail-progress" aria-hidden="true">
+    <span class="rp-label" id="chapterLabel">SEED</span>
+    <span class="rp-bar"><i id="railBar"></i></span>
+    <span class="rp-pct" id="railPct">00</span>
+  </div>
+  <div class="rail-status">
+    <span class="dot dot-you" id="dotYou" title="YOU"></span>
+    <span class="thread" id="thread"></span>
+    <span class="dot dot-them" id="dotThem" title="YOUR PERSON"></span>
+  </div>
+</header>
 
-<!-- ============= 03 PAIR UNLOCK ============= -->
-<section class="pair-section" id="pair" data-screen-label="03 Pair Unlock">
-  <div class="pair-inner">
-    <div class="eyebrow" style="color:var(--peach);">THE 2-KEY LOCK</div>
-    <h2>Your Snicks are <em>waiting for both of you</em>.</h2>
-    <p class="lead">One person alone can look around. Nothing opens. That's the point — every Snick needs two keys to turn.</p>
+<!-- ============ SCROLL CONTENT ============ -->
+<main id="scroll">
 
-    <div class="pair-stage">
-      <div class="person-card" id="pc-you">
-        <div class="avatar">Y</div>
-        <div class="label">● You</div>
-        <div class="status">Connected</div>
-      </div>
+  <!-- CH 01 · SEED ................................................... -->
+  <section class="ch ch-seed" data-chapter="SEED" data-side="center">
+    <div class="pane center">
+      <p class="micro">CH · 01</p>
+      <h1 class="display">
+        Everything starts <em>small.</em>
+      </h1>
+      <p class="lede">Even a connection.</p>
 
-      <div class="thread-wrap" id="thread-wrap">
-        <svg viewBox="0 0 220 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="pairThread" x1="0" x2="1">
-              <stop offset="0%" stop-color="#6B2B3C" stop-opacity=".3"/>
-              <stop offset="50%" stop-color="#E8B99C" stop-opacity=".2"/>
-              <stop offset="100%" stop-color="#6B2B3C" stop-opacity=".3"/>
-            </linearGradient>
-            <linearGradient id="pairThreadOn" x1="0" x2="1">
-              <stop offset="0%" stop-color="#E8B99C"/>
-              <stop offset="50%" stop-color="#f5c9ad"/>
-              <stop offset="100%" stop-color="#E8B99C"/>
-            </linearGradient>
-          </defs>
-          <path id="pairPath" d="M 0 50 Q 110 50 220 50" fill="none" stroke="url(#pairThread)" stroke-width="1" stroke-dasharray="3 6"/>
-          <path id="pairPathOn" d="M 0 50 Q 110 50 220 50" fill="none" stroke="url(#pairThreadOn)" stroke-width="2" opacity="0" filter="drop-shadow(0 0 8px #E8B99C)"/>
-        </svg>
-        <button class="invite-btn" id="invite-btn">Send invite →</button>
-      </div>
-
-      <div class="person-card waiting" id="pc-them">
-        <div class="avatar">?</div>
-        <div class="label">○ Your person</div>
-        <div class="status">Waiting…</div>
-      </div>
-    </div>
-
-    <div class="pair-footer">
-      <div class="msg" id="pair-msg">One of you is here. The world stays closed until both show up.</div>
-      <div class="invite-link">snickylink.co/join/<span style="color:var(--peach);">A9K-2M</span><span class="copy" onclick="this.textContent='copied ✓'; setTimeout(()=>this.textContent='copy',1500)">copy</span></div>
-    </div>
-
-    <!-- Reveal on link -->
-    <div class="reveal-snick" id="reveal-snick">
-      <div>
-        <div class="rs-eyebrow">SNICK · 01 · NOTICE 👀</div>
-        <h3>Find one tiny thing about them that you genuinely love — and tell them.</h3>
-        <p>Not the obvious. Not the "you're beautiful". Something specific. The way they hold a fork. The pause before they laugh. The way they say your name when they're tired.</p>
-        <div class="rs-cta">
-          <button class="btn-primary peach">Do the Snick →</button>
-          <span class="status-line"><span class="pulse"></span> Waiting for both</span>
+      <div class="two-points">
+        <div class="two-point">
+          <span class="two-dot you"></span>
+          <span class="two-label">YOU</span>
+        </div>
+        <div class="two-thread incomplete"><i></i></div>
+        <div class="two-point">
+          <span class="two-dot them"></span>
+          <span class="two-label">YOUR&nbsp;PERSON</span>
         </div>
       </div>
-      <div class="rs-visual"></div>
-    </div>
-  </div>
-</section>
 
-<!-- ============= 04 MORE THAN A CHAT ============= -->
-<section class="chat-section" data-screen-label="04 More Than A Chat">
-  <div class="chat-inner">
-    <div class="chat-messages" id="chat-messages">
-      <div style="text-align:right;"><div class="chat-msg mine" data-chat>wyd</div></div>
-      <div style="text-align:left;"><div class="chat-msg theirs" data-chat>nothing</div></div>
-      <div style="text-align:right;"><div class="chat-msg mine" data-chat>same 😂</div></div>
-      <div style="text-align:left;"><div class="chat-msg theirs" data-chat>seen this?</div></div>
-      <div style="text-align:right;"><div class="chat-msg mine" data-chat>lol</div></div>
-      <div style="text-align:left;"><div class="chat-msg theirs" data-chat>k</div></div>
-      <div style="text-align:right;"><div class="chat-msg mine" data-chat>💀</div></div>
+      <p class="tiny drift">scroll ↓ to plant the first thing</p>
     </div>
-    <div class="chat-reveal" id="chat-reveal">
-      <div class="line1">You talk every day.</div>
-      <div class="line2">But when was the last time you actually <em>did</em> something together?</div>
-      <div class="line3">— that's where Snickylink begins.</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============= 05 CONNECTION GARDEN ============= -->
-<section class="garden-section" id="garden" data-screen-label="05 Connection Garden">
-  <div class="garden-inner">
-    <div class="garden-copy">
-      <div class="eyebrow">GROWTH · NOT GAMIFICATION</div>
-      <h2>Your connection is <em>alive</em>.</h2>
-      <p class="lead">Every Snick you complete together plants a little something. Skip a week and it still remembers. Show up and it grows — from seed to canopy.</p>
-      <div class="garden-stages" id="garden-stages">
-        <div class="stage" data-stage="0"><span class="icon">🌱</span><span class="name">Seed</span><span class="step">CONNECT</span></div>
-        <div class="stage" data-stage="1"><span class="icon">🌿</span><span class="name">First leaf</span><span class="step">1st SNICK</span></div>
-        <div class="stage" data-stage="2"><span class="icon">🌾</span><span class="name">Branches</span><span class="step">5 SNICKS</span></div>
-        <div class="stage" data-stage="3"><span class="icon">🌸</span><span class="name">Bloom</span><span class="step">7-DAY STREAK</span></div>
-        <div class="stage" data-stage="4"><span class="icon">🍑</span><span class="name">Fruit · memories</span><span class="step">30 SNICKS</span></div>
-        <div class="stage" data-stage="5"><span class="icon">🌳</span><span class="name">Full canopy</span><span class="step">MILESTONE</span></div>
-      </div>
+  <!-- CH 02 · WATER + STEM .......................................... -->
+  <section class="ch ch-water" data-chapter="WATER · STEM" data-side="left">
+    <div class="pane left">
+      <p class="micro">CH · 02 · WATER</p>
+      <h2 class="display">
+        A little <em>attention.</em>
+      </h2>
+      <p class="body">A single drop. That's how it begins.</p>
     </div>
+    <div class="pane right offset-down">
+      <p class="micro">CH · 02 · STEM</p>
+      <h2 class="display">
+        Things <em>grow</em> when you show up.
+      </h2>
+      <p class="body">One small moment at a time.</p>
+    </div>
+  </section>
 
-    <div class="garden-visual" id="garden-visual">
-      <div class="growth-label"><span style="width:6px;height:6px;border-radius:50%;background:var(--wine);"></span> growing · live</div>
-      <div class="growth-num" id="growth-num">01<sup>/06</sup></div>
-      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax meet">
-        <defs>
-          <linearGradient id="stem" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stop-color="#3A1620"/>
-            <stop offset="100%" stop-color="#6B2B3C"/>
-          </linearGradient>
-          <radialGradient id="petal" cx=".5" cy=".5" r=".5">
-            <stop offset="0%" stop-color="#E8B99C"/>
-            <stop offset="100%" stop-color="#B8654A"/>
-          </radialGradient>
-          <radialGradient id="glow" cx=".5" cy=".5" r=".5">
-            <stop offset="0%" stop-color="#E8B99C" stop-opacity=".5"/>
-            <stop offset="100%" stop-color="#E8B99C" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <!-- ground -->
-        <ellipse cx="200" cy="480" rx="140" ry="10" fill="rgba(58,22,32,.1)"/>
-        <!-- seed -->
-        <ellipse id="seed" cx="200" cy="470" rx="10" ry="5" fill="#3A1620"/>
-        <!-- glow behind -->
-        <circle id="bgGlow" cx="200" cy="350" r="0" fill="url(#glow)"/>
-        <!-- main stem -->
-        <path id="stemPath" d="M 200 470 Q 200 450 200 450" stroke="url(#stem)" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <!-- leaves group -->
-        <g id="leaves" opacity="0">
-          <path d="M 200 400 Q 170 380 150 390 Q 170 400 200 400" fill="#3A1620" opacity=".85"/>
-          <path d="M 200 360 Q 230 340 250 350 Q 230 360 200 360" fill="#3A1620" opacity=".85"/>
-        </g>
-        <!-- branches -->
-        <g id="branches" opacity="0">
-          <path d="M 200 320 Q 160 300 130 280" stroke="#3A1620" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M 200 320 Q 240 300 270 280" stroke="#3A1620" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M 200 280 Q 180 260 170 240" stroke="#3A1620" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M 200 280 Q 220 260 230 240" stroke="#3A1620" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <!-- side leaves -->
-          <path d="M 130 280 Q 110 270 100 280 Q 115 285 130 280" fill="#3A1620" opacity=".85"/>
-          <path d="M 270 280 Q 290 270 300 280 Q 285 285 270 280" fill="#3A1620" opacity=".85"/>
-        </g>
-        <!-- blooms -->
-        <g id="blooms" opacity="0">
-          <circle cx="130" cy="275" r="8" fill="url(#petal)"/>
-          <circle cx="270" cy="275" r="8" fill="url(#petal)"/>
-          <circle cx="170" cy="235" r="6" fill="url(#petal)"/>
-          <circle cx="230" cy="235" r="6" fill="url(#petal)"/>
-          <circle cx="200" cy="220" r="10" fill="url(#petal)"/>
-        </g>
-        <!-- fruit / glowing memories -->
-        <g id="fruit" opacity="0">
-          <circle cx="150" cy="300" r="5" fill="#E8B99C" filter="drop-shadow(0 0 6px #E8B99C)"/>
-          <circle cx="250" cy="300" r="5" fill="#E8B99C" filter="drop-shadow(0 0 6px #E8B99C)"/>
-          <circle cx="200" cy="250" r="4" fill="#E8B99C" filter="drop-shadow(0 0 6px #E8B99C)"/>
-        </g>
-        <!-- canopy -->
-        <g id="canopy" opacity="0">
-          <circle cx="200" cy="200" r="90" fill="#3A1620" opacity=".2"/>
-          <circle cx="160" cy="220" r="60" fill="#3A1620" opacity=".25"/>
-          <circle cx="240" cy="220" r="60" fill="#3A1620" opacity=".25"/>
-          <circle cx="200" cy="170" r="55" fill="#3A1620" opacity=".3"/>
-          <!-- little stars -->
-          <text x="140" y="180" fill="#E8B99C" font-size="10" opacity=".8">✦</text>
-          <text x="260" y="200" fill="#E8B99C" font-size="10" opacity=".8">✦</text>
-          <text x="200" y="140" fill="#E8B99C" font-size="12" opacity=".9">✦</text>
-        </g>
-        <!-- floating particles -->
-        <g id="particles">
-          <circle cx="120" cy="380" r="1.5" fill="#E8B99C" opacity=".4"><animate attributeName="cy" from="480" to="200" dur="8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.6;0" dur="8s" repeatCount="indefinite"/></circle>
-          <circle cx="280" cy="380" r="1.5" fill="#E8B99C" opacity=".4"><animate attributeName="cy" from="480" to="200" dur="10s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.6;0" dur="10s" repeatCount="indefinite"/></circle>
-          <circle cx="200" cy="380" r="1" fill="#E8B99C" opacity=".4"><animate attributeName="cy" from="470" to="180" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.6;0" dur="12s" repeatCount="indefinite"/></circle>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
+  <!-- CH 03 · FOUR SNICKS LOCKED ................................... -->
+  <section class="ch ch-locked" data-chapter="FOUR SNICKS · LOCKED" data-side="right">
+    <div class="pane center wide">
+      <p class="micro">CH · 03 · THE FOUR SNICKS</p>
+      <h2 class="display huge">
+        More than a chat.
+      </h2>
+      <p class="lede">A secret little world for two.</p>
 
-<!-- ============= 06 WORLDS ============= -->
-<section class="worlds-section" data-screen-label="06 Worlds">
-  <div class="worlds-inner">
-    <div class="worlds-head">
-      <h2>There's <em>more</em> to unlock.</h2>
-      <p class="desc">Every couple starts in the Glade. Where you go next depends entirely on how you show up together. Some worlds only open past a streak. Some only for those brave enough.</p>
-    </div>
-    <div class="worlds-grid">
-      <div class="world-card">
-        <div class="w-num">WORLD · 01</div>
-        <div class="w-icon">🌱</div>
-        <div class="w-name">Honeymoon Glade</div>
-        <div class="w-desc">Playful icebreakers, small moments, getting comfortable in the same room.</div>
-        <div class="w-progress"><span>OPEN NOW</span><span>12 SNICKS</span></div>
+      <div class="snicks-orbit" id="lockedOrbit">
+        <div class="snick-chip" data-i="1"><span class="ico">👀</span><b>NOTICE</b><i class="lock">🔒</i></div>
+        <div class="snick-chip" data-i="2"><span class="ico">🎈</span><b>PLAY</b><i class="lock">🔒</i></div>
+        <div class="snick-chip" data-i="3"><span class="ico">💭</span><b>CONNECT</b><i class="lock">🔒</i></div>
+        <div class="snick-chip" data-i="4"><span class="ico">📸</span><b>CREATE</b><i class="lock">🔒</i></div>
       </div>
-      <div class="world-card">
-        <div class="w-num">WORLD · 02</div>
-        <div class="w-icon">🪐</div>
-        <div class="w-name">Synchronous Orbit</div>
-        <div class="w-desc">Daily rituals, deeper check-ins, unmasking the unspoken things that live between two people.</div>
-        <div class="w-progress"><span>OPEN AT LVL 4</span><span>18 SNICKS</span></div>
-      </div>
-      <div class="world-card locked">
-        <div class="w-num">WORLD · 03</div>
-        <div class="w-icon">🔐</div>
-        <div class="w-name">Vulnerability Dungeon</div>
-        <div class="w-desc">████ ██████ ███████████. ████████████ ████████ ████ ██████ ████████.</div>
-        <div class="w-progress"><span>LOCKED</span><span>—</span></div>
-      </div>
-      <div class="world-card locked">
-        <div class="w-num">WORLD · 04</div>
-        <div class="w-icon">✨</div>
-        <div class="w-name">Celestial Resonance</div>
-        <div class="w-desc">████ ████ ██████ ████████. ████ ██████ ████████████.</div>
-        <div class="w-progress"><span>LOCKED</span><span>—</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============= 07 CHALLENGE ============= -->
-<section class="challenge-section" data-screen-label="07 Challenge">
-  <div class="challenge-inner">
-    <div class="eyebrow">THE CHALLENGE</div>
-    <h2>Can you two <em>actually</em> do this?</h2>
-    <div class="challenge-stats">
-      <div class="stat"><div class="n">7</div><div class="l">Days</div></div>
-      <div class="stat"><div class="n">2</div><div class="l">People</div></div>
-      <div class="stat"><div class="n">1</div><div class="l">Shared Streak</div></div>
-    </div>
-    <div class="challenge-list">
-      <div class="ci"><div class="emoji">👀</div><div class="txt">Notice something new.</div></div>
-      <div class="ci"><div class="emoji">😂</div><div class="txt">Make them laugh.</div></div>
-      <div class="ci"><div class="emoji">📸</div><div class="txt">Create a moment.</div></div>
-      <div class="ci"><div class="emoji">💭</div><div class="txt">Ask something real.</div></div>
-      <div class="ci"><div class="emoji">✨</div><div class="txt">Solve the mystery.</div></div>
-    </div>
-    <p style="font-family:var(--serif); font-style:italic; font-size:22px; color:var(--muted); margin-top:20px;">Miss a day — the streak resets. Show up together — the world opens wider.</p>
-  </div>
-</section>
+      <div class="couple-cta" id="coupleCta">
+        <p class="callout">TWO PEOPLE REQUIRED.</p>
+        <p class="body">Bring your person to unlock the Snicks.</p>
 
-<!-- ============= 08 LEADERBOARD ============= -->
-<section class="leader-section" data-screen-label="08 Leaderboard">
-  <div class="leader-inner">
-    <div class="leader-head">
-      <h2>Who's actually <em>showing up</em>?</h2>
-      <p class="desc">Not who talks the most. Not who posts the most. The couples who consistently, quietly, keep turning both keys.</p>
-    </div>
-
-    <div class="leader-table">
-      <div class="leader-row header">
-        <div class="rank">RANK</div>
-        <div></div>
-        <div>COUPLE</div>
-        <div>STREAK</div>
-        <div class="world-cell">WORLD</div>
-        <div style="text-align:right;">XP</div>
-      </div>
-      <div class="leader-row">
-        <div class="rank">01</div>
-        <div class="medal">🥇</div>
-        <div class="couple"><span class="initials">A + M</span><span class="badge">Chaos Duo</span></div>
-        <div class="streak">🔥 128 days</div>
-        <div class="world-cell">Celestial Resonance</div>
-        <div class="xp">18,420</div>
-      </div>
-      <div class="leader-row">
-        <div class="rank">02</div>
-        <div class="medal">🥈</div>
-        <div class="couple"><span class="initials">J + K</span><span class="badge">The Observers</span></div>
-        <div class="streak">🔥 96 days</div>
-        <div class="world-cell">Celestial Resonance</div>
-        <div class="xp">15,790</div>
-      </div>
-      <div class="leader-row">
-        <div class="rank">03</div>
-        <div class="medal">🥉</div>
-        <div class="couple"><span class="initials">S + R</span><span class="badge">Late Nighters</span></div>
-        <div class="streak">🔥 84 days</div>
-        <div class="world-cell">Vulnerability Dungeon</div>
-        <div class="xp">14,641</div>
-      </div>
-      <div class="leader-row">
-        <div class="rank">04</div>
-        <div class="medal">·</div>
-        <div class="couple"><span class="initials">D + L</span><span class="badge">Quiet Storms</span></div>
-        <div class="streak">🔥 61 days</div>
-        <div class="world-cell">Vulnerability Dungeon</div>
-        <div class="xp">11,208</div>
-      </div>
-      <div class="leader-row">
-        <div class="rank">05</div>
-        <div class="medal">·</div>
-        <div class="couple"><span class="initials">E + N</span><span class="badge">Slow Burners</span></div>
-        <div class="streak">🔥 44 days</div>
-        <div class="world-cell">Synchronous Orbit</div>
-        <div class="xp">9,442</div>
-      </div>
-      <div class="leader-row you">
-        <div class="rank">042</div>
-        <div class="medal">·</div>
-        <div class="couple"><span class="initials">You + Them</span><span class="badge">The Beginners</span></div>
-        <div class="streak">🔥 3 days</div>
-        <div class="world-cell">Honeymoon Glade</div>
-        <div class="xp">248</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============= 09 CONNECTION SCORE ============= -->
-<section class="score-section" data-screen-label="09 Connection Score">
-  <div class="score-inner">
-    <div class="score-copy">
-      <div class="eyebrow">SNICKYLINK SCORE</div>
-      <h2>How <em>in sync</em> are you two?</h2>
-      <p class="lead">Not a psychology test. Not a compatibility score. A playful little mirror that reflects how you actually show up — how often, how deeply, how playfully.</p>
-      <div class="caveat">✦ Just for fun. Not therapy.</div>
-    </div>
-
-    <div class="score-card" id="score-card">
-      <div class="sc-head">
-        <div>
-          <div class="sc-label">YOUR SNICKYLINK SCORE</div>
-          <div class="sc-couple">A + M · week 14</div>
+        <div class="dual-confirm" id="dualConfirm">
+          <button class="side-btn you" data-role="you" type="button">
+            <span class="side-dot"></span>
+            <span class="side-lbl">YOU</span>
+            <span class="side-hint">tap to arrive</span>
+          </button>
+          <div class="joiner"><i id="joinerLine"></i></div>
+          <button class="side-btn them" data-role="them" type="button">
+            <span class="side-dot"></span>
+            <span class="side-lbl">YOUR&nbsp;PERSON</span>
+            <span class="side-hint">tap to arrive</span>
+          </button>
         </div>
-        <div class="sc-date">SEP · 2026</div>
-      </div>
-      <div class="sc-big" id="bigScore">87<span class="out-of">/100</span></div>
-      <div class="sc-tag">"You two notice the little things."</div>
-      <div class="sc-metrics">
-        <div class="sc-metric" style="--v:.82;"><div class="m-label">Communication</div><div class="m-bar"><div class="fill"></div></div><div class="m-num">82</div></div>
-        <div class="sc-metric" style="--v:.91;"><div class="m-label">Play</div><div class="m-bar"><div class="fill"></div></div><div class="m-num">91</div></div>
-        <div class="sc-metric" style="--v:.79;"><div class="m-label">Effort</div><div class="m-bar"><div class="fill"></div></div><div class="m-num">79</div></div>
-        <div class="sc-metric" style="--v:.94;"><div class="m-label">Trust</div><div class="m-bar"><div class="fill"></div></div><div class="m-num">94</div></div>
-        <div class="sc-metric" style="--v:.85;"><div class="m-label">Emotional Sync</div><div class="m-bar"><div class="fill"></div></div><div class="m-num">85</div></div>
+
+        <p class="tiny drift" id="unlockedMsg" hidden>
+          <span>BOTH OF YOU ARE IN ✦</span> — Snicks are unlocking.
+        </p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============= 10 IG STORY GENERATOR ============= -->
-<section class="story-section" data-screen-label="10 IG Story Generator">
-  <div class="story-inner">
-    <div class="story-head">
-      <h2>Made to be <em>posted</em>.</h2>
-      <p class="desc">Every finished Snick makes a keepsake. A little 9:16 memory built for the story you'll actually share. Try it below — change the numbers, change the vibe.</p>
+  <!-- CH 04..07 · SNICKS · injected via template below -->
+  <section class="ch ch-snick" data-chapter="SNICK 01 · NOTICE" data-side="left" data-snick="1">
+    <div class="pane left">
+      <p class="micro">SNICK 01 · <b>NOTICE 👀</b></p>
+      <h2 class="display">
+        Find one tiny thing about them <em>you love</em> — and tell them.
+      </h2>
+      <p class="body">Not the obvious. The small one. The way they hold a cup.</p>
     </div>
+    <div class="pane right">
+      <div class="snick-card" data-snick="1">
+        <header>
+          <span class="tag">SNICK 01</span>
+          <span class="mono">+20 XP</span>
+        </header>
+        <div class="prompt">A tiny thing you love →</div>
+        <textarea class="notice-input" placeholder="e.g. the way they laugh at their own jokes" maxlength="140"></textarea>
+        <div class="dual-mini">
+          <button class="mini-btn" data-role="you" type="button"><i></i>YOU · done</button>
+          <button class="mini-btn" data-role="them" type="button"><i></i>YOUR PERSON · done</button>
+        </div>
+        <footer class="reveal" hidden>
+          <span class="mono">SNICK 01 · COMPLETE</span>
+          <b>🤍 &nbsp;The first bloom.</b>
+        </footer>
+      </div>
+    </div>
+  </section>
 
-    <div class="story-lab">
-      <div class="story-controls">
-        <h3>Design your card</h3>
-        <p class="sub">Live preview updates as you type.</p>
+  <section class="ch ch-snick" data-chapter="SNICK 02 · PLAY" data-side="right" data-snick="2">
+    <div class="pane right">
+      <p class="micro">SNICK 02 · <b>PLAY 🎈</b></p>
+      <h2 class="display">
+        Make each other laugh in <em>sixty seconds.</em>
+      </h2>
+      <p class="body">Ugly faces allowed. Especially ugly faces.</p>
+    </div>
+    <div class="pane left">
+      <div class="snick-card" data-snick="2">
+        <header>
+          <span class="tag">SNICK 02</span>
+          <span class="mono">+20 XP · STREAK +1</span>
+        </header>
+        <div class="prompt">60-second laugh timer →</div>
+        <button class="timer-btn" id="timerBtn" type="button">
+          <span class="t-lbl">START</span>
+          <span class="t-val" id="timerVal">01:00</span>
+        </button>
+        <div class="dual-mini">
+          <button class="mini-btn" data-role="you" type="button"><i></i>YOU · we laughed</button>
+          <button class="mini-btn" data-role="them" type="button"><i></i>YOUR PERSON · we laughed</button>
+        </div>
+        <footer class="reveal" hidden>
+          <span class="mono">SNICK 02 · COMPLETE</span>
+          <b>💛 &nbsp;The laugh.</b>
+        </footer>
+      </div>
+    </div>
+  </section>
 
-        <div class="form-two">
-          <div class="form-row">
-            <label>Your initial</label>
-            <input type="text" id="ini-a" maxlength="2" value="A"/>
+  <section class="ch ch-snick" data-chapter="SNICK 03 · CONNECT" data-side="left" data-snick="3">
+    <div class="pane left">
+      <p class="micro">SNICK 03 · <b>CONNECT 💭</b></p>
+      <h2 class="display">
+        Ask something you've <em>always wanted</em> to do together.
+      </h2>
+      <p class="body">Both answer in private. Then reveal at the same time.</p>
+    </div>
+    <div class="pane right">
+      <div class="snick-card" data-snick="3">
+        <header>
+          <span class="tag">SNICK 03</span>
+          <span class="mono">+20 XP</span>
+        </header>
+        <div class="prompt">Your secret answer →</div>
+        <input class="secret-you" type="text" placeholder="e.g. drive to the sea at 3am" maxlength="80" />
+        <div class="prompt">Their secret answer →</div>
+        <input class="secret-them" type="text" placeholder="e.g. learn to bake bread" maxlength="80" />
+        <div class="dual-mini">
+          <button class="mini-btn" data-role="you" type="button"><i></i>YOU · lock in</button>
+          <button class="mini-btn" data-role="them" type="button"><i></i>YOUR PERSON · lock in</button>
+        </div>
+        <footer class="reveal" hidden>
+          <span class="mono">SNICK 03 · COMPLETE</span>
+          <b>🌸 &nbsp;A little deeper.</b>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch ch-snick climax" data-chapter="SNICK 04 · CREATE" data-side="right" data-snick="4">
+    <div class="pane right">
+      <p class="micro">SNICK 04 · <b>CREATE 📸</b></p>
+      <h2 class="display">
+        Create one tiny <em>memory</em> together.
+      </h2>
+      <p class="body">A photo. A voice note. A song sent at midnight. The evidence that today happened.</p>
+    </div>
+    <div class="pane left">
+      <div class="snick-card climax-card" data-snick="4">
+        <header>
+          <span class="tag">SNICK 04 · FINAL</span>
+          <span class="mono">+20 XP · BLOOM PENDING</span>
+        </header>
+        <div class="prompt">Choose your tiny memory →</div>
+        <div class="chip-row" id="memoryPick">
+          <button class="chip" data-m="photo" type="button">📸 photo</button>
+          <button class="chip" data-m="voice" type="button">🎙 voice note</button>
+          <button class="chip" data-m="song" type="button">🎧 song</button>
+          <button class="chip" data-m="doodle" type="button">✎ doodle</button>
+        </div>
+        <div class="dual-mini">
+          <button class="mini-btn" data-role="you" type="button"><i></i>YOU · sent it</button>
+          <button class="mini-btn" data-role="them" type="button"><i></i>YOUR PERSON · sent it</button>
+        </div>
+        <footer class="reveal" hidden>
+          <span class="mono">SNICK 04 · COMPLETE</span>
+          <b>🌹 &nbsp;The one that stays.</b>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 08 · PAYOFF ................................................ -->
+  <section class="ch ch-payoff" data-chapter="THE BLOOM" data-side="center">
+    <div class="pane center">
+      <p class="micro">CH · 08 · WHAT GREW</p>
+      <h2 class="display huge">
+        Four small moments.
+        <br/><em>One thing that grew.</em>
+      </h2>
+      <p class="lede">You grew it together.</p>
+    </div>
+  </section>
+
+  <section class="ch ch-score" data-chapter="CONNECTION SCORE" data-side="left">
+    <div class="pane center wide">
+      <p class="micro">SNICKYLINK · CONNECTION</p>
+      <h2 class="display">How in-sync are you two?</h2>
+      <div class="score-big" id="scoreBig"><span id="scoreNum">0</span><i>/100</i></div>
+
+      <div class="meters">
+        <div class="meter" style="--v: 82"><span class="m-lbl">COMMUNICATION</span><span class="m-bar"><i></i></span><span class="m-val">82</span></div>
+        <div class="meter" style="--v: 91"><span class="m-lbl">PLAY</span><span class="m-bar"><i></i></span><span class="m-val">91</span></div>
+        <div class="meter" style="--v: 84"><span class="m-lbl">EFFORT</span><span class="m-bar"><i></i></span><span class="m-val">84</span></div>
+        <div class="meter" style="--v: 93"><span class="m-lbl">TRUST</span><span class="m-bar"><i></i></span><span class="m-val">93</span></div>
+        <div class="meter" style="--v: 85"><span class="m-lbl">EMOTIONAL SYNC</span><span class="m-bar"><i></i></span><span class="m-val">85</span></div>
+      </div>
+
+      <p class="tiny drift">a playful SNICKYLINK metric · not a scientific assessment</p>
+    </div>
+  </section>
+
+  <section class="ch ch-tag" data-chapter="COUPLE TAG" data-side="right">
+    <div class="pane center">
+      <p class="micro">YOUR COUPLE TAG</p>
+      <h2 class="tag-title">THE OBSERVER <span class="tag-emo">👀</span></h2>
+      <p class="lede italic">"You two notice the little things."</p>
+
+      <div class="tag-others" aria-hidden="true">
+        <span>THE CHAOS DUO 😂</span>
+        <span>THE SOFTIES 🫶</span>
+        <span>THE MIDNIGHTERS 🌙</span>
+        <span>THE ADVENTURERS ✨</span>
+        <span>THE UNSTOPPABLES 🔥</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch ch-story" data-chapter="STORY CARD" data-side="center">
+    <div class="pane center wide">
+      <p class="micro">SHARE · 9:16</p>
+      <h2 class="display">Your bloom, as a <em>story card.</em></h2>
+
+      <div class="story-wrap">
+        <div class="story-inputs">
+          <label>YOUR INITIALS
+            <input id="initA" type="text" value="A" maxlength="2" />
+          </label>
+          <label>THEIR INITIALS
+            <input id="initB" type="text" value="M" maxlength="2" />
+          </label>
+          <label>DATE
+            <input id="storyDate" type="date" />
+          </label>
+          <button id="dlStory" class="pill-cta" type="button">↓ &nbsp;Download PNG</button>
+        </div>
+
+        <div class="story-card" id="storyCard">
+          <div class="sc-top">
+            <span class="sc-mark">✦ SNICKYLINK</span>
+            <span class="sc-date" id="scDate">SEP · 2026</span>
           </div>
-          <div class="form-row">
-            <label>Their initial</label>
-            <input type="text" id="ini-b" maxlength="2" value="M"/>
+          <div class="sc-initials">
+            <span class="sc-A" id="scA">A</span>
+            <span class="sc-plus">+</span>
+            <span class="sc-B" id="scB">M</span>
           </div>
-        </div>
-
-        <div class="form-row">
-          <label>Couple tag</label>
-          <select id="tag-sel">
-            <option>The Observers</option>
-            <option selected>The Chaos Duo</option>
-            <option>The Late Nighters</option>
-            <option>The Slow Burners</option>
-            <option>The Quiet Storms</option>
-            <option>The Beginners</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <label>Snick title</label>
-          <input type="text" id="snick-title-in" value="The Observer"/>
-        </div>
-
-        <div class="slider-row">
-          <div class="sr-head"><span>Connection score</span><span class="val" id="score-val">87</span></div>
-          <input type="range" id="score-slider" min="60" max="100" value="87"/>
-        </div>
-
-        <div class="slider-row">
-          <div class="sr-head"><span>Snick number</span><span class="val" id="snick-val">07</span></div>
-          <input type="range" id="snick-slider" min="1" max="48" value="7"/>
-        </div>
-      </div>
-
-      <div class="story-preview-wrap">
-        <div class="story-card" id="story-card">
-          <div class="sc-brand">Snickylink</div>
-          <div class="sc-mid">
-            <div class="snick-lbl">SNICK · <span id="c-num">07</span></div>
-            <div class="snick-title" id="c-title">The Observer</div>
-            <div class="score-lbl">CONNECTION SCORE</div>
-            <div class="score-num" id="c-score">87</div>
-            <div class="quote">"You two notice<br/>the little things."</div>
+          <div class="sc-score">
+            <b>87</b>
+            <i>connection score</i>
           </div>
-          <div class="sc-foot">
-            <div class="couple" id="c-couple">A + M</div>
-            <div class="meta">
-              <div id="c-date">19 · SEP · 2026</div>
-              <div class="tag-line" id="c-tag">The Chaos Duo</div>
-            </div>
+          <div class="sc-tag">
+            <span class="sc-tag-name">THE OBSERVER 👀</span>
+            <span class="sc-tag-sub">"You two notice the little things."</span>
+          </div>
+          <div class="sc-blooms">
+            <span class="b-dot" style="background:#FBF4F1;border-color:#e5d9d0"></span>
+            <span class="b-arrow">→</span>
+            <span class="b-dot" style="background:#F2C94C"></span>
+            <span class="b-arrow">→</span>
+            <span class="b-dot" style="background:#F5B8C7"></span>
+            <span class="b-arrow">→</span>
+            <span class="b-dot big" style="background:#6B2B3C"></span>
+          </div>
+          <div class="sc-footline">
+            <span>4 SNICKS · 4 MOMENTS · 1 CONNECTION</span>
+            <span class="mono">CONNECT · PLAY · GROW</span>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============= 11 SHARE WALL ============= -->
-<section class="wall-section" data-screen-label="11 Share Wall">
-  <div class="wall-inner">
-    <div class="wall-head">
-      <div class="eyebrow">FROM THE FEED</div>
-      <h2>Real couples. <em>Actually posted.</em></h2>
+      <p class="tiny drift"><b>CREATE YOUR STORY →</b> &nbsp; SHARE YOUR BLOOM 🫶</p>
     </div>
-    <div class="wall-row r1" id="wall-r1"></div>
-    <div class="wall-row r2" id="wall-r2"></div>
-  </div>
-</section>
+  </section>
 
-<!-- ============= 12 FLEX ============= -->
-<section class="flex-section" data-screen-label="12 Flex">
-  <div class="flex-inner">
-    <h2>Go ahead.<br/><em>Flex your connection.</em></h2>
-    <div class="flex-stats-row">
-      <div class="flex-stat"><div class="n">A<span class="em">+</span>M</div><div class="l">Couple</div></div>
-      <div class="flex-stat"><div class="n">21<span class="em">🔥</span></div><div class="l">Day Streak</div></div>
-      <div class="flex-stat"><div class="n">18</div><div class="l">Level</div></div>
-      <div class="flex-stat"><div class="n">87</div><div class="l">Connection</div></div>
-      <div class="flex-stat"><div class="n">#42</div><div class="l">Global Rank</div></div>
+  <section class="ch ch-social" data-chapter="SOCIAL WAVE" data-side="left">
+    <div class="pane center wide">
+      <p class="micro">SOCIAL · YOUR FRIENDS ARE SHARING</p>
+      <h2 class="display">Blooms are <em>everywhere.</em></h2>
+      <div class="float-cards" id="floatCards">
+        <!-- floating IG-story minis -->
+      </div>
     </div>
-    <p class="whats-yours">What's yours?</p>
-  </div>
-</section>
+  </section>
 
-<!-- ============= 13 FINAL CTA ============= -->
-<section class="final-section" data-screen-label="13 Final CTA">
-  <div class="final-inner">
-    <div class="final-stage">
-      <svg viewBox="0 0 500 200" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <radialGradient id="fYou" cx=".5" cy=".5" r=".5">
-            <stop offset="0%" stop-color="#E8B99C"/>
-            <stop offset="60%" stop-color="#B8654A" stop-opacity=".5"/>
-            <stop offset="100%" stop-color="#6B2B3C" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="fThread" x1="0" x2="1">
-            <stop offset="0%" stop-color="#E8B99C"/>
-            <stop offset="50%" stop-color="#f5c9ad"/>
-            <stop offset="100%" stop-color="#E8B99C"/>
-          </linearGradient>
-        </defs>
-        <circle cx="120" cy="100" r="80" fill="url(#fYou)" opacity=".6"/>
-        <circle cx="380" cy="100" r="80" fill="url(#fYou)" opacity=".6"/>
-        <path d="M 120 100 Q 250 100 380 100" stroke="url(#fThread)" stroke-width="2" fill="none" opacity=".9" filter="drop-shadow(0 0 8px #E8B99C)"/>
-        <circle cx="120" cy="100" r="8" fill="#E8B99C"/>
-        <circle cx="380" cy="100" r="8" fill="#E8B99C"/>
-        <text x="250" y="60" text-anchor="middle" font-size="14" fill="#E8B99C" opacity=".6">✦</text>
-      </svg>
-      <div class="lbl l">● YOU</div>
-      <div class="lbl r">● THEM</div>
+  <section class="ch ch-worlds" data-chapter="FUTURE WORLDS" data-side="right">
+    <div class="pane center wide">
+      <p class="micro">CH · WORLDS</p>
+      <h2 class="display">Your rose has only just <em>started growing.</em></h2>
+
+      <div class="worlds">
+        <div class="world unlocked">
+          <span class="w-glyph">🌿</span>
+          <b>HONEYMOON GLADE</b>
+          <span class="w-state">UNLOCKED</span>
+        </div>
+        <div class="world">
+          <span class="w-glyph">🪐</span>
+          <b>SYNCHRONOUS ORBIT</b>
+          <span class="w-state">🔒 SOON</span>
+        </div>
+        <div class="world">
+          <span class="w-glyph">🕳</span>
+          <b>VULNERABILITY DUNGEON</b>
+          <span class="w-state">🔒 SOON</span>
+        </div>
+        <div class="world">
+          <span class="w-glyph">✧</span>
+          <b>CELESTIAL RESONANCE</b>
+          <span class="w-state">🔒 SOON</span>
+        </div>
+      </div>
     </div>
-    <h2>Some things are better<br/>when <em>both of you</em> show up.</h2>
-    <div class="final-cta-row">
-      <button class="btn-primary peach" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?usp=header','_blank')">Join the waitlist <span class="arrow">→</span></button>
-      <button class="btn-ghost on-dark" onclick="document.getElementById('pair').scrollIntoView({behavior:'smooth'})">Bring your person 🫶</button>
+  </section>
+
+  <section class="ch ch-board" data-chapter="LEADERBOARD" data-side="left">
+    <div class="pane center wide">
+      <p class="micro">WHO'S SHOWING UP</p>
+      <h2 class="display">Little world, <em>big streaks.</em></h2>
+
+      <ol class="board">
+        <li>
+          <span class="rank">🥇</span>
+          <span class="couple">A + M</span>
+          <span class="xp mono">1,842 XP</span>
+          <span class="streak">🔥 21</span>
+        </li>
+        <li>
+          <span class="rank">🥈</span>
+          <span class="couple">R + S</span>
+          <span class="xp mono">1,790 XP</span>
+          <span class="streak">🔥 17</span>
+        </li>
+        <li>
+          <span class="rank">🥉</span>
+          <span class="couple">K + P</span>
+          <span class="xp mono">1,641 XP</span>
+          <span class="streak">🔥 14</span>
+        </li>
+        <li class="you-row">
+          <span class="rank">✦</span>
+          <span class="couple">YOU + THEM</span>
+          <span class="xp mono">— XP</span>
+          <span class="streak">can you make the board?</span>
+        </li>
+      </ol>
     </div>
-    <div class="final-brand"><img src="assets/logo.png" alt="Snickylink" class="logo-mark"/> Snickylink</div>
-    <div class="final-tag">connect · play · grow together</div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div>© 2026 Snickylink · A little world for two</div>
-  <div>hello@snickylink.co · @snickylink</div>
-</footer>
+  <section class="ch ch-wait" data-chapter="WAITLIST" data-side="center">
+    <div class="pane center wide">
+      <p class="micro">CH · FINAL</p>
+      <h2 class="display huge">
+        Be there for the <em>next bloom.</em>
+      </h2>
+      <p class="lede">The first four Snicks were only the beginning.</p>
 
-<script src="site.js"></script>
+      <div class="waitlist-embed" id="waitEmbed">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform?embedded=true"
+          title="SNICKYLINK waitlist form"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+          Loading…
+        </iframe>
+      </div>
+      <p class="tiny drift wait-fallback">
+        Form not loading?
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform" target="_blank" rel="noopener">Open it in a new tab &nbsp;→</a>
+      </p>
+
+      <p class="tiny drift"><b>Bring your person.</b> We'll take it from there. 🫶</p>
+    </div>
+  </section>
+
+  <footer class="fin">
+    <span class="mark">✦</span>
+    <span class="mono">SNICKYLINK · 2026 · a little world for two</span>
+  </footer>
+
+</main>
+
+<!-- ============ HUD ============ -->
+<aside class="hud" id="hud" hidden>
+  <div class="hud-row"><span class="mono">XP</span><b id="hudXp">0</b></div>
+  <div class="hud-row"><span class="mono">SNICKS</span><b id="hudSnicks">0<i>/4</i></b></div>
+  <div class="hud-row"><span class="mono">STREAK</span><b id="hudStreak">0 🔥</b></div>
+</aside>
+
+<script src="rose.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,75 +1,39 @@
-# SnickyLink — website (Vercel-ready)
+# SNICKYLINK — Landing Page
 
-Plain static HTML/CSS/JS. No build step, nothing to install.
+Static site, no build step needed. Ready to deploy on Vercel.
 
-## What changed from your upload
-Your file `SNICKYLINK.html` was renamed to **`index.html`** — Vercel (and every static
-host) needs a file with that exact name at the project root to know what to
-serve at `/`. Everything else (`styles.css`, `site.js`, `assets/`) is untouched
-and still linked correctly. The `.srcmap.json` and `.thumbnail.jpg` files from
-your export weren't needed for the live site, so they were left out.
+## What's included
+- `index.html`, `styles.css`, `app.js`, `rose.js` — the site
+- `assets/` — logo, favicons, app icons, and the social-share image (generated from your uploaded logo)
+- `site.webmanifest` — PWA manifest
+- `robots.txt`, `sitemap.xml` — SEO
+- `vercel.json` — caching + security headers for Vercel
 
 ## Deploy to Vercel
-
-**Option A — Vercel dashboard (drag & drop, no CLI)**
-1. Go to vercel.com → **Add New → Project**
-2. Choose **"Deploy without Git"** and drag this folder's contents (or the
-   unzipped folder) onto the page
-3. Framework preset: **Other**. Leave the build command and output directory
-   empty
-4. Click **Deploy**
-
-**Option B — Vercel CLI**
+**Option A — Vercel CLI**
 ```
 npm i -g vercel
-cd snickylink-project
+cd <this folder>
 vercel
 ```
-Accept the defaults (no build step needed) and it goes live.
+Follow the prompts (any framework preset — it's picked up as a static site automatically).
 
-## Local preview
-Open `index.html` directly in a browser, or serve it locally:
-```
-cd snickylink-project
-python3 -m http.server 8080
-```
-then visit http://localhost:8080
+**Option B — Vercel Dashboard**
+1. Push this folder to a GitHub repo.
+2. Go to vercel.com → **Add New Project** → import the repo.
+3. Framework preset: **Other** (static). No build command / output directory needed.
+4. Deploy.
 
-## Structure
-```
-index.html
-styles.css
-site.js
-assets/bridge-couple.png
-vercel.json
-robots.txt
-sitemap.xml
-```
+## Before you go live
+1. **Domain**: the meta tags (`og:url`, `canonical`, `sitemap.xml`) are set to `https://snickylink.co/`. Update every occurrence to your real domain once you have one (find-and-replace `snickylink.co`), or update after connecting your custom domain on Vercel.
+2. **Waitlist form**: the waitlist section embeds your Google Form directly:
+   `https://docs.google.com/forms/d/e/1FAIpQLSfpvXYWIAXUl2ggcyJYrHn5ZOgUr8Z3Xm-Sjvn4GtPEJkLUug/viewform`
+   Responses land in the linked Google Sheet the same way they would on the form's own page. If you ever change the form, swap the URL in the `<iframe>` and the fallback link in `index.html` (search for `docs.google.com/forms`).
+3. **Search Console**: once live, submit `https://yourdomain.com/sitemap.xml` in Google Search Console for faster indexing.
 
-## Note
-Fonts (Instrument Serif, Inter, JetBrains Mono) load from Google Fonts at
-runtime, so the deployed site needs internet — which any Vercel visitor will
-have. Everything else is self-contained.
-
-## SEO — what was added
-- **Meta description, keywords, robots tag** in `<head>`
-- **Open Graph + Twitter Card tags** so links preview nicely on WhatsApp,
-  iMessage, Facebook, LinkedIn, X/Twitter — uses `assets/bridge-couple.png`
-  as the preview image
-- **JSON-LD structured data** (`MobileApplication` schema) so Google can
-  understand what SnickyLink is
-- **Canonical URL, theme-color, favicon**
-- **`robots.txt`** and **`sitemap.xml`** at the root
-
-### ⚠️ One thing you must do before this fully works
-Every one of those tags currently points at `https://www.snickylink.com/` as
-a placeholder, since the domain isn't registered yet. Once you register the
-real domain and it's live on Vercel:
-1. Open `index.html` and replace every `https://www.snickylink.com` with
-   your actual domain (search for it — it appears ~8 times: canonical, og:url,
-   og:image, twitter:image, and the JSON-LD block)
-2. Do the same in `robots.txt` and `sitemap.xml`
-3. Re-deploy
-
-Until then the site works fine — link previews and the sitemap will just
-point at a placeholder domain rather than your live one.
+## SEO already set up
+- Title, meta description, keywords
+- Open Graph + Twitter Card tags (with the generated `assets/og-image.jpg`)
+- JSON-LD structured data (`SoftwareApplication`)
+- `robots.txt` + `sitemap.xml`
+- Favicons + app icons for all major sizes + web manifest
