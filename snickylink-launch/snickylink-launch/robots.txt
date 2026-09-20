@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://snickylink.co/sitemap.xml
+Sitemap: https://www.snickylink.com//sitemap.xml
