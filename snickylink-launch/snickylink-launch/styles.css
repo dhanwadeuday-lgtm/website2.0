@@ -71,6 +71,19 @@ nav.top .logo .dot{
   background:var(--wine);
   box-shadow:0 0 12px var(--wine);
 }
+.logo-mark{
+  width:32px; height:32px;
+  border-radius:50%;
+  object-fit:cover;
+  display:inline-block;
+  vertical-align:middle;
+}
+.final-brand{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.final-brand .logo-mark{
+  width:40px; height:40px;
+}
 nav.top .status{
   font-family:var(--mono);
   font-size:11px;
