@@ -5,7 +5,7 @@
 import { journey, CH } from './journey.js';
 import { clamp, smoothstep } from './util.js';
 import { CHECKPOINTS } from './tokens.js';
-import { buildOverlay } from './chapters.js';
+import { buildOverlay, flash } from './chapters.js';
 
 export function initOverlay(overlay, ui) {
   const chapters = buildOverlay(overlay, ui); // overlay = story layers, ui = DOM acts
@@ -103,42 +103,92 @@ export function initOverlay(overlay, ui) {
   });
 
   // ── duo code: generate + copy ─────────────────────────────────────────
+  const pairStep1 = overlay.querySelector('#pairStep1');
+  const pairStep2 = overlay.querySelector('#pairStep2');
+  const pairName = overlay.querySelector('#pairName');
+  const pairEmail = overlay.querySelector('#pairEmail');
+  const pairBtn = overlay.querySelector('#pairBtn');
+  const pairErr = overlay.querySelector('#pairErr');
   const duoCode = overlay.querySelector('#duoCode');
-  const duoGen = overlay.querySelector('#duoGen');
   const duoCopy = overlay.querySelector('#duoCopy');
-  duoGen?.addEventListener('click', () => {
-    if (duoCode.dataset.set) return;
-    const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-    const code = Array.from({ length: 4 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join('');
-    duoCode.textContent = code.split('').join(' ');
-    duoCode.dataset.set = '1';
-    duoGen.textContent = 'YOUR CODE';
-    duoGen.disabled = true;
+  const showPairErr = (msg) => {
+    if (!pairErr) return;
+    pairErr.hidden = false;
+    pairErr.textContent = msg;
+  };
+  pairBtn?.addEventListener('click', () => {
+    const email = (pairEmail?.value || '').trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showPairErr('A real email, please — it\u2019s how your person finds you.');
+      pairEmail?.focus();
+      return;
+    }
+    journey.startPairing(email, pairName?.value || 'A');
+    duoCode.textContent = journey.duoCode.split('').join(' ');
+    if (pairStep1) pairStep1.hidden = true;
+    if (pairStep2) pairStep2.hidden = false;
+    duoCopy?.focus({ preventScroll: true });
   });
+  pairEmail?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); pairBtn?.click(); } });
+  pairName?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); pairEmail?.focus(); } });
   duoCopy?.addEventListener('click', async () => {
     const code = (duoCode?.textContent || '').replace(/\s/g, '');
-    if (!code || code === '····') { duoGen?.click(); return; }
+    if (!code || code === '····') return;
     try { await navigator.clipboard.writeText(code); duoCopy.textContent = 'COPIED ✦'; }
     catch { duoCopy.textContent = code; }
-    setTimeout(() => { duoCopy.textContent = 'COPY'; }, 1800);
+    setTimeout(() => { duoCopy.textContent = 'COPY CODE'; }, 1800);
   });
 
   // ── join: the first real unlock ─────────────────────────────────────────
   const joinBtn = overlay.querySelector('#joinBtn');
   const demoBtn = overlay.querySelector('#demoJoin');
+  const refreshIdentity = () => {    const paired = !journey.isObserver;
+    const obsScore = document.getElementById('scoreObserver');
+    const pairedScore = document.getElementById('scorePaired') ;
+    const obsStory = document.getElementById('storyObserver');
+    const pairedStory = document.getElementById('storyPaired');
+    if (obsScore) obsScore.hidden = paired;
+    if (pairedScore) pairedScore.hidden = !paired;
+    if (obsStory) obsStory.hidden = paired;
+    if (pairedStory) pairedStory.hidden = !paired;
+    if (paired) {
+      const si = document.getElementById('scInitials'); if (si) si.textContent = journey.initials;
+      const st = document.getElementById('scTag'); if (st) st.textContent = journey.tag;
+      const sq = document.getElementById('scQuote'); if (sq) sq.textContent = `"${journey.tagline}"`;
+      const ss = document.getElementById('scScore'); if (ss) ss.textContent = String(journey.score);
+    }
+  };
   const doJoin = () => {
     if (journey.joined) return;
-    journey.joinPartner();
+    journey.confirmJoin();
     journey.raw = Math.min(journey.raw, 0.168); // hold the moment briefly
-    joinBtn.textContent = '✦ YOUR PERSON IS ON THE PATH';
-    joinBtn.disabled = true;
+    if (joinBtn) { joinBtn.textContent = '✦ YOUR PERSON IS ON THE PATH'; joinBtn.disabled = true; }
     if (demoBtn) demoBtn.hidden = true;
     document.body.classList.add('joined');
+    refreshIdentity();
     announce(['BOTH OF YOU ARE IN. ✦', 'THE WORLD CAN BEGIN.'], 3400);
     window.__sl?.world?.fx?.joinPulse?.();
   };
-  joinBtn.addEventListener('click', doJoin);
+  joinBtn?.addEventListener('click', doJoin);
   demoBtn?.addEventListener('click', doJoin);
+  refreshIdentity();
+  // restored pairing state (reload mid-story) reopens the code step
+  if (journey.pairState === 'paired' && duoCode) {
+    duoCode.textContent = journey.duoCode.split('').join(' ');
+    if (pairStep1) pairStep1.hidden = true;
+    if (pairStep2) pairStep2.hidden = false;
+  }
+  document.getElementById('obsBring')?.addEventListener('click', () => {
+    document.body.classList.remove('in-dom');
+    journey.jumpTo(0.14);
+  });
+  document.getElementById('finalBring')?.addEventListener('click', () => {
+    document.body.classList.remove('in-dom');
+    journey.jumpTo(0.14);
+  });
+  document.getElementById('nextWorld')?.addEventListener('click', () => {
+    flash('The next world opens when the map grows. 🗝️');
+  });
 
   // ── progress rail (right edge) — checkpoint dots ───────────────────────
   const rail = document.createElement('div');
@@ -172,6 +222,29 @@ export function initOverlay(overlay, ui) {
   const chapterMeta = chapters;
   let activeId = null;
   const flags = { join: false, cp1: false, arena: false, board: false, next: false, finale: false };
+
+  // ── DOM acts: reveal-on-scroll + card tilt (Nova-style motion) ──────
+  const actEls = document.querySelectorAll('#dom-acts .act');
+  actEls.forEach((el) => el.classList.add('rv'));
+  if ('IntersectionObserver' in window) {
+    const rvIO = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); rvIO.unobserve(e.target); }
+      }
+    }, { threshold: 0.16 });
+    actEls.forEach((el) => rvIO.observe(el));
+  } else actEls.forEach((el) => el.classList.add('in'));
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.snick-live').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(900px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
 
   function frame() {
     const p = journey.p;

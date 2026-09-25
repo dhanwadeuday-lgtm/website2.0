@@ -64,6 +64,18 @@ try {
   const savedJoined = sessionStorage.getItem('sl-joined') === '1';
   savedDone.forEach((d, i) => { if (d) journey.done[i] = true; });
   if (savedJoined) { journey.joined = true; document.body.classList.add('joined'); }
+  const pair = JSON.parse(sessionStorage.getItem('sl-pair') || 'null');
+  if (pair) {
+    journey.pairState = pair.pairState || 'unpaired';
+    journey.yourEmail = pair.yourEmail || '';
+    journey.duoCode = pair.duoCode || '';
+    journey.yourName = pair.yourName || 'A';
+    journey.partnerName = pair.partnerName || 'M';
+    if (journey.joined) {
+      journey.pairState = 'joined';
+      journey.initials = `${journey.yourName} + ${journey.partnerName}`;
+    }
+  }
 } catch { /* fresh */ }
 
 // persist completion state (session only)
@@ -72,6 +84,10 @@ setInterval(() => {
     sessionStorage.setItem('sl-progress', String(journey.raw / 0.985));
     sessionStorage.setItem('sl-done', JSON.stringify(journey.done));
     sessionStorage.setItem('sl-joined', journey.joined ? '1' : '0');
+    sessionStorage.setItem('sl-pair', JSON.stringify({
+      pairState: journey.pairState, yourEmail: journey.yourEmail,
+      duoCode: journey.duoCode, yourName: journey.yourName, partnerName: journey.partnerName,
+    }));
   } catch { /* private mode */ }
 }, 2500);
 

@@ -24,20 +24,39 @@ export const CH = {
   board:   [0.825, 0.870],  // flex board teaser (honest sample)
   next:    [0.870, 0.930],  // fogged future worlds
   finale:  [0.930, 0.985],  // wide pull-back over the traveled path
-};
-
-export class Journey {
+};export class Journey {
   constructor() {
     this.p = 0;          // smoothed progress
-    this.raw = 0;        // raw scroll target
+    this.raw = 0;        // raw gate of the story
     this.vel = 0;
     this.done = [false, false, false, false];  // checkpoint completion (real interactions only)
     this.joined = false; // partner joined (real interaction)
+    this.pairState = 'unpaired'; // unpaired → paired → joined (email+code connect flow)
+    this.yourEmail = '';
+    this.duoCode = '';
+    this.partnerEmail = '';
+    this.yourName = 'A';
+    this.partnerName = 'M';
     this.score = 87;
     this.tag = 'THE OBSERVER 👀';
     this.tagline = 'You two notice the little things.';
     this.initials = 'A + M';
     this.onCompleteCallbacks = [];
+  }
+
+  // ── PAIRING — email + duo code. Snicks open only after this. ────────────
+  startPairing(email, name = 'A') {
+    this.yourEmail = String(email || '').trim();
+    this.yourName = String(name || 'A').trim().slice(0, 12) || 'A';
+    this.pairState = 'paired';
+    const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    this.duoCode = Array.from({ length: 4 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join('');
+  }
+  confirmJoin() {
+    this.joined = true;
+    this.pairState = 'joined';
+    this.partnerName = (this.partnerName === 'A' ? 'M' : this.partnerName);
+    this.initials = `${this.yourName} + ${this.partnerName}`;
   }
 
   chapterProgress(name) {
@@ -62,6 +81,10 @@ export class Journey {
 
   // Number of checkpoints lit — drives rail dots and announcements.
   litCount() { return this.done.filter(Boolean).length; }
+
+  // Observer mode: connected visitors get a real couple tag; solo visitors
+  // stay THE OBSERVER until their person steps in.
+  get isObserver() { return !this.joined; }
 
   // ── SHARED XP — belongs to the couple, not individuals ────────────────────
   get xp() { return this.done.filter(Boolean).length * 20; }

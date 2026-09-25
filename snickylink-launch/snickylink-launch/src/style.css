@@ -527,3 +527,74 @@ body.joined .hud-players { color: var(--peach); opacity: 0.85; text-shadow: 0 0 
   .world-notice, .hud { transition: opacity 0.3s ease !important; }
   .tw-revealed.unmask .tw-col { animation: none !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   PAIRING FLOW + NOVA-STYLE MOTION (marquee bands, reveals, tilt)
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* pairing form */
+.pair-step { display: flex; flex-direction: column; gap: 12px; }
+.pair-step input {
+  background: rgba(251,244,241,0.05); border: 1px solid rgba(232,185,156,0.28);
+  border-radius: 12px; padding: 15px 18px; color: var(--blush);
+  font: 400 14px 'Inter'; outline: none; transition: border-color 0.3s, background 0.3s;
+}
+.pair-step input:focus { border-color: var(--peach); background: rgba(251,244,241,0.08); }
+.pair-step input::placeholder { color: rgba(251,244,241,0.35); }
+.pair-step .cta { margin-top: 6px; }
+.duo-note { margin-top: 14px; font-size: 11.5px; line-height: 1.6; opacity: 0.6; }
+.pair-err {
+  margin-top: 10px; font-size: 12.5px; line-height: 1.5;
+  color: var(--blush); background: rgba(184,101,74,0.18);
+  border: 1px solid rgba(184,101,74,0.45); border-radius: 10px; padding: 10px 14px;
+}
+
+/* marquee bands — the palette worn loudly */
+.marquee { position: relative; overflow: hidden; width: 104vw; margin-left: -2vw; padding: 16px 0; }
+.marquee-track { display: flex; gap: 30px; width: max-content; animation: marquee 28s linear infinite; }
+.marquee-track span {
+  font-family: 'Fraunces', serif; font-weight: 560; white-space: nowrap;
+  font-size: clamp(1.05rem, 2.4vw, 1.7rem); letter-spacing: 0.2em;
+}
+.marquee-track i { font-style: normal; opacity: 0.55; display: grid; place-items: center; font-size: 0.85em; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.peach-band {
+  background: linear-gradient(90deg, var(--peach), var(--blush) 50%, var(--peach));
+  color: var(--deep-wine); transform: rotate(-1.1deg);
+  box-shadow: 0 24px 70px rgba(232,185,156,0.22);
+}
+.peach-band span { color: var(--deep-wine); }
+.wine-band {
+  background: linear-gradient(90deg, var(--deep-wine), var(--wine) 50%, var(--deep-wine));
+  color: var(--blush); transform: rotate(1.1deg);
+  box-shadow: 0 24px 70px rgba(107,43,60,0.5);
+}
+.wine-band span { color: var(--blush); }
+.wine-band .marquee-track i { color: var(--peach); opacity: 0.9; }
+
+/* observer blocks — solo visitors see the locked truth */
+.obs-block { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 26px 0 8px; }
+.obs-glyph {
+  font-size: 44px; filter: drop-shadow(0 0 24px rgba(232,185,156,0.5));
+  animation: hintPulse 3s ease-in-out infinite;
+}
+.obs-glyph.big { font-size: 62px; margin: 4px 0 8px; }
+.obs-line { color: var(--peach); }
+.obs-block .cta { margin-top: 14px; }
+
+/* observing story card — a preview that admits it's a preview */
+.story-card.observing { border-style: dashed; transform: rotate(1.2deg); }
+.story-card.observing .sc-tag { color: rgba(251,244,241,0.9); }
+
+/* reveal-on-scroll for DOM acts */
+#dom-acts .rv { opacity: 0; transform: translateY(30px); transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+#dom-acts .rv.in { opacity: 1; transform: none; }
+
+/* 3D tilt on live snick cards + button press feel */
+.snick-live { transition: transform 0.18s ease-out, box-shadow 0.5s, border-color 0.5s; }
+.cta:active { transform: translateY(0) scale(0.96); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+  #dom-acts .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

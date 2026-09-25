@@ -50,27 +50,38 @@ export function buildOverlay(overlay, ui) {
   `, { side: 'right' });
 
   // ── 03 JOIN — one player detected ─────────────────────────────────────────
+  // ── 03 PAIRING — email first, then the code finds your person ─────────────
   chapter('join', CH.join, `
     <div class="ch-inner center">
       <p class="kicker">ONE PLAYER DETECTED</p>
       <h2>THE PATH LIGHTS<br>ONLY FOR TWO. ✦</h2>
-      <p class="sub">You're at the trailhead. Your person is still outside the world — the ghost marker on the path is theirs.</p>
-      <div class="duo-box">
-        <div class="duo-head">
-          <span class="duo-title">DUO CODE</span>
-          <span class="duo-wait">WAITING FOR YOUR PERSON…</span>
+      <p class="sub">Enter your email to claim your marker — we'll hand you a duo code. When your person joins with it, the world opens.</p>
+      <div class="duo-box" id="duoBox">
+        <div class="pair-step" id="pairStep1">
+          <label class="sr-only" for="pairName">Your name</label>
+          <input type="text" id="pairName" maxlength="12" placeholder="Your name" autocomplete="given-name" />
+          <label class="sr-only" for="pairEmail">Your email</label>
+          <input type="email" id="pairEmail" placeholder="you@together.com" autocomplete="email" required />
+          <button class="cta" id="pairBtn">CONNECT ME →</button>
+          <p class="pair-err" id="pairErr" role="alert" hidden></p>
+          <p class="micro">No spam, ever. Just your marker, your code, and your person.</p>
         </div>
-        <div class="duo-code-row">
-          <div class="duo-code-row">
-          <code class="duo-code" id="duoCode">· · · ·</code>
-          <div class="duo-actions">
-            <button class="cta mini" id="duoGen">GET CODE</button>
-            <button class="cta mini ghost" id="duoCopy">COPY</button>
+        <div class="pair-step" id="pairStep2" hidden>
+          <div class="duo-head">
+            <span class="duo-title">YOUR DUO CODE</span>
+            <span class="duo-wait">WAITING FOR YOUR PERSON…</span>
           </div>
+          <div class="duo-code-row">
+            <code class="duo-code" id="duoCode">· · · ·</code>
+            <div class="duo-actions">
+              <button class="cta mini" id="duoCopy">COPY CODE</button>
+            </div>
+          </div>
+          <p class="duo-note" id="duoNote">Send this to your person. The moment they enter it, their marker lights up beside yours.</p>
+          <button class="cta" id="joinBtn">THEY'VE ENTERED THE CODE →</button>
+          <button class="cta ghost demo" id="demoJoin">SIMULATE: THEY JOINED</button>
+          <p class="micro">The demo is a preview of the moment — in the app, the join is real.</p>
         </div>
-        <button class="cta" id="joinBtn">BRING YOUR PERSON →</button>
-        <button class="cta ghost demo" id="demoJoin">SIMULATE: THEY JOINED</button>
-        <p class="micro">Sharing the code brings them in for real — the demo is just a preview of the moment.</p>
       </div>
     </div>
   `, { side: 'center' });
@@ -215,20 +226,34 @@ function buildDomActs(ui) {
   const acts = document.createElement('div');
   acts.id = 'dom-acts';
   acts.innerHTML = `
+    <div class="marquee peach-band" aria-hidden="true">
+      <div class="marquee-track">
+        ${'<span>TWO PEOPLE</span><i>✦</i><span>ONE CONNECTION</span><i>✦</i><span>ONE THING THAT GROWS</span><i>✦</i><span>MORE THAN A CHAT</span><i>✦</i>'.repeat(2)}
+      </div>
+    </div>
+
     <section class="act score-act">
       <p class="kicker">YOUR RESULT</p>
       <h2>HOW IN-SYNC ARE YOU TWO?</h2>
       <p class="at">AT THE SCORE OBELISK · FINALE ISLAND</p>
-      <div class="score-num" id="scoreNum">0</div>
-      <div class="bars">
-        ${[['COMMUNICATION', 8], ['PLAY', 9], ['EFFORT', 8], ['TRUST', 9], ['EMOTIONAL SYNC', 8]].map(([label, v]) => `
-          <div class="bar-row">
-            <span class="bar-label">${label}</span>
-            <span class="bar"><i style="--w:${v}0%"></i></span>
-          </div>
-        `).join('')}
+      <div id="scorePaired">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="bars">
+          ${[['COMMUNICATION', 8], ['PLAY', 9], ['EFFORT', 8], ['TRUST', 9], ['EMOTIONAL SYNC', 8]].map(([label, v]) => `
+            <div class="bar-row">
+              <span class="bar-label">${label}</span>
+              <span class="bar"><i style="--w:${v}0%"></i></span>
+            </div>
+          `).join('')}
+        </div>
       </div>
-      <p class="micro">A playful SnickyLink metric — not science, and this one's a sample preview. Your real score comes from actually showing up together.</p>
+      <div id="scoreObserver" class="obs-block" hidden>
+        <div class="obs-glyph" aria-hidden="true">👀</div>
+        <h3 class="obs-line">YOU'RE STILL AN OBSERVER.</h3>
+        <p class="sub">Your number, your tag, your story card — all of it unlocks when your person steps into the world.</p>
+        <button class="cta primary" id="obsBring">BRING YOUR PERSON →</button>
+      </div>
+      <p class="micro">A playful SnickyLink metric — not science. Your real score comes from actually showing up together.</p>
     </section>
 
     <section class="act tag-act">
@@ -242,23 +267,45 @@ function buildDomActs(ui) {
     <section class="act story-act">
       <p class="kicker">9:16 · MADE FOR SHARING</p>
       <p class="at">HELD BY THE STORY STELE</p>
-      <div class="story-card" id="storyCard">
-        <img class="sc-logo" src="/logo.webp" alt="SnickyLink moon logo" width="34" height="34" loading="lazy" />
-        <div class="sc-brand">SNICKYLINK</div>
-        <div class="sc-initials">${initials}</div>
-        <div class="sc-score" id="scScore">${score}</div>
-        <h3 class="sc-tag">${tag}</h3>
-        <p class="sc-quote">"${tagline}"</p>
-        <div class="sc-row">4 SNICKS · 4 MOMENTS · 1 CONNECTION</div>
-        <div class="sc-cps">${CHECKPOINTS.map(f => `<span>${f.emoji}</span>`).join('<i>→</i>')}</div>
-        <div class="sc-foot">CONNECT · PLAY · GROW</div>
-        <div class="sc-date">${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase()}</div>
+      <div id="storyPaired">
+        <div class="story-card" id="storyCard">
+          <img class="sc-logo" src="/logo.webp" alt="SnickyLink moon logo" width="34" height="34" loading="lazy" />
+          <div class="sc-brand">SNICKYLINK</div>
+          <div class="sc-initials" id="scInitials">${initials}</div>
+          <div class="sc-score" id="scScore">${score}</div>
+          <h3 class="sc-tag" id="scTag">${tag}</h3>
+          <p class="sc-quote" id="scQuote">"${tagline}"</p>
+          <div class="sc-row">4 SNICKS · 4 MOMENTS · 1 CONNECTION</div>
+          <div class="sc-cps">${CHECKPOINTS.map(f => `<span>${f.emoji}</span>`).join('<i>→</i>')}</div>
+          <div class="sc-foot">CONNECT · PLAY · GROW</div>
+          <div class="sc-date">${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase()}</div>
+        </div>
+      </div>
+      <div id="storyObserver" hidden>
+        <div class="story-card observing">
+          <img class="sc-logo" src="/logo.webp" alt="SnickyLink moon logo" width="34" height="34" loading="lazy" />
+          <div class="sc-brand">SNICKYLINK</div>
+          <div class="sc-initials">YOU, SO FAR</div>
+          <div class="obs-glyph big" aria-hidden="true">👀</div>
+          <h3 class="sc-tag">STILL AN OBSERVER</h3>
+          <p class="sc-quote">"Four Snicks are waiting. None of them open for one."</p>
+          <div class="sc-row">BRING YOUR PERSON TO UNLOCK YOURS</div>
+          <div class="sc-cps"><span>👀</span><i>→</i><span>🎈</span><i>→</i><span>💭</span><i>→</i><span>📸</span></div>
+          <div class="sc-foot">CONNECT · PLAY · GROW</div>
+          <div class="sc-date">PREVIEW</div>
+        </div>
       </div>
       <div class="story-ctas">
         <button class="cta primary" id="shareBtn">SHARE YOUR MAP 🫶</button>
         <button class="cta ghost" id="downloadBtn">SAVE AS IMAGE ↓</button>
       </div>
     </section>
+
+    <div class="marquee wine-band" aria-hidden="true">
+      <div class="marquee-track">
+        ${'<span>CONNECT</span><i>✦</i><span>PLAY</span><i>✦</i><span>GROW TOGETHER</span><i>✦</i><span>SNICKYLINK</span><i>✦</i>'.repeat(2)}
+      </div>
+    </div>
 
     <section class="act finale-act">
       <p class="kicker">THE FIRST MAP · <b id="xpTotal">${journey.xp} XP</b></p>
@@ -405,15 +452,6 @@ function buildDomActs(ui) {
   acts.querySelector('#downloadBtn').addEventListener('click', () => {
     flash('Screenshot the card — it was made for that. 📸');
   });
-
-  // ── finale CTAs: back to the trailhead / tease the next world ─────────
-  acts.querySelector('#finalBring')?.addEventListener('click', () => {
-    document.body.classList.remove('in-dom');
-    journey.jumpTo(0.14); // the join moment
-  });
-  acts.querySelector('#nextWorld')?.addEventListener('click', () => {
-    flash('The next world opens when the map grows. 🗝️');
-  });
 }
 
 function animateScore(el, target) {
@@ -428,7 +466,7 @@ function animateScore(el, target) {
   requestAnimationFrame(tick);
 }
 
-function flash(msg) {
+export function flash(msg) {
   const t = document.createElement('div');
   t.className = 'toast';
   t.textContent = msg;
