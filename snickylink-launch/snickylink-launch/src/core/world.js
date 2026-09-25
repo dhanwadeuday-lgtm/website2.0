@@ -102,12 +102,12 @@ export class World {
       return this._tmp.copy(m.landmarks.arena).lerp(m.landmarks.board, k).setY(2.2).clone();
     }
     if (p < 0.930) {
-      // the fog gate, then a slow gaze tour across the four future worlds
+      // the fog gate, then a slow gaze tour: right worlds → gate → the far glint
       const k = Math.min(1, ((p - 0.870) / 0.06) * 1.4);
       const W = m.worlds;
       const tour = this._tmp.copy(m.landmarks.board).lerp(m.landmarks.gate, k);
       const t3 = smoothstep(0.895, 0.928, p); // tour sweeps as the chapters name each world
-      return tour.lerp(W.glade.c, t3 * 0.4).lerp(W.orbit.c, t3 * 0.3).lerp(W.dungeon.c, t3 * 0.2).setY(2.0).clone();
+      return tour.lerp(W.glade.c, t3 * 0.4).lerp(W.orbit.c, t3 * 0.3).lerp(W.celestial.c, t3 * 0.25).setY(2.0).clone();
     }
     // finale: look back along the traveled path
     const back = m.curve.getPoint(Math.max(0, journey.travel() - 0.18));
@@ -124,8 +124,9 @@ export class World {
       smoothstep(0.57, 0.67, p) * 0.2 +
       smoothstep(0.88, 0.96, p) * 0.18;
     const density = lerp(0.022, 0.0085, clamp(reveals, 0, 1));
-    // finale warms toward deep wine
+    // finale warms toward deep wine, then the celebration breathes peach
     const col = this._cTmpA.set(BRAND.ink).lerp(this._cTmpB.set(BRAND.deepWine), smoothstep(0.75, 0.98, p) * 0.85);
+    col.lerp(this._cTmpB.set(BRAND.peach), smoothstep(0.93, 0.985, p) * 0.22);
     return { density, col };
   }
 

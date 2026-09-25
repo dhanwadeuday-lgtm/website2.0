@@ -22,8 +22,8 @@ export function initScroll() {
   const onWheel = (e) => {
     if (!document.body.classList.contains('in-dom')) {
       e.preventDefault();
-      // ~100 deltaY per notch → ≈0.7% of the journey per notch (~150 notches total)
-      setFromRatio(target + e.deltaY * 0.000072);
+    // ~100 deltaY per notch → ≈1.5% of the journey per notch (~66 notches total)
+    setFromRatio(target + e.deltaY * 0.00015);
     }
   };
 
@@ -34,7 +34,7 @@ export function initScroll() {
       e.preventDefault();
       const dy = touchY - e.touches[0].clientY;
       touchY = e.touches[0].clientY;
-      setFromRatio(target + dy * 0.00034);
+      setFromRatio(target + dy * 0.00045);
     }
   };
 
@@ -42,10 +42,10 @@ export function initScroll() {
     if (document.body.classList.contains('in-dom')) return;
     if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();
-      setFromRatio(target + 0.012);
+      setFromRatio(target + 0.018);
     } else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key) ) {
       e.preventDefault();
-      setFromRatio(target - 0.012);
+      setFromRatio(target - 0.018);
     }
   };
 

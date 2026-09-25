@@ -105,7 +105,7 @@ export class WorldMap {
   // ── water: one big sine-displaced plane between the islands ────────────────
   _water() {
     const segs = device.mobile ? 40 : 72;
-    const geo = new THREE.PlaneGeometry(TERRAIN_SIZE * 1.4, TERRAIN_SIZE * 1.2, segs, segs);
+    const geo = new THREE.PlaneGeometry(TERRAIN_SIZE * 1.55, TERRAIN_SIZE * 1.35, segs, segs);
     geo.rotateX(-Math.PI / 2);
     this._waterBase = geo.attributes.position.array.slice();
     const mat = new THREE.MeshPhongMaterial({
@@ -123,8 +123,8 @@ export class WorldMap {
     // gentle pre/post handles so the curve breathes instead of cornering
     const pts = [];
     const first = through[0].clone().add(new THREE.Vector3(-14, 0, 10));
-    const last = through[through.length - 1].clone().add(new THREE.Vector3(14, 0, -10));
-    pts.push(first, ...through, last);
+    // the journey ENDS at the finale island — no tail past it (the arrival plaza is the terminus)
+    pts.push(first, ...through);
     this.curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.35);
 
     const mat = new THREE.MeshBasicMaterial({
@@ -426,8 +426,10 @@ export class WorldMap {
     // ── far landmarks, teased in fog from the finale pull-back (phase 3) ──
 
     // THE CHALLENGE ARENA — a ring of pillars, locked until streaks exist
+    // (far landmarks form a balanced arc beyond the island: gate dead-ahead on
+    // the journey axis, arena left, board right, worlds fanned wide)
     {
-      const ax = 64, az = -94;
+      const ax = 38, az = -96;
       pad(ax, az, 7);
       const g = new THREE.Group();
       g.position.set(ax, 0, az);
@@ -450,12 +452,12 @@ export class WorldMap {
 
     // THE FLEX BOARD — a great slab wall across the water
     {
-      const bx = 74, bz = -86;
+      const bx = 68, bz = -92;
       pad(bx, bz, 6);
       const g = new THREE.Group();
       g.position.set(bx, 0, bz);
-      g.rotation.y = -0.6;
-      const mat = glowMat(BRAND.peach, 0.07);
+      g.rotation.y = -0.85; // face the finale island
+      const mat = glowMat(BRAND.copper, 0.07);
       const slab = new THREE.Mesh(new THREE.BoxGeometry(6.2, 3.6, 0.4), mat);
       slab.position.y = 2.6;
       const postGeo = new THREE.CylinderGeometry(0.18, 0.24, 2.2, 6);
@@ -466,9 +468,9 @@ export class WorldMap {
       this.board = { mats: [mat], glow: 0 };
     }
 
-    // THE FOG GATE — the arch into whatever comes next
+    // THE FOG GATE — the arch into whatever comes next, dead-ahead of the island
     {
-      const nx = 58, nz = -100;
+      const nx = 52, nz = -92;
       pad(nx, nz, 5);
       const g = new THREE.Group();
       g.position.set(nx, 0, nz);
@@ -483,11 +485,35 @@ export class WorldMap {
       this.gate = { mats: [mat], glow: 0 };
     }
 
+    // ── the arrival plaza — the journey visibly ends here ──
+    // two glowing ground rings + lantern stones at the island edge, facing the gate
+    {
+      const ringMat = glowMat(BRAND.blush, 0.12);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(5.6, 0.09, 6, 48), ringMat);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.set(F.x, F.y - 0.12, F.z);
+      const ring2Mat = glowMat(BRAND.copper, 0.1);
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(4.2, 0.05, 6, 40), ring2Mat);
+      ring2.rotation.x = Math.PI / 2;
+      ring2.position.set(F.x, F.y - 0.14, F.z);
+      const lanGeo = new THREE.BoxGeometry(0.42, 0.9, 0.42);
+      const lanMat = glowMat(BRAND.peach, 0.3);
+      for (let i = 0; i < 3; i++) {
+        const ang = (i - 1) * 0.55; // spread along the far edge (-z), facing the gate
+        const l = new THREE.Mesh(lanGeo, lanMat);
+        l.position.set(F.x + Math.sin(ang) * 6.4, F.y + 0.2, F.z - Math.cos(ang) * 6.4);
+        l.rotation.y = ang;
+        this.group.add(l);
+      }
+      this.group.add(ring, ring2);
+      this.monuments.push({ id: 'plaza', mats: [ringMat, ring2Mat, lanMat], glow: 0 });
+    }
+
     // world-space centers for the camera's gaze pans (world.js)
     this.landmarks = {
-      arena: new THREE.Vector3(64, 1.7, -94),
-      board: new THREE.Vector3(74, 2.3, -86),
-      gate: new THREE.Vector3(58, 1.5, -100),
+      arena: new THREE.Vector3(38, 1.7, -96),
+      board: new THREE.Vector3(68, 2.3, -92),
+      gate: new THREE.Vector3(52, 1.5, -92),
     };
 
     // ── THE FOUR FUTURE WORLDS + MEMORY WALL (visible, locked, in-world) ──
@@ -520,7 +546,7 @@ export class WorldMap {
 
     // WORLD 02 · SYNCHRONOUS ORBIT — twin towers + floating crystals
     {
-      const P = worldAt(80, -74);
+      const P = worldAt(82, -80);
       const g = new THREE.Group();
       g.position.set(P.x, 0, P.z);
       const towMat = glow(0x6b2b3c, 0.1);
@@ -540,7 +566,7 @@ export class WorldMap {
 
     // WORLD 03 · VULNERABILITY DUNGEON — sunken stone ring, wine-light cracks
     {
-      const P = worldAt(88, -96);
+      const P = worldAt(30, -110);
       const g = new THREE.Group();
       g.position.set(P.x, -0.4, P.z);
       const rockMat = glow(0x241016, 0.06);
@@ -558,9 +584,9 @@ export class WorldMap {
       this.worlds.dungeon = { mats: [rockMat, crackMat], c: P, base: [0.06, 0.75] };
     }
 
-    // WORLD 04 · CELESTIAL RESONANCE — the far glint, mostly hidden
+    // WORLD 04 · CELESTIAL RESONANCE — the far glint, dead ahead beyond the gate
     {
-      const P = worldAt(96, -104);
+      const P = worldAt(58, -114);
       const g = new THREE.Group();
       g.position.set(P.x, 0, P.z);
       const starMat = new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0.75 });
@@ -578,7 +604,7 @@ export class WorldMap {
 
     // THE MEMORY WALL — floating constellation of 9:16 slabs (real couples' moments will live here)
     {
-      const P = worldAt(72, -104);
+      const P = worldAt(44, -104);
       const g = new THREE.Group();
       g.position.set(P.x, 0, P.z);
       const cardMat = glow(BRAND.peach, 0.12);
@@ -602,8 +628,8 @@ export class WorldMap {
     const t = j.travel();
 
     // markers walk the path; "them" lags until joined
-    const youT = clamp(t, 0, 0.985);
-    const themT = clamp(j.joined ? t : t * 0.55 - 0.06, 0, 0.985);
+    const youT = clamp(t, 0, 1);
+    const themT = clamp(j.joined ? t : t * 0.55 - 0.06, 0, 1);
     const pYou = this.curve.getPoint(youT);
     const pThem = this.curve.getPoint(themT);
     this.you.position.copy(pYou).y += 0.55 + wobble(time, 3, 1.3, 0.06);
@@ -621,7 +647,7 @@ export class WorldMap {
 
     // ghost partner — waits ahead until the join, then fades into the real marker
     if (!j.joined) {
-      const gp = this.curve.getPoint(clamp(youT + 0.012, 0, 0.985));
+      const gp = this.curve.getPoint(Math.min(1, youT + 0.012));
       this.ghost.position.set(gp.x, 0.62 + Math.sin(time * 1.4) * 0.12, gp.z);
       this.ghost.userData.ring.rotation.z = time * 0.7;
       this.ghost.userData.ring.material.opacity = 0.34 + 0.2 * alive;

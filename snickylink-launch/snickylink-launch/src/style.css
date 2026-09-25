@@ -304,7 +304,7 @@ h3 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
   .chapter.center { text-align: center; }
   .chapter .ch-inner { max-width: 100%; }
   .snick-grid { grid-template-columns: repeat(2, 1fr); }
-  .world-grid { grid-template-columns: repeat(2, 1fr); }
+  .world-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .float-cards { height: 440px; }
   .c1 { left: 0; } .c2 { right: 0; } .c3 { left: 4%; } .c4 { right: 2%; } .c5 { left: 12%; }
   .rail { right: 12px; }
@@ -381,9 +381,19 @@ body.world-ready .static-hero, body.no-webgl .static-hero { display: none; }
    WORLD UPGRADE — HUD, notices, locked snicks, two-way lock, future worlds
    ════════════════════════════════════════════════════════════════════════ */
 
+/* map-anchored DOM acts */
+.dom-acts .act { position: relative; }
+.dom-acts .act::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 44px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--peach) 30%, var(--copper) 70%, transparent);
+  border-radius: 2px; opacity: 0.75;
+}
+.dom-acts .act > .kicker { padding-top: 14px; }
+
 /* HUD — shared XP + player state, always on during the story */
-.hud {
-  position: fixed; top: 20px; left: 22px; z-index: 5;
+.hud { position: fixed; top: 20px; left: 22px; z-index: 40;
   display: flex; flex-direction: column; gap: 6px;
   opacity: 0; transition: opacity 0.6s; pointer-events: none;
 }
@@ -399,6 +409,16 @@ body.in-dom .hud { opacity: 0; }
 .hud-xp span { font-size: 8.5px; letter-spacing: 0.3em; opacity: 0.55; }
 .hud-players { font-size: 9.5px; letter-spacing: 0.22em; opacity: 0.6; }
 body.joined .hud-players { color: var(--peach); opacity: 0.85; text-shadow: 0 0 14px rgba(232,185,156,0.4); }
+.hud-brand {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.34em;
+  color: var(--blush); text-decoration: none;
+  cursor: pointer; transition: color 0.25s;
+  pointer-events: auto;
+}
+.hud-brand img { width: 22px; height: 22px; border-radius: 6px; filter: drop-shadow(0 0 8px rgba(184,101,74,0.55)); }
+.hud-brand:hover { color: var(--peach); }
+.hud-brand:focus-visible { outline: 2px solid var(--peach); outline-offset: 3px; border-radius: 4px; }
 
 /* world notice — the cinematic announcement layer */
 .world-notice {

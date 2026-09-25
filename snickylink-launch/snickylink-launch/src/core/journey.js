@@ -20,11 +20,16 @@ export const CH = {
   cp3lit:  [0.600, 0.630],
   cp4:     [0.630, 0.745],  // MEMORY PEAK · CREATE (the climb)
   cp4lit:  [0.745, 0.775],
-  arena:   [0.775, 0.825],  // locked preview (phase 3)
-  board:   [0.825, 0.870],  // flex board teaser (honest sample)
-  next:    [0.870, 0.930],  // fogged future worlds
-  finale:  [0.930, 0.985],  // wide pull-back over the traveled path
-};export class Journey {
+  arena:   [0.775, 0.815],  // locked preview
+  board:   [0.815, 0.850],  // flex board teaser (honest sample)
+  next:    [0.850, 0.900],  // fogged future worlds
+  finale:  [0.900, 0.985],  // wide pull-back over the traveled path
+};
+
+// rail dot click → camera jumps here (chapter starts)
+export const RAIL_JUMP = [0.170, 0.325, 0.480, 0.630];
+
+export class Journey {
   constructor() {
     this.p = 0;          // smoothed progress
     this.raw = 0;        // raw gate of the story

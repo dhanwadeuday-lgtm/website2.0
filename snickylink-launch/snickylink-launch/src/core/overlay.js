@@ -2,7 +2,7 @@
 // Every frame: show the active chapter, fade by entrance/exit, mark progress.
 // Snick cards and the join button write REAL state (journey.done / journey.joined);
 // scrolling never does.
-import { journey, CH } from './journey.js';
+import { journey, CH, RAIL_JUMP } from './journey.js';
 import { clamp, smoothstep } from './util.js';
 import { CHECKPOINTS } from './tokens.js';
 import { buildOverlay, flash } from './chapters.js';
@@ -18,11 +18,19 @@ export function initOverlay(overlay, ui) {
   hud.innerHTML = `
     <div class="hud-xp"><b id="hudXp">0</b><span>SHARED XP</span></div>
     <div class="hud-players" id="hudPlayers">● YOU · ○ YOUR PERSON — OUTSIDE THE WORLD</div>
+    <a class="hud-brand" href="#top" aria-label="SNICKYLINK — back to top"><img src="/logo.webp" alt="" width="22" height="22">SNICKYLINK</a>
   `;
   document.body.appendChild(hud);
   const hudXp = hud.querySelector('#hudXp');
   const hudPlayers = hud.querySelector('#hudPlayers');
   let shownXp = -1;
+
+  // brand chip: back to the trailhead (native anchors don't work — scroll is hijacked)
+  hud.querySelector('.hud-brand').addEventListener('click', (e) => {
+    e.preventDefault();
+    journey.jumpTo(0);
+    document.body.classList.remove('in-dom');
+  });
 
   // ── world notice: the cinematic announcement layer ─────────────────────
   const notice = document.createElement('div');
@@ -196,9 +204,21 @@ export function initOverlay(overlay, ui) {
   rail.innerHTML = `
     <span class="rail-label" id="railLabel">THE TRAILHEAD</span>
     <div class="rail-track"><div class="rail-fill"></div></div>
-    <div class="rail-cps">${CHECKPOINTS.map(f => `<span data-f="${f.id}" title="Checkpoint 0${f.id + 1} · ${f.name}">${f.id + 1}</span>`).join('')}</div>
+    <div class="rail-cps">${CHECKPOINTS.map((f, i) => `<span data-jump="${RAIL_JUMP[i]}" data-f="${f.id}" role="button" tabindex="0" aria-label="Jump to Checkpoint 0${f.id + 1} · ${f.name}" title="Checkpoint 0${f.id + 1} · ${f.name} — click to jump">${f.id + 1}</span>`).join('')}</div>
   `;
   document.body.appendChild(rail);
+
+  // rail dots: click / Enter to jump the camera to that checkpoint
+  const railJump = (e) => {
+    const dot = e.target.closest('.rail-cps span');
+    if (!dot) return;
+    journey.jumpTo(Number(dot.dataset.jump));
+    document.body.classList.remove('in-dom');
+  };
+  rail.querySelector('.rail-cps').addEventListener('click', railJump);
+  rail.querySelector('.rail-cps').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); railJump(e); }
+  });
 
   // ── screen-reader progress announcements ───────────────────────────────
   const srProgress = document.createElement('div');
@@ -280,6 +300,7 @@ export function initOverlay(overlay, ui) {
     for (const el of rail.querySelectorAll('.rail-cps span')) {
       const i = Number(el.dataset.f);
       el.classList.toggle('on', journey.done[i]);
+      el.classList.toggle('reached', p >= Number(el.dataset.jump));
     }
 
     // sr announcements: only when the named checkpoint changes
