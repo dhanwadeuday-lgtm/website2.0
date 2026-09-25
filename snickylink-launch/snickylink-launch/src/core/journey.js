@@ -63,6 +63,20 @@ export class Journey {
   // Number of checkpoints lit — drives rail dots and announcements.
   litCount() { return this.done.filter(Boolean).length; }
 
+  // ── SHARED XP — belongs to the couple, not individuals ────────────────────
+  get xp() { return this.done.filter(Boolean).length * 20; }
+
+  // Sequential snick state machine: which snick is playable, what's locked,
+  // and why. Locked-before-pairing is a core product rule — scroll can never
+  // open these; only real interaction states do.
+  snickState(i) {
+    const seq = this.done.slice(0, i).every(Boolean);
+    if (this.done[i]) return { state: 'done' };
+    if (!this.joined) return { state: 'locked', reason: i === 0 ? 'YOUR PERSON IS MISSING' : 'REQUIRES TWO PLAYERS' };
+    if (!seq)        return { state: 'locked', reason: 'COMPLETE THE LAST SNICK FIRST' };
+    return { state: 'live' };
+  }
+
   completeSnick(i) {
     if (this.done[i]) return;
     this.done[i] = true;

@@ -177,6 +177,58 @@ export class WorldMap {
     this.youLight = new THREE.PointLight(BRAND.blush, 1.6, 9, 2);
     this.themLight = new THREE.PointLight(BRAND.peach, 0, 9, 2);
     this.group.add(this.youLight, this.themLight);
+
+    // ghost partner marker — hovers ahead on the path until the join;
+    // the world quietly says "your person is still outside"
+    const ghost = new THREE.Group();
+    const gRing = new THREE.Mesh(
+      new THREE.TorusGeometry(0.42, 0.05, 8, 24),
+      new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0.5 }),
+    );
+    gRing.rotation.x = Math.PI / 2;
+    const gCore = new THREE.Mesh(
+      new THREE.SphereGeometry(0.2, 10, 8),
+      new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0.14, depthWrite: false }),
+    );
+    ghost.add(gRing, gCore);
+    ghost.userData = { ring: gRing, core: gCore };
+    this.ghost = ghost;
+    this.group.add(ghost);
+
+    // join flare — one starburst + shockwave ring when the pair completes
+    this.joinFlare = new THREE.Points(
+      new THREE.BufferGeometry(),
+      new THREE.PointsMaterial({ color: BRAND.blush, size: 0.17, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
+    );
+    this.joinFlare.frustumCulled = false;
+    this.joinFlare.visible = false;
+    this.group.add(this.joinFlare);
+    this.shock = new THREE.Mesh(
+      new THREE.TorusGeometry(0.1, 0.06, 6, 48),
+      new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0, depthWrite: false }),
+    );
+    this.shock.rotation.x = Math.PI / 2;
+    this.shock.visible = false;
+    this.group.add(this.shock);
+    this._flare = { t: 1, dirs: null };
+    this._shockT = 1;
+  }
+
+  // visual one-shots fired by the overlay (never mutates journey state)
+  fx(action) {
+    if (action !== 'joinPulse') return;
+    const N = device.mobile ? 90 : 220;
+    const dirs = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const y = Math.random() * 1.4 - 0.3;
+      const r = Math.sqrt(Math.max(0.05, 1 - y * y));
+      dirs[i * 3] = Math.cos(a) * r; dirs[i * 3 + 1] = y; dirs[i * 3 + 2] = Math.sin(a) * r;
+    }
+    this.joinFlare.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+    this._flare = { t: 0, dirs };
+    this._shockT = 0;
+    this.shock.visible = true;
   }
 
   // ── checkpoint islands: monument + beacon + ring + snick portal ───────────
@@ -242,8 +294,14 @@ export class WorldMap {
       portal.add(a, b, lintel);
       g.add(portal);
 
+      // the lock — Snicks don't open for one player
+      const lockMat = new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0.5 });
+      const lock = new THREE.Mesh(new THREE.OctahedronGeometry(0.22, 0), lockMat);
+      lock.position.set(0, 2.75, 1.9);
+      g.add(lock);
+
       this.group.add(g);
-      return { group: g, beacon, ring, pos, lit: 0 };
+      return { group: g, beacon, ring, pos, lit: 0, lock, lockMat };
     });
   }
 
@@ -431,6 +489,112 @@ export class WorldMap {
       board: new THREE.Vector3(74, 2.3, -86),
       gate: new THREE.Vector3(58, 1.5, -100),
     };
+
+    // ── THE FOUR FUTURE WORLDS + MEMORY WALL (visible, locked, in-world) ──
+    const glow = (c, i = 0.1) => new THREE.MeshLambertMaterial({ color: 0x3a1620, emissive: c, emissiveIntensity: i });
+    this.worlds = {};
+    const worldAt = (x, z, y = 0) => { const p = new THREE.Vector3(x, y, z); pad(x, z, 6); return p; };
+
+    // WORLD 01 · THE HONEYMOON GLADE — warm hidden valley
+    {
+      const P = worldAt(66, -68);
+      const g = new THREE.Group();
+      g.position.set(P.x, 0, P.z);
+      const grassMat = glow(0x7a4b3a, 0.1);
+      const mound = new THREE.Mesh(new THREE.SphereGeometry(3.4, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), grassMat);
+      mound.position.y = 0.1;
+      const fireMat = new THREE.MeshBasicMaterial({ color: 0xe8b99c, transparent: true, opacity: 0.9 });
+      const fire = new THREE.Mesh(new THREE.ConeGeometry(0.4, 1.1, 6), fireMat);
+      fire.position.set(0.6, 1.4, 0.4);
+      const lanternMat = glow(BRAND.peach, 0.45);
+      for (let i = 0; i < 4; i++) {
+        const an = (i / 4) * Math.PI * 2;
+        const lant = new THREE.Mesh(new THREE.OctahedronGeometry(0.16, 0), lanternMat);
+        lant.position.set(Math.cos(an) * 2.6, 1.7 + (i % 2) * 0.6, Math.sin(an) * 2.6);
+        g.add(lant);
+      }
+      g.add(mound, fire);
+      this.group.add(g);
+      this.worlds.glade = { mats: [grassMat, lanternMat, fireMat], c: P, base: [0.1, 0.45, 0.9] };
+    }
+
+    // WORLD 02 · SYNCHRONOUS ORBIT — twin towers + floating crystals
+    {
+      const P = worldAt(80, -74);
+      const g = new THREE.Group();
+      g.position.set(P.x, 0, P.z);
+      const towMat = glow(0x6b2b3c, 0.1);
+      const t1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.5, 5.2, 6), towMat); t1.position.set(-1.1, 2.6, 0);
+      const t2 = t1.clone(); t2.position.x = 1.1;
+      const orbMat = glow(BRAND.peach, 0.4);
+      const crystals = new THREE.Group();
+      for (let i = 0; i < 3; i++) {
+        const cr = new THREE.Mesh(new THREE.OctahedronGeometry(0.26, 0), orbMat);
+        cr.position.set(0, 4.6 + i * 0.7, 0);
+        crystals.add(cr);
+      }
+      g.add(t1, t2, crystals);
+      this.group.add(g);
+      this.worlds.orbit = { mats: [towMat, orbMat], c: P, base: [0.1, 0.4], spin: crystals };
+    }
+
+    // WORLD 03 · VULNERABILITY DUNGEON — sunken stone ring, wine-light cracks
+    {
+      const P = worldAt(88, -96);
+      const g = new THREE.Group();
+      g.position.set(P.x, -0.4, P.z);
+      const rockMat = glow(0x241016, 0.06);
+      for (let i = 0; i < 5; i++) {
+        const an = (i / 5) * Math.PI * 2;
+        const rock = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2.4 + (i % 3) * 0.5, 5), rockMat);
+        rock.position.set(Math.cos(an) * 2.8, 0.9, Math.sin(an) * 2.8);
+        g.add(rock);
+      }
+      const crackMat = new THREE.MeshBasicMaterial({ color: 0x6b2b3c, transparent: true, opacity: 0.75 });
+      const crack = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.05, 5, 24), crackMat);
+      crack.rotation.x = Math.PI / 2; crack.position.y = 0.15;
+      g.add(crack);
+      this.group.add(g);
+      this.worlds.dungeon = { mats: [rockMat, crackMat], c: P, base: [0.06, 0.75] };
+    }
+
+    // WORLD 04 · CELESTIAL RESONANCE — the far glint, mostly hidden
+    {
+      const P = worldAt(96, -104);
+      const g = new THREE.Group();
+      g.position.set(P.x, 0, P.z);
+      const starMat = new THREE.MeshBasicMaterial({ color: BRAND.blush, transparent: true, opacity: 0.75 });
+      const star = new THREE.Mesh(new THREE.OctahedronGeometry(0.55, 0), starMat);
+      star.position.y = 6.2;
+      const ringM = new THREE.Mesh(
+        new THREE.TorusGeometry(1.5, 0.04, 6, 40),
+        glow(BRAND.peach, 0.3),
+      );
+      ringM.rotation.x = Math.PI / 2.4; ringM.position.y = 6.2;
+      g.add(star, ringM);
+      this.group.add(g);
+      this.worlds.celestial = { mats: [starMat, ringM.material], c: P, base: [0.75, 0.3] };
+    }
+
+    // THE MEMORY WALL — floating constellation of 9:16 slabs (real couples' moments will live here)
+    {
+      const P = worldAt(72, -104);
+      const g = new THREE.Group();
+      g.position.set(P.x, 0, P.z);
+      const cardMat = glow(BRAND.peach, 0.12);
+      const cards = [];
+      for (let i = 0; i < 9; i++) {
+        const card = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.06, 0.06), cardMat);
+        const a = (i / 9) * Math.PI * 2;
+        const r = 2.6 + (i % 2) * 0.8;
+        card.position.set(Math.cos(a) * r, 2.2 + Math.sin(i * 2.1) * 1.1, Math.sin(a) * r);
+        card.rotation.y = a;
+        g.add(card);
+        cards.push(card);
+      }
+      this.group.add(g);
+      this.worlds.memory = { mats: [cardMat], c: P, base: [0.12], spin: g, cards };
+    }
   }
 
   update(dt, time) {
@@ -451,6 +615,52 @@ export class WorldMap {
     const haloP = 0.14 + 0.1 * Math.sin(time * 2.1);
     this.you.userData.halo.material.opacity = haloP;
     this.them.userData.halo.material.opacity = j.joined ? haloP : 0.06;
+
+    // world-alive ambience: the map breathes, gently, from the first frame
+    const alive = 0.55 + 0.45 * Math.sin(time * 0.5);
+
+    // ghost partner — waits ahead until the join, then fades into the real marker
+    if (!j.joined) {
+      const gp = this.curve.getPoint(clamp(youT + 0.012, 0, 0.985));
+      this.ghost.position.set(gp.x, 0.62 + Math.sin(time * 1.4) * 0.12, gp.z);
+      this.ghost.userData.ring.rotation.z = time * 0.7;
+      this.ghost.userData.ring.material.opacity = 0.34 + 0.2 * alive;
+      this.ghost.userData.core.material.opacity = 0.1 + 0.08 * alive;
+      this.ghost.visible = true;
+    } else if (this.ghost.visible) {
+      this.ghost.userData.ring.material.opacity = Math.max(0, this.ghost.userData.ring.material.opacity - dt * 1.6);
+      this.ghost.userData.core.material.opacity = Math.max(0, this.ghost.userData.core.material.opacity - dt);
+      if (this.ghost.userData.ring.material.opacity <= 0) this.ghost.visible = false;
+    }
+
+    // join flare + shockwave (fired via fx('joinPulse'))
+    if (this._flare.t < 1) {
+      this._flare.t = Math.min(1, this._flare.t + dt * 0.55);
+      const ft = this._flare.t;
+      const fpos = this.joinFlare.geometry.attributes.position;
+      const p0 = this.you.position;
+      for (let i = 0; i < fpos.count; i++) {
+        const d = this._flare.dirs;
+        const r = ft * 7;
+        fpos.setXYZ(i, p0.x + d[i * 3] * r, p0.y + 0.4 + d[i * 3 + 1] * r * 0.6, p0.z + d[i * 3 + 2] * r);
+      }
+      fpos.needsUpdate = true;
+      this.joinFlare.material.opacity = Math.max(0, 0.95 * (1 - ft));
+      this.joinFlare.visible = this.joinFlare.material.opacity > 0.01;
+    } else {
+      this.joinFlare.material.opacity = 0.12 + 0.1 * alive; // idle starlight
+      this.joinFlare.visible = true;
+    }
+    if (this._shockT < 1) {
+      this._shockT = Math.min(1, this._shockT + dt * 0.8);
+      const s = 0.1 + this._shockT * 16;
+      this.shock.scale.set(s, s, s);
+      this.shock.position.copy(this.you.position).setY(this.you.position.y - 0.3);
+      this.shock.material.opacity = 0.5 * (1 - this._shockT);
+      this.shock.visible = this.shock.material.opacity > 0.01;
+    } else if (this.shock.visible) {
+      this.shock.visible = false;
+    }
 
     // path dots: reveal behind the pair, brightness = sync level
     const sync = j.syncLevel();
@@ -474,7 +684,8 @@ export class WorldMap {
     }
     this.pathDots.instanceMatrix.needsUpdate = true;
 
-    // checkpoints: beacon/ring respond only to REAL completion
+    // checkpoints: beacon/ring respond only to REAL completion;
+    // the lock dissolves the moment that snick becomes playable
     this.checkpoints.forEach((c, i) => {
       c.lit = clamp(c.lit + ((j.done[i] ? 1 : 0) - c.lit) * Math.min(1, dt * 2.2), 0, 1);
       c.beacon.intensity = c.lit * (2.6 + Math.sin(time * 2.2 + i) * 0.5);
@@ -483,6 +694,10 @@ export class WorldMap {
       if (c.group.userData.flame) {
         c.group.userData.flame.scale.y = 0.9 + c.lit * 0.35 + Math.sin(time * 7 + i) * 0.06;
       }
+      const locked = j.snickState(i).state === 'locked';
+      c.lockMat.opacity = clamp(c.lockMat.opacity + ((locked ? 0.5 : 0.05) - c.lockMat.opacity) * Math.min(1, dt * 2.4), 0, 1);
+      c.lock.rotation.y += dt * (locked ? 0.6 : 1.6);
+      c.lock.position.y = 2.75 + Math.sin(time * 1.3 + i * 1.7) * 0.07;
     });
 
     // water: gentle two-axis sine displacement
@@ -529,5 +744,44 @@ export class WorldMap {
     teaser(this.arena, 0.775, 0.81, 0.84, 0.88, 0.06, 0.75);
     teaser(this.board, 0.825, 0.852, 0.872, 0.915, 0.06, 0.75);
     teaser(this.gate, 0.87, 0.905, 0.935, 0.97, 0.08, 0.85);
+
+    // ── the four future worlds + memory wall: seen, never open ──────────
+    // each world breathes from frame one; its chapter raises it out of the fog
+    const worldBand = (a, b, oa, ob) => band(a, b, oa, ob);
+    const worldGlow = (w, a, b, oa, ob, amp) => {
+      w._g = damp(w._g ?? 0, worldBand(a, b, oa, ob), 2.0, dt);
+      w.mats.forEach((m, k) => {
+        const base = w.base[k] ?? 0.1;
+        m.emissiveIntensity = m.emissiveIntensity !== undefined
+          ? base + w._g * amp * (0.7 + 0.3 * alive)
+          : base;
+        if (m.transparent && m.opacity !== undefined && k === w.mats.length - 1 && amp === 0) {
+          m.opacity = base * (0.8 + 0.2 * alive);
+        }
+      });
+    };
+    worldGlow(this.worlds.glade, 0.855, 0.885, 0.90, 0.93, 0.9);
+    worldGlow(this.worlds.orbit, 0.875, 0.905, 0.915, 0.94, 0.9);
+    worldGlow(this.worlds.dungeon, 0.895, 0.92, 0.93, 0.96, 0.8);
+    worldGlow(this.worlds.celestial, 0.915, 0.945, 0.95, 0.985, 0.6);
+    worldGlow(this.worlds.memory, 0.9, 0.93, 0.95, 0.985, 0.7);
+    if (this.worlds.orbit.spin) {
+      this.worlds.orbit.spin.rotation.y = time * 0.4;
+      this.worlds.orbit.spin.children.forEach((cr, i) => { cr.position.y = 4.6 + i * 0.7 + Math.sin(time * 1.2 + i) * 0.18; });
+    }
+    if (this.worlds.memory.spin) {
+      this.worlds.memory.spin.rotation.y = time * 0.1;
+      this.worlds.memory.cards.forEach((card, i) => {
+        card.position.y = 2.2 + Math.sin(i * 2.1) * 1.1 + Math.sin(time * 0.8 + i) * 0.16;
+      });
+    }
+
+    // finale island beacon — the lit path ends at a point of light
+    if (!this.finaleBeacon) {
+      this.finaleBeacon = new THREE.PointLight(BRAND.blush, 0, 24, 2);
+      this.finaleBeacon.position.set(this.finalePos.x, this.finalePos.y + 2.2, this.finalePos.z);
+      this.group.add(this.finaleBeacon);
+    }
+    this.finaleBeacon.intensity = finaleGlow * 3.0;
   }
 }

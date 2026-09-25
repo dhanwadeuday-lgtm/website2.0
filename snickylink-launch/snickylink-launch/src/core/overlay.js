@@ -12,14 +12,43 @@ export function initOverlay(overlay, ui) {
   const snickLiveEls = [...overlay.querySelectorAll('.snick-live')];
   const cpRows = [...overlay.querySelectorAll('.cp-row')];
 
+  // ── HUD: shared XP + player state (top-left, always visible) ────────────
+  const hud = document.createElement('div');
+  hud.className = 'hud';
+  hud.innerHTML = `
+    <div class="hud-xp"><b id="hudXp">0</b><span>SHARED XP</span></div>
+    <div class="hud-players" id="hudPlayers">● YOU · ○ YOUR PERSON — OUTSIDE THE WORLD</div>
+  `;
+  document.body.appendChild(hud);
+  const hudXp = hud.querySelector('#hudXp');
+  const hudPlayers = hud.querySelector('#hudPlayers');
+  let shownXp = -1;
+
+  // ── world notice: the cinematic announcement layer ─────────────────────
+  const notice = document.createElement('div');
+  notice.className = 'world-notice';
+  notice.setAttribute('aria-live', 'polite');
+  document.body.appendChild(notice);
+  let noticeTimer = 0;
+  const announce = (lines, hold = 2600) => {
+    notice.innerHTML = lines.map((l, i) => `<${i === 0 ? 'b' : 'span'}>${l}</${i === 0 ? 'b' : 'span'}>`).join('');
+    notice.classList.add('show');
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => notice.classList.remove('show'), hold);
+  };
+
   // ── snick interactions ─────────────────────────────────────────────────
   snickLiveEls.forEach((el) => {
     const idx = Number(el.dataset.i);
     const chips = [...el.querySelectorAll('.partner-chip')];
     const line = el.querySelector('.progress-line span');
+    const tw = el.querySelector('.two-way');
+    const twOut = el.querySelector('.tw-revealed');
+    let mine = '';
+
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {
-        if (chip.classList.contains('on')) return;
+        if (chip.classList.contains('on') || journey.snickState(idx).state !== 'live') return;
         chip.classList.add('on');
         const doneCount = chips.filter(c => c.classList.contains('on')).length;
         line.style.width = `${(doneCount / 2) * 100}%`;
@@ -27,8 +56,13 @@ export function initOverlay(overlay, ui) {
           setTimeout(() => {
             journey.completeSnick(idx);
             el.classList.add('completed');
-            el.querySelector('.micro').textContent = 'SNICK COMPLETE · +20 XP';
-            // light the map list row too
+            // two-way lock snick: reveal panel replaces the chips
+            if (tw) {
+              tw.hidden = false;
+              tw.querySelector('.tw-input').focus({ preventScroll: true });
+            }
+            if (!tw) el.querySelector('.micro').textContent = 'SNICK COMPLETE · +20 XP';
+            announce(['+20 XP', `CHECKPOINT 0${idx + 1} ACTIVATED`], 2200);
             const row = cpRows[idx];
             if (row) {
               row.querySelector('.cp-state').textContent = '✦ LIT';
@@ -38,17 +72,73 @@ export function initOverlay(overlay, ui) {
         }
       });
     });
+
+    // two-way lock: seal → partner “locks” → simultaneous reveal
+    if (tw) {
+      const input = tw.querySelector('.tw-input');
+      const lockBtn = tw.querySelector('[data-tw="lock"]');
+      const revealBtn = tw.querySelector('[data-tw="reveal"]');
+      const note = tw.querySelector('.tw-note');
+      lockBtn?.addEventListener('click', () => {
+        mine = (input.value || '').trim() || '(left it unspoken)';
+        input.disabled = true; lockBtn.disabled = true;
+        lockBtn.textContent = 'SEALED 🔒';
+        note.textContent = 'YOUR PERSON HAS LOCKED IN. SUBMIT YOUR ANSWER TO REVEAL BOTH.';
+        revealBtn.hidden = false;
+        revealBtn.focus({ preventScroll: true });
+      });
+      revealBtn?.addEventListener('click', () => {
+        if (!mine) return;
+        const theirs = '“…the night we walked nowhere in particular, and it was everything.”';
+        if (twOut) {
+          twOut.hidden = false;
+          twOut.querySelector('[data-tw="mine"]').textContent = mine;
+          twOut.querySelector('[data-tw="theirs"]').textContent = theirs;
+        }
+        revealBtn.hidden = true; note.hidden = true;
+        twOut?.classList.add('unmask');
+        el.querySelector('.micro').textContent = 'DUAL UNMASK · +20 XP';
+      });
+    }
   });
 
-  // ── join button ────────────────────────────────────────────────────────
+  // ── duo code: generate + copy ─────────────────────────────────────────
+  const duoCode = overlay.querySelector('#duoCode');
+  const duoGen = overlay.querySelector('#duoGen');
+  const duoCopy = overlay.querySelector('#duoCopy');
+  duoGen?.addEventListener('click', () => {
+    if (duoCode.dataset.set) return;
+    const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    const code = Array.from({ length: 4 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join('');
+    duoCode.textContent = code.split('').join(' ');
+    duoCode.dataset.set = '1';
+    duoGen.textContent = 'YOUR CODE';
+    duoGen.disabled = true;
+  });
+  duoCopy?.addEventListener('click', async () => {
+    const code = (duoCode?.textContent || '').replace(/\s/g, '');
+    if (!code || code === '····') { duoGen?.click(); return; }
+    try { await navigator.clipboard.writeText(code); duoCopy.textContent = 'COPIED ✦'; }
+    catch { duoCopy.textContent = code; }
+    setTimeout(() => { duoCopy.textContent = 'COPY'; }, 1800);
+  });
+
+  // ── join: the first real unlock ─────────────────────────────────────────
   const joinBtn = overlay.querySelector('#joinBtn');
-  joinBtn.addEventListener('click', () => {
+  const demoBtn = overlay.querySelector('#demoJoin');
+  const doJoin = () => {
+    if (journey.joined) return;
     journey.joinPartner();
     journey.raw = Math.min(journey.raw, 0.168); // hold the moment briefly
     joinBtn.textContent = '✦ YOUR PERSON IS ON THE PATH';
     joinBtn.disabled = true;
+    if (demoBtn) demoBtn.hidden = true;
     document.body.classList.add('joined');
-  });
+    announce(['BOTH OF YOU ARE IN. ✦', 'THE WORLD CAN BEGIN.'], 3400);
+    window.__sl?.world?.fx?.joinPulse?.();
+  };
+  joinBtn.addEventListener('click', doJoin);
+  demoBtn?.addEventListener('click', doJoin);
 
   // ── progress rail (right edge) — checkpoint dots ───────────────────────
   const rail = document.createElement('div');
@@ -81,6 +171,7 @@ export function initOverlay(overlay, ui) {
   // ── per-frame update ───────────────────────────────────────────────────
   const chapterMeta = chapters;
   let activeId = null;
+  const flags = { join: false, cp1: false, arena: false, board: false, next: false, finale: false };
 
   function frame() {
     const p = journey.p;
@@ -127,13 +218,48 @@ export function initOverlay(overlay, ui) {
     // skip button only during the story
     skip.classList.toggle('show', p > 0.02 && p < 0.97);
 
-    // snick live cards: gentle pulse while waiting for both partners
-    for (const el of snickLiveEls) {
-      const i = Number(el.dataset.i);
-      const [a, b] = CH[`cp${i + 1}`];
-      const inWindow = p >= a && p < b + 0.02;
-      el.classList.toggle('waiting', inWindow && !journey.done[i]);
+    // HUD: shared XP + player line
+    const xp = journey.xp;
+    if (xp !== shownXp) {
+      shownXp = xp;
+      hudXp.textContent = String(xp);
+      hudXp.classList.remove('pop');
+      void hudXp.offsetWidth; // restart the pop animation
+      hudXp.classList.add('pop');
+      document.body.classList.toggle('has-xp', xp > 0);
+      const xt = document.getElementById('xpTotal');
+      if (xt) xt.textContent = `${xp} XP`;
     }
+    const playersLine = journey.joined ? '● YOU —— ● YOUR PERSON' : '● YOU · ○ YOUR PERSON — OUTSIDE THE WORLD';
+    if (hudPlayers.textContent !== playersLine) hudPlayers.textContent = playersLine;
+
+    // snick cards: live vs locked face, driven only by REAL state
+    snickLiveEls.forEach((el) => {
+      const i = Number(el.dataset.i);
+      const st = journey.snickState(i);
+      const lock = el.querySelector('.snick-lock');
+      const body = el.querySelector('.snick-body');
+      const CH_KEY = `cp${i + 1}`;
+      const [a, b] = CH[CH_KEY];
+      const inWindow = p >= a && p < b + 0.02;
+      if (lock && body) {
+        const showLock = st.state === 'locked';
+        lock.hidden = !showLock;
+        body.hidden = showLock;
+        if (showLock) {
+          lock.querySelector('.lock-reason').textContent = st.reason;
+        }
+      }
+      el.classList.toggle('waiting', inWindow && st.state === 'live');
+    });
+
+    // world moments: each gate/region speaks once when the gaze reaches it
+    if (p >= 0.125 && !flags.join) { flags.join = true; if (!journey.joined) announce(['ONE PLAYER DETECTED', 'BRING YOUR PERSON.'], 2600); }
+    if (p >= 0.170 && !flags.cp1) { flags.cp1 = true; if (!journey.joined) announce(['SNICK 01 · LOCKED 🔒', 'IT OPENS WHEN TWO SHOW UP.'], 2800); }
+    if (p >= 0.775 && !flags.arena) { flags.arena = true; announce(["THE CHALLENGE ARENA · LOCKED", "YOUR JOURNEY HASN'T REACHED HERE."], 3000); }
+    if (p >= 0.825 && !flags.board) { flags.board = true; announce(['THE FLEX BOARD · AHEAD', 'KEEP SHOWING UP.'], 2600); }
+    if (p >= 0.870 && !flags.next) { flags.next = true; announce(['SOMETHING IS WAITING BEYOND THE FOG.', 'TWO PEOPLE. MORE DISTANCE.'], 3000); }
+    if (p >= 0.930 && !flags.finale) { flags.finale = true; announce(['THE WORLD CAN BE SEEN.', 'THE EXPERIENCE ONLY OPENS WHEN TWO PEOPLE SHOW UP.'], 3200); }
 
     requestAnimationFrame(frame);
   }

@@ -102,9 +102,12 @@ export class World {
       return this._tmp.copy(m.landmarks.arena).lerp(m.landmarks.board, k).setY(2.2).clone();
     }
     if (p < 0.930) {
-      // the fog gate: settle on the arch into whatever comes next
+      // the fog gate, then a slow gaze tour across the four future worlds
       const k = Math.min(1, ((p - 0.870) / 0.06) * 1.4);
-      return this._tmp.copy(m.landmarks.board).lerp(m.landmarks.gate, k).setY(1.8).clone();
+      const W = m.worlds;
+      const tour = this._tmp.copy(m.landmarks.board).lerp(m.landmarks.gate, k);
+      const t3 = smoothstep(0.895, 0.928, p); // tour sweeps as the chapters name each world
+      return tour.lerp(W.glade.c, t3 * 0.4).lerp(W.orbit.c, t3 * 0.3).lerp(W.dungeon.c, t3 * 0.2).setY(2.0).clone();
     }
     // finale: look back along the traveled path
     const back = m.curve.getPoint(Math.max(0, journey.travel() - 0.18));
@@ -128,12 +131,13 @@ export class World {
 
   update(dt, time) {
     const j = journey;
+    const prev = j.p;
     j.p = damp(j.p, j.raw, 5.2, dt);
     j.vel = j.raw - j.p;
 
     this.map.update(dt, time);
     this._updateCamera(dt, time);
-    this._updateMood();
+    this._updateMood(dt, prev);
   }
 
   _updateCamera(dt, time) {
@@ -192,11 +196,24 @@ export class World {
     }
   }
 
-  _updateMood() {
-    const { density, col } = this._mood(journey.p);
-    this.scene.fog.density = density;
+  _updateMood(dt, prevP) {
+    const j = journey;
+    const { density, col } = this._mood(j.p);
+    // fog pulse when the pair completes — the world exhales
+    this.joinGlow = damp(this.joinGlow ?? 0, j.joined ? 1 : 0, 1.6, dt);
+    const joined = 0.011 * this.joinGlow;
+    this.scene.fog.density = Math.max(0.004, density - joined);
     this.scene.fog.color.copy(col);
     this.scene.background.lerp(col, 0.06);
+
+    // velocity kick: fast scrolling widens the lens, settling tightens it
+    const targetFov = 46 + clamp(Math.abs(j.vel) * 220, 0, 7);
+    this.fovCur = lerp(this.fovCur ?? 46, targetFov, 1 - Math.exp(-4.5 * dt));
+    if (Math.abs(this.camera.fov - this.fovCur) > 0.01) {
+      this.camera.fov = this.fovCur;
+      this.camera.updateProjectionMatrix();
+    }
+    void prevP;
   }
 }
 

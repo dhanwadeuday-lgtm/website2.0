@@ -49,13 +49,29 @@ export function buildOverlay(overlay, ui) {
     </div>
   `, { side: 'right' });
 
-  // ── 03 JOIN — partner steps onto the path ─────────────────────────────────
+  // ── 03 JOIN — one player detected ─────────────────────────────────────────
   chapter('join', CH.join, `
     <div class="ch-inner center">
-      <p class="kicker">YOUR PERSON JOINS</p>
+      <p class="kicker">ONE PLAYER DETECTED</p>
       <h2>THE PATH LIGHTS<br>ONLY FOR TWO. ✦</h2>
-      <p class="sub">One marker is waiting at the trailhead.</p>
-      <button class="cta" id="joinBtn">BRING YOUR PERSON IN →</button>
+      <p class="sub">You're at the trailhead. Your person is still outside the world — the ghost marker on the path is theirs.</p>
+      <div class="duo-box">
+        <div class="duo-head">
+          <span class="duo-title">DUO CODE</span>
+          <span class="duo-wait">WAITING FOR YOUR PERSON…</span>
+        </div>
+        <div class="duo-code-row">
+          <div class="duo-code-row">
+          <code class="duo-code" id="duoCode">· · · ·</code>
+          <div class="duo-actions">
+            <button class="cta mini" id="duoGen">GET CODE</button>
+            <button class="cta mini ghost" id="duoCopy">COPY</button>
+          </div>
+        </div>
+        <button class="cta" id="joinBtn">BRING YOUR PERSON →</button>
+        <button class="cta ghost demo" id="demoJoin">SIMULATE: THEY JOINED</button>
+        <p class="micro">Sharing the code brings them in for real — the demo is just a preview of the moment.</p>
+      </div>
     </div>
   `, { side: 'center' });
 
@@ -80,13 +96,38 @@ export function buildOverlay(overlay, ui) {
         <p class="kicker">CHECKPOINT 0${i + 1} · ${m.place}</p>
         <div class="snick-live" data-i="${i}">
           <div class="snick-top">SNICK 0${i + 1} · ${s.emoji} ${s.name}</div>
-          <h3>${s.task}</h3>
-          <div class="partners">
-            <button class="partner-chip" data-partner="you">YOU ✓</button>
-            <button class="partner-chip" data-partner="them">YOUR PERSON ✓</button>
+
+          <div class="snick-lock" aria-hidden="true">
+            <div class="lock-glyph">🔒</div>
+            <b class="lock-word">LOCKED</b>
+            <span class="lock-reason">YOUR PERSON IS MISSING</span>
+            <span class="lock-shimmer">?????? ??? ??? ???????</span>
           </div>
-          <div class="progress-line"><span></span></div>
-          <p class="micro">Both of you complete it. That's the rule.</p>
+
+          <div class="snick-body" hidden>
+            <h3>${s.task}</h3>
+            <div class="partners">
+              <button class="partner-chip" data-partner="you">YOU ✓</button>
+              <button class="partner-chip" data-partner="them">YOUR PERSON ✓</button>
+            </div>
+            <div class="progress-line"><span></span></div>
+            <p class="micro">Both of you complete it. That's the rule.</p>
+            ${i === 2 ? `
+            <div class="two-way" hidden>
+              <div class="tw-step">
+                <input type="text" class="tw-input" maxlength="90" placeholder="Write your answer…" aria-label="Your secret answer" />
+                <button class="cta mini" data-tw="lock">LOCK IN 🔒</button>
+              </div>
+              <p class="tw-note">The other side only sees “your person has locked in”. No preview. No peeking. Both reveal together.</p>
+              <button class="cta mini" data-tw="reveal" hidden>DUAL UNMASK →</button>
+            </div>
+            <div class="tw-revealed" hidden>
+              <div class="tw-col"><b>YOU</b><span data-tw="mine">—</span></div>
+              <div class="tw-col"><b>YOUR PERSON</b><span data-tw="theirs">—</span></div>
+            </div>
+            <p class="micro" data-tw="done">Never alone. Always together. · +20 XP</p>
+            ` : ''}
+          </div>
         </div>
       </div>
     `, { side: i % 2 ? 'right' : 'left', mode: 'snick', index: i });
@@ -101,13 +142,19 @@ export function buildOverlay(overlay, ui) {
     `, { side: 'center' });
   });
 
-  // ── 08 ARENA — locked preview (no interaction; phase 3 scope) ────────────
+  // ── 08 ARENA — locked gates, named but not numbered SaaS-speak ───────────
   chapter('arena', CH.arena, `
     <div class="ch-inner center">
       <p class="kicker">AHEAD · LOCKED IN FOG</p>
       <h2>THE CHALLENGE ARENA.</h2>
-      <p class="sub">Streaks, XP goals, and trials for two. Not yet — keep showing up.</p>
-      <div class="locked-tag">🔒 UNLOCKS WITH YOUR STREAK</div>
+      <p class="sub">Trials for two, carved as gates. Each one waits for a flame that only grows by showing up.</p>
+      <div class="gate-list">
+        <div class="gate-row"><span class="gate-flame">🔒</span><div><b>7 DAY FLAME</b><i>Keep showing up together.</i></div></div>
+        <div class="gate-row"><span class="gate-flame">🔒</span><div><b>14 DAY FLAME</b><i>The fire wants feeding.</i></div></div>
+        <div class="gate-row"><span class="gate-flame">🔒</span><div><b>1000 XP</b><i>The map remembers effort.</i></div></div>
+        <div class="gate-row"><span class="gate-flame">🔒</span><div><b>100 SNICKS</b><i>Not yet. Not alone.</i></div></div>
+      </div>
+      <div class="locked-tag">THERE'S MORE OUT THERE.</div>
     </div>
   `, { side: 'center' });
 
@@ -120,12 +167,25 @@ export function buildOverlay(overlay, ui) {
     </div>
   `, { side: 'center' });
 
-  // ── 10 WHAT'S NEXT — fogged future worlds ─────────────────────────────────
+  // ── 10 WHAT'S NEXT — the future worlds, named in-world ────────────────────
+  const worlds = [
+    { e: '🌿', n: 'WORLD 01 · THE HONEYMOON GLADE', s: 'KEEP SHOWING UP.' },
+    { e: '🔥', n: 'WORLD 02 · SYNCHRONOUS ORBIT', s: 'UNLOCKS WITH SHARED XP.' },
+    { e: '🗝️', n: 'WORLD 03 · VULNERABILITY DUNGEON', s: 'DEEPER CONNECTION REQUIRED.' },
+    { e: '✨', n: 'WORLD 04 · CELESTIAL RESONANCE', s: 'FAR BEYOND THE FOG.' },
+  ];
   chapter('next', CH.next, `
     <div class="ch-inner center">
-      <p class="kicker">BEYOND THE FOG</p>
-      <h2>THE MAP KEEPS GOING.</h2>
-      <p class="sub">New regions appear as you two do. The first ones are already sketched.</p>
+      <p class="kicker">BEYOND THE FOG · THE FIRST SKETCHES</p>
+      <h2>SOMETHING IS WAITING<br>BEYOND THE FOG.</h2>
+      <p class="sub">Four regions are already on the map. This path opens later — for the two of you.</p>
+      <div class="world-tease">
+        ${worlds.map(w => `
+          <div class="wt-row">
+            <span class="wt-e" aria-hidden="true">${w.e}</span>
+            <b>${w.n}</b><span class="wt-s">${w.s}</span>
+          </div>`).join('')}
+      </div>
     </div>
   `, { side: 'center' });
 
@@ -200,6 +260,17 @@ function buildDomActs(ui) {
       </div>
     </section>
 
+    <section class="act finale-act">
+      <p class="kicker">THE FIRST MAP · <b id="xpTotal">${journey.xp} XP</b></p>
+      <h2>THIS IS JUST<br>THE FIRST MAP.</h2>
+      <p class="sub">There are more places to discover — the gate behind you leads to worlds you can't see yet.</p>
+      <div class="final-ctas">
+        <button class="cta primary" id="finalBring">BRING YOUR PERSON →</button>
+        <button class="cta ghost" id="nextWorld">ENTER THE NEXT WORLD →</button>
+      </div>
+      <p class="micro">A map for two that grows as you do.</p>
+    </section>
+
     <section class="act campaign-act">
       <p class="kicker">A GLIMPSE OF WHAT'S COMING</p>
       <h2>COUPLES WILL POST THEIR MAPS.</h2>
@@ -217,10 +288,11 @@ function buildDomActs(ui) {
       <p class="kicker">YOUR MAP HAS ONLY JUST STARTED</p>
       <h2>REGIONS BEYOND THE FOG.</h2>
       <div class="world-grid">
-        <div class="world open"><span class="w-emoji">🏕️</span><b>THE FOUR CHECKPOINTS</b><span class="w-state">OPEN NOW</span></div>
-        <div class="world"><span class="w-emoji">🔒</span><b>CHALLENGE ARENA</b><span class="w-state">SOON</span></div>
-        <div class="world"><span class="w-emoji">🔒</span><b>THE FLEX BOARD</b><span class="w-state">SOON</span></div>
-        <div class="world"><span class="w-emoji">🔒</span>MEMORY WALL<b></b><span class="w-state">SOON</span></div>
+        <div class="world open"><span class="w-emoji">🏕️</span><b>THE FIRST MAP</b><span class="w-state">OPEN NOW</span></div>
+        <div class="world"><span class="w-emoji">🌿</span><b>WORLD 01 · THE HONEYMOON GLADE</b><span class="w-state">LOCKED</span></div>
+        <div class="world"><span class="w-emoji">🔥</span><b>WORLD 02 · SYNCHRONOUS ORBIT</b><span class="w-state">REQUIRES SHARED XP</span></div>
+        <div class="world"><span class="w-emoji">🗝️</span><b>WORLD 03 · VULNERABILITY DUNGEON</b><span class="w-state">DEEPER CONNECTION</span></div>
+        <div class="world"><span class="w-emoji">✨</span><b>WORLD 04 · CELESTIAL RESONANCE</b><span class="w-state">FAR BEYOND THE FOG</span></div>
       </div>
     </section>
 
@@ -232,6 +304,7 @@ function buildDomActs(ui) {
         <div class="row"><span class="medal">🥇</span><b>A + M</b><span>1,842 XP</span><span class="streak">🔥 21 DAY STREAK</span></div>
         <div class="row"><span class="medal">🥈</span><b>R + S</b><span>1,790 XP</span><span class="streak">🔥 18</span></div>
         <div class="row"><span class="medal">🥉</span><b>K + P</b><span>1,641 XP</span><span class="streak">🔥 14</span></div>
+        <div class="row you-row"><span class="medal">—</span><b>YOU + YOUR PERSON</b><span>0 XP</span><span class="streak">YOUR FLAME STARTS HERE</span></div>
       </div>
       <p class="micro">Illustrative sample data — no real couples yet. Can you two make the first real board?</p>
     </section>
@@ -331,6 +404,15 @@ function buildDomActs(ui) {
   });
   acts.querySelector('#downloadBtn').addEventListener('click', () => {
     flash('Screenshot the card — it was made for that. 📸');
+  });
+
+  // ── finale CTAs: back to the trailhead / tease the next world ─────────
+  acts.querySelector('#finalBring')?.addEventListener('click', () => {
+    document.body.classList.remove('in-dom');
+    journey.jumpTo(0.14); // the join moment
+  });
+  acts.querySelector('#nextWorld')?.addEventListener('click', () => {
+    flash('The next world opens when the map grows. 🗝️');
   });
 }
 
