@@ -193,20 +193,20 @@ function buildDomActs(ui) {
           </div>
         `).join('')}
       </div>
-      <p class="micro">A playful SnickyLink metric — not science. It's about showing up.</p>
+      <p class="micro">A playful SnickyLink metric — not science, and this one's a sample preview. Your real score comes from actually showing up together.</p>
     </section>
 
     <section class="act tag-act">
       <p class="kicker">YOUR COUPLE TAG</p>
       <h2 class="tag-name">${tag}</h2>
       <p class="quote">"${tagline}"</p>
-      <div class="share-hint">Worth sharing. Just saying.</div>
+      <div class="share-hint">A sample tag — yours gets written when you two play.</div>
     </section>
 
     <section class="act story-act">
       <p class="kicker">9:16 · MADE FOR SHARING</p>
       <div class="story-card" id="storyCard">
-        <img class="sc-logo" src="/logo-web.png" alt="" />
+        <img class="sc-logo" src="/logo.webp" alt="SnickyLink moon logo" width="34" height="34" loading="lazy" />
         <div class="sc-brand">SNICKYLINK</div>
         <div class="sc-initials">${initials}</div>
         <div class="sc-score" id="scScore">${score}</div>
@@ -224,7 +224,7 @@ function buildDomActs(ui) {
     </section>
 
     <section class="act campaign-act">
-      <p class="kicker">ACROSS THE INTERNET</p>
+      <p class="kicker">A GLIMPSE OF WHAT'S COMING</p>
       <h2>COUPLES ARE POSTING THEIR BLOOMS.</h2>
       <div class="float-cards">
         <div class="float-card c1"><b>87 — THE OBSERVER</b><span>👀</span><i>2H AGO</i></div>
@@ -233,6 +233,7 @@ function buildDomActs(ui) {
         <div class="float-card c4"><b>SYNCHRONOUS ORBIT</b><span>✦ R + S</span><i>1D AGO</i></div>
         <div class="float-card c5"><b>4 SNICKS COMPLETE</b><span>🌹</span><i>2D AGO</i></div>
       </div>
+      <p class="micro">Sample posts — these become real the moment couples start growing.</p>
     </section>
 
     <section class="act worlds-act">
@@ -247,6 +248,7 @@ function buildDomActs(ui) {
     </section>
 
     <section class="act board-act">
+      <p class="kicker">SAMPLE BOARD · ILLUSTRATIVE PLAYERS</p>
       <h2>WHO'S SHOWING UP?</h2>
       <div class="board">
         <div class="row"><span class="medal">🥇</span><b>A + M</b><span>1,842 XP</span><span class="streak">🔥 21 DAY STREAK</span></div>
@@ -261,15 +263,17 @@ function buildDomActs(ui) {
       <h2>BE THERE FOR THE<br>NEXT BLOOM.</h2>
       <p class="sub">"The first four Snicks were only the beginning."</p>
       <form class="waitlist" id="waitlistForm">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="you@together.com" required />
+        <label class="sr-only" for="wl-name">Your name</label>
+        <input type="text" id="wl-name" name="name" placeholder="Your name" autocomplete="name" required />
+        <label class="sr-only" for="wl-email">Your email address</label>
+        <input type="email" id="wl-email" name="email" placeholder="you@together.com" autocomplete="email" required />
         <button class="cta primary" type="submit">JOIN THE WAITLIST →</button>
       </form>
       <p class="micro">Bring your person. We'll take it from there. 🫶</p>
     </section>
 
     <footer class="act footer-act">
-      <img class="footer-logo" src="/logo-web.png" alt="" />
+      <img class="footer-logo" src="/logo.webp" alt="SnickyLink moon logo" width="88" height="88" loading="lazy" />
       <h2 class="footer-brand">SNICKYLINK</h2>
       <p class="sub">CONNECT. PLAY. GROW TOGETHER.</p>
       <p class="micro">© ${new Date().getFullYear()} SnickyLink — a little world for two.</p>
@@ -307,19 +311,34 @@ function buildDomActs(ui) {
     const form = acts.querySelector('#waitlistForm');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (form.dataset.busy) return;
       const data = new FormData(form);
       const params = new URLSearchParams();
       params.set(WAITLIST_ENTRIES.name, String(data.get('name') || ''));
       params.set(WAITLIST_ENTRIES.email, String(data.get('email') || ''));
-      // no-cors: fire-and-forget — Google records the response without us reading it back
-      fetch(WAITLIST_FORM, { method: 'POST', mode: 'no-cors', body: params }).catch(() => {});
       const btn = form.querySelector('button[type="submit"]');
+      form.dataset.busy = '1';
       if (btn) { btn.disabled = true; btn.textContent = 'JOINING…'; }
-      setTimeout(() => {
+      const oldErr = form.querySelector('.wl-error');
+      if (oldErr) oldErr.remove();
+
+      // no-cors responses are opaque (status unreadable) and can hang — race a timeout
+      const attempt = fetch(WAITLIST_FORM, { method: 'POST', mode: 'no-cors', body: params });
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 9000));
+
+      Promise.race([attempt, timeout]).then(() => {
         form.innerHTML = `<div class="joined-msg"><h2>YOU'RE IN. ✦</h2><p>Now go find your person.</p></div>`;
         document.body.classList.add('joined');
         journey.raw = Math.min(journey.raw, 0.984); // settle the camera
-      }, 650);
+      }).catch(() => {
+        delete form.dataset.busy;
+        if (btn) { btn.disabled = false; btn.textContent = 'JOIN THE WAITLIST →'; }
+        const msg = document.createElement('p');
+        msg.className = 'wl-error';
+        msg.setAttribute('role', 'alert');
+        msg.textContent = "Couldn't reach the waitlist just now — check your connection and try again. 🫶";
+        form.appendChild(msg);
+      });
     });
 
     // ── share (best-effort, no backend) ───────────────────────────────────
