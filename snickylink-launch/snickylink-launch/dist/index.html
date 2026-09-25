@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1E0E13" />
+<meta name="description" content="SnickyLink — two people. one connection. one thing that grows. More than a chat: a secret little world for two." />
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="SnickyLink" />
+<meta property="og:title" content="SnickyLink — Connect. Play. Grow Together." />
+<meta property="og:description" content="Two people. One connection. One thing that grows. Grow your rose together, four Snicks at a time." />
+<meta property="og:image" content="/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SnickyLink — Connect. Play. Grow Together." />
+<meta name="twitter:description" content="Two people. One connection. One thing that grows. 🌹" />
+<meta name="twitter:image" content="/og.png" />
+<title>SnickyLink — Connect. Play. Grow Together.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+<style>
+  #boot { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; background: #120a0d; z-index: 300; }
+  #boot .boot-logo { width: 72px; height: 72px; border-radius: 50%; box-shadow: 0 0 44px rgba(232,185,156,.35), 0 0 90px rgba(107,43,60,.4); animation: bootFloat 3.2s ease-in-out infinite; }
+  #boot .seed { width: 12px; height: 12px; border-radius: 50%; background: #E8B99C; box-shadow: 0 0 24px 6px rgba(232,185,156,.45); animation: bootPulse 1.6s ease-in-out infinite; }
+  @keyframes bootFloat { 0%,100% { transform: translateY(0) scale(1) } 50% { transform: translateY(-6px) scale(1.04) } }
+  @keyframes bootPulse { 0%,100% { transform: scale(.7); opacity:.5 } 50% { transform: scale(1.15); opacity: 1 } }
+  body.loader-gone #boot { display: none; }
+</style>
+  <script type="module" crossorigin src="/assets/index-DcgiBFer.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-yElIXy4P.css">
+</head>
+<body>
+  <div id="boot"><img class="boot-logo" src="/logo-web.png" alt="" /><div class="seed"></div></div>
+  <canvas id="scene"></canvas>
+  <div id="overlay"></div>
+  <div id="ui"></div>
+</body>
+</html>
