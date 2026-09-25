@@ -148,6 +148,10 @@ h3 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
 }
 .act .kicker { margin-bottom: 14px; }
 .act h2 { margin-bottom: 10px; }
+.act .at {
+  font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 26px;
+  color: var(--peach); opacity: 0.75; text-transform: uppercase;
+}
 .act .micro { margin-top: 22px; font-size: 12px; opacity: 0.55; letter-spacing: 0.1em; }
 .act .quote { margin-top: 14px; }
 
@@ -193,8 +197,8 @@ h3 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
 .sc-tag { font-size: clamp(1.2rem, 4.5vw, 1.6rem) !important; color: var(--peach); }
 .sc-quote { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.86rem; opacity: 0.85; margin-top: 8px; }
 .sc-row { font-size: 9px; letter-spacing: 0.26em; opacity: 0.6; margin-top: 16px; }
-.sc-flowers { font-size: 19px; margin-top: 12px; display: flex; gap: 8px; align-items: center; }
-.sc-flowers i { font-style: normal; opacity: 0.4; font-size: 11px; }
+.sc-cps { font-size: 19px; margin-top: 12px; display: flex; gap: 8px; align-items: center; }
+.sc-cps i { font-style: normal; opacity: 0.4; font-size: 11px; }
 .sc-foot { font-size: 9.5px; letter-spacing: 0.4em; opacity: 0.65; }
 .sc-date { position: absolute; top: 18px; right: 20px; font-size: 8.5px; letter-spacing: 0.22em; opacity: 0.5; }
 .story-ctas { display: flex; margin-top: 30px; }
@@ -271,9 +275,9 @@ h3 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
 .rail-label { font-size: 9px; letter-spacing: 0.3em; opacity: 0.55; writing-mode: vertical-rl; height: 110px; }
 .rail-track { width: 2px; height: 150px; background: rgba(232,185,156,0.15); border-radius: 2px; overflow: hidden; }
 .rail-fill { width: 100%; height: 0%; background: linear-gradient(180deg, var(--peach), var(--copper)); transition: height 0.3s; }
-.rail-flowers { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
-.rail-flowers span { opacity: 0.25; filter: grayscale(1); transition: all 0.5s; }
-.rail-flowers span.on { opacity: 1; filter: none; transform: scale(1.15); }
+.rail-cps { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.rail-cps span { opacity: 0.25; filter: grayscale(1); transition: all 0.5s; }
+.rail-cps span.on { opacity: 1; filter: none; transform: scale(1.15); }
 
 /* skip button */
 .skip-btn {
@@ -311,7 +315,64 @@ h3 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); }
   .cta.ghost { margin-left: 8px; }
 }
 
-/* reduced motion */
+/* reduced motion: cross-fade chapters instead of sliding, no ambient animation */
 @media (prefers-reduced-motion: reduce) {
   .hint, .snick-live.waiting, .float-card { animation: none !important; }
+  .chapter { transition: opacity 0.4s ease !important; }
+  .chapter.active { transform: none !important; }
+  .rail-fill { transition: none !important; }
+}
+
+/* static hero (crawlers / no-JS) — hidden once JS takes over */
+.static-hero {
+  position: fixed; inset: 0; z-index: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 24px;
+  max-width: 640px; margin: 0 auto;
+}
+.static-hero h1 { font-size: clamp(2.4rem, 6.5vw, 5rem); }
+.static-hero p { margin-top: 16px; font-size: clamp(1rem, 1.6vw, 1.25rem); color: rgba(251,244,241,0.78); font-weight: 300; }
+body.world-ready .static-hero, body.no-webgl .static-hero { display: none; }
+
+/* static background fallback (no WebGL) */
+.static-bg { position: fixed; inset: 0; z-index: 0; background: radial-gradient(120% 90% at 50% 0%, #3A1620 0%, #1E0E13 55%, #120a0d 100%); }
+.static-bg .static-stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(251,244,241,.7), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(232,185,156,.6), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(251,244,241,.5), transparent),
+    radial-gradient(1px 1px at 85% 60%, rgba(232,185,156,.5), transparent),
+    radial-gradient(1px 1px at 10% 80%, rgba(251,244,241,.4), transparent);
+}
+.static-bg .static-hills { position: absolute; inset: auto 0 0 0; }
+.static-bg .static-hills svg { width: 100%; height: 38vh; display: block; }
+
+/* map-era rail: numbered checkpoint dots */
+.rail-cps { display: flex; flex-direction: column; gap: 10px; }
+.rail-cps span {
+  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 9.5px; font-weight: 600; color: rgba(251,244,241,0.4);
+  border: 1px solid rgba(232,185,156,0.25); background: rgba(30,14,19,0.5);
+  transition: all 0.5s;
+}
+.rail-cps span.on {
+  color: var(--deep-wine); background: var(--peach); border-color: var(--peach);
+  box-shadow: 0 0 16px rgba(232,185,156,0.5);
+}
+
+/* map list rows (intro chapter) */
+.cp-list { margin-top: 26px; display: flex; flex-direction: column; gap: 10px; }
+.cp-row {
+  display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: 0.18em;
+  opacity: 0.75;
+}
+.cp-row .cp-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(232,185,156,0.3); }
+.cp-row b { font-weight: 600; }
+.cp-row .cp-state { margin-left: auto; font-size: 9.5px; opacity: 0.6; }
+.cp-row.done .cp-dot { background: var(--peach); box-shadow: 0 0 12px rgba(232,185,156,0.7); }
+.cp-row.done .cp-state { color: var(--peach); opacity: 1; }
+.locked-tag {
+  display: inline-block; margin-top: 24px; font-size: 10px; letter-spacing: 0.26em;
+  padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(232,185,156,0.3);
+  color: rgba(251,244,241,0.55);
 }

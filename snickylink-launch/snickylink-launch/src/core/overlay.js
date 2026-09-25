@@ -3,13 +3,14 @@
 // Snick cards and the join button write REAL state (journey.done / journey.joined);
 // scrolling never does.
 import { journey, CH } from './journey.js';
-import { clamp, smoothstep, fmt } from './util.js';
-import { CSS, FLOWERS } from './tokens.js';
+import { clamp, smoothstep } from './util.js';
+import { CHECKPOINTS } from './tokens.js';
+import { buildOverlay } from './chapters.js';
 
 export function initOverlay(overlay, ui) {
   const chapters = buildOverlay(overlay, ui); // overlay = story layers, ui = DOM acts
   const snickLiveEls = [...overlay.querySelectorAll('.snick-live')];
-  const snickGridEls = [...overlay.querySelectorAll('#snickGrid .snick-card')];
+  const cpRows = [...overlay.querySelectorAll('.cp-row')];
 
   // ── snick interactions ─────────────────────────────────────────────────
   snickLiveEls.forEach((el) => {
@@ -27,15 +28,12 @@ export function initOverlay(overlay, ui) {
             journey.completeSnick(idx);
             el.classList.add('completed');
             el.querySelector('.micro').textContent = 'SNICK COMPLETE · +20 XP';
-            // unlock the snick grid card too
-            const gridCard = snickGridEls[idx];
-            if (gridCard) {
-              gridCard.classList.remove('blurred');
-              gridCard.classList.add('done');
-              gridCard.querySelector('.snick-state').textContent = '✦ UNLOCKED';
+            // light the map list row too
+            const row = cpRows[idx];
+            if (row) {
+              row.querySelector('.cp-state').textContent = '✦ LIT';
+              row.classList.add('done');
             }
-            // bloom text chapter rides the bloom window; open the flower:
-            // journey.bloom is driven by done[] in world.update — nothing else to do.
           }, 350);
         }
       });
@@ -46,21 +44,29 @@ export function initOverlay(overlay, ui) {
   const joinBtn = overlay.querySelector('#joinBtn');
   joinBtn.addEventListener('click', () => {
     journey.joinPartner();
-    journey.raw = Math.min(journey.raw, 0.555); // hold the moment briefly
-    joinBtn.textContent = '✦ YOUR PERSON IS IN';
+    journey.raw = Math.min(journey.raw, 0.168); // hold the moment briefly
+    joinBtn.textContent = '✦ YOUR PERSON IS ON THE PATH';
     joinBtn.disabled = true;
     document.body.classList.add('joined');
   });
 
-  // ── progress rail (right edge) ─────────────────────────────────────────
+  // ── progress rail (right edge) — checkpoint dots ───────────────────────
   const rail = document.createElement('div');
   rail.className = 'rail';
   rail.innerHTML = `
-    <span class="rail-label" id="railLabel">THE SEED</span>
+    <span class="rail-label" id="railLabel">THE TRAILHEAD</span>
     <div class="rail-track"><div class="rail-fill"></div></div>
-    <div class="rail-flowers">${FLOWERS.map(f => `<span data-f="${f.id}">${f.emoji}</span>`).join('')}</div>
+    <div class="rail-cps">${CHECKPOINTS.map(f => `<span data-f="${f.id}" title="Checkpoint 0${f.id + 1} · ${f.name}">${f.id + 1}</span>`).join('')}</div>
   `;
   document.body.appendChild(rail);
+
+  // ── screen-reader progress announcements ───────────────────────────────
+  const srProgress = document.createElement('div');
+  srProgress.className = 'sr-progress';
+  srProgress.setAttribute('aria-live', 'polite');
+  srProgress.setAttribute('role', 'status');
+  document.body.appendChild(srProgress);
+  let lastAnnounced = null;
 
   // ── skip / resume control ───────────────────────────────────────────────
   const skip = document.createElement('button');
@@ -105,10 +111,17 @@ export function initOverlay(overlay, ui) {
     const fill = rail.querySelector('.rail-fill');
     fill.style.height = `${p * 100}%`;
     const label = rail.querySelector('#railLabel');
-    label.textContent = railLabel(p);
-    for (const fEl of rail.querySelectorAll('.rail-flowers span')) {
-      const i = Number(fEl.dataset.f);
-      fEl.classList.toggle('on', journey.done[i]);
+    const lbl = railLabel(p);
+    label.textContent = lbl;
+    for (const el of rail.querySelectorAll('.rail-cps span')) {
+      const i = Number(el.dataset.f);
+      el.classList.toggle('on', journey.done[i]);
+    }
+
+    // sr announcements: only when the named checkpoint changes
+    if (lbl !== lastAnnounced) {
+      lastAnnounced = lbl;
+      srProgress.textContent = `Checkpoint: ${lbl}`;
     }
 
     // skip button only during the story
@@ -117,38 +130,31 @@ export function initOverlay(overlay, ui) {
     // snick live cards: gentle pulse while waiting for both partners
     for (const el of snickLiveEls) {
       const i = Number(el.dataset.i);
-      const [a, b] = CH[`snick${i + 1}`];
+      const [a, b] = CH[`cp${i + 1}`];
       const inWindow = p >= a && p < b + 0.02;
       el.classList.toggle('waiting', inWindow && !journey.done[i]);
-      // auto-scroll hint: if the user scrolls past without completing, the
-      // chapter still passes (scroll = presentation; completion = flowers).
     }
 
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 
-  return { chapters };
+  return { chapters, frame };
 }
 
 function railLabel(p) {
-  if (p < 0.10) return 'THE SEED';
-  if (p < 0.20) return 'FIRST WATER';
-  if (p < 0.30) return 'THE STEM';
-  if (p < 0.40) return 'SECOND WATER';
-  if (p < 0.46) return 'SNICKYLINK';
-  if (p < 0.52) return 'FOUR SNICKS';
-  if (p < 0.56) return 'TWO BECOME ONE';
-  if (p < 0.62) return 'SNICK 01 · NOTICE';
-  if (p < 0.68) return 'WHITE BLOOM';
-  if (p < 0.74) return 'SNICK 02 · PLAY';
-  if (p < 0.79) return 'YELLOW BLOOM';
-  if (p < 0.83) return 'SNICK 03 · CONNECT';
-  if (p < 0.87) return 'PINK BLOOM';
-  if (p < 0.91) return 'SNICK 04 · CREATE';
-  if (p < 0.94) return 'WINE ROSE';
-  if (p < 0.965) return 'THE HERO MOMENT';
-  return 'THE RESULT';
+  if (p < 0.08) return 'THE TRAILHEAD';
+  if (p < 0.125) return 'THE MAP';
+  if (p < 0.170) return 'YOUR PERSON JOINS';
+  if (p < 0.290) return 'CHECKPOINT 01 · THE FIRST SPARK · NOTICE';
+  if (p < 0.325) return 'WALKING ON · CHECKPOINT 02 AHEAD';
+  if (p < 0.445) return 'CHECKPOINT 02 · PLAYGROUND · PLAY';
+  if (p < 0.480) return 'WALKING ON · CHECKPOINT 03 AHEAD';
+  if (p < 0.600) return 'CHECKPOINT 03 · DEEPER WATERS · CONNECT';
+  if (p < 0.630) return 'WALKING ON · CHECKPOINT 04 AHEAD';
+  if (p < 0.745) return 'CHECKPOINT 04 · MEMORY PEAK · CREATE';
+  if (p < 0.825) return 'THE CHALLENGE ARENA · LOCKED';
+  if (p < 0.870) return 'THE FLEX BOARD · AHEAD';
+  if (p < 0.930) return "REGIONS BEYOND THE FOG";
+  return 'THE LIT PATH';
 }
-
-import { buildOverlay } from './chapters.js';

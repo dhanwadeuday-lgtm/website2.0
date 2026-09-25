@@ -4,19 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#1E0E13" />
-<meta name="description" content="SnickyLink — two people. one connection. one thing that grows. More than a chat: a secret little world for two." />
+<meta name="description" content="SnickyLink — a secret little world for two. Walk a 3D map together, unlock four checkpoints, complete Snicks side by side. More than a chat." />
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="SnickyLink" />
 <meta property="og:title" content="SnickyLink — Connect. Play. Grow Together." />
-<meta property="og:description" content="Two people. One connection. One thing that grows. Grow your rose together, four Snicks at a time." />
-<meta property="og:image" content="/og-opt.png" />
+<meta property="og:description" content="A secret little world for two. Walk a 3D map together, four checkpoints, four Snicks — one lit path." />
+<meta property="og:image" content="/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="SnickyLink — Connect. Play. Grow Together." />
-<meta name="twitter:description" content="Two people. One connection. One thing that grows. 🌹" />
-<meta name="twitter:image" content="/og-opt.png" />
+<meta name="twitter:description" content="A secret little world for two. Four checkpoints. One lit path." />
+<meta name="twitter:image" content="/og.png" />
 <title>SnickyLink — Connect. Play. Grow Together.</title>
 <script type="application/ld+json">
 {
@@ -24,7 +24,7 @@
   "@type": "WebSite",
   "name": "SnickyLink",
   "url": "https://snickylink.com/",
-  "description": "Two people. One connection. One thing that grows. Grow your rose together, four Snicks at a time — more than a chat, a secret little world for two.",
+  "description": "A secret little world for two. Walk a 3D map together, unlock four checkpoints, complete Snicks side by side.",
   "image": "https://snickylink.com/og.png",
   "publisher": {
     "@type": "Organization",
@@ -44,13 +44,23 @@
   @keyframes bootPulse { 0%,100% { transform: scale(.7); opacity:.5 } 50% { transform: scale(1.15); opacity: 1 } }
   body.loader-gone #boot { display: none; }
 </style>
-  <script type="module" crossorigin src="/assets/index-CW8SebI0.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CFkZOfCv.css">
+  <script type="module" crossorigin src="/assets/index-Ogrg7k6U.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-wL4pJYv3.css">
 </head>
 <body>
   <div id="boot"><img class="boot-logo" src="/logo.webp" alt="SnickyLink moon logo" width="72" height="72" /><div class="seed"></div></div>
-  <canvas id="scene"></canvas>
+  <canvas id="scene" style="display:none"></canvas>
   <div id="overlay"></div>
   <div id="ui"></div>
+
+  <!-- Crawler & no-JS content: mirrors the opening chapter -->
+  <div class="static-hero" aria-hidden="false">
+    <p class="kicker">SNICKYLINK</p>
+    <h1>MORE THAN A CHAT.</h1>
+    <p>A secret little world for two. Walk a 3D map together — four checkpoints,
+    four Snicks, one lit path. Complete every Snick side by side and watch your
+    trail glow.</p>
+  </div>
+
 </body>
 </html>

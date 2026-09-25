@@ -1,16 +1,28 @@
 import * as THREE from 'three';
-import { damp, lerp, smoothstep, clamp, wobble, device } from './util.js';
+import { damp, lerp, smoothstep, clamp, device } from './util.js';
 import { journey } from './journey.js';
-import { BRAND, FLOWERS } from './tokens.js';
-import { makeRose, makeStem, makeLeaf, makeSoil, makeSeed, makeDroplet } from './plant.js';
-import { makeHelix } from './helix.js';
+import { BRAND } from './tokens.js';
+import { WorldMap } from './worldmap.js';
 
-// World — the living scene. One canvas, one camera, everything driven by
-// `journey` state each frame. Cinematic but GPU-friendly.
+// World — Three.js scene/camera/renderer. Reads `journey` each frame, never
+// writes it. The camera flies a CatmullRom spline through the map, varying
+// elevation/banking per checkpoint. Fog IS the lock: unrevealed regions hide
+// in wine/deep-ink haze.
+
+const REDUCED = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+export function webglSupported() {
+  try {
+    const c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')));
+  } catch { return false; }
+}
 
 export class World {
   constructor(canvas) {
     this.canvas = canvas;
+    this.reduced = REDUCED;
+
     const renderer = new THREE.WebGLRenderer({
       canvas, antialias: !device.mobile, alpha: false, powerPreference: 'high-performance',
     });
@@ -18,71 +30,45 @@ export class World {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.18;
-    renderer.shadowMap.enabled = !device.mobile;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMappingExposure = 1.15;
+    renderer.shadowMap.enabled = false; // stylized night map: light comes from emissives
     this.renderer = renderer;
 
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(BRAND.deepWine, 0.03);
-    this.camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 120);
+    this.scene.background = new THREE.Color(BRAND.ink);
+    this.scene.fog = new THREE.FogExp2(BRAND.ink, 0.017);
+    this.camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.1, 260);
 
-    // lights
-    const key = new THREE.DirectionalLight(0xffe6cf, 2.6);
-    key.position.set(4, 8, 5);
-    key.castShadow = !device.mobile;
-    if (key.castShadow) {
-      key.shadow.mapSize.set(1024, 1024);
-      key.shadow.camera.left = -6; key.shadow.camera.right = 6;
-      key.shadow.camera.top = 9; key.shadow.camera.bottom = -2;
-      key.shadow.camera.far = 30; key.shadow.bias = -0.0006; key.shadow.radius = 5;
-    }
-    this.keyLight = key;
-    this.rimLight = new THREE.DirectionalLight(0xe8b99c, 1.15);
-    this.rimLight.position.set(-6, 3, -4);
-    this.fillLight = new THREE.HemisphereLight(0x2a1219, 0x0a0507, 0.9);
-    this.coreGlow = new THREE.PointLight(0xffd9b0, 0, 16, 2);
-    this.coreGlow.position.set(0, 1.6, 0);
-    this.scene.add(key, this.rimLight, this.fillLight, this.coreGlow);
+    // moonlight key + cool fill; accents come from markers/beacons (worldmap)
+    this.keyLight = new THREE.DirectionalLight(0xe8d5c8, 1.15);
+    this.keyLight.position.set(-30, 46, 18);
+    this.fillLight = new THREE.HemisphereLight(0x3a1620, 0x0a0507, 1.0);
+    this.scene.add(this.keyLight, this.fillLight);
 
-    // ground, plant, water
-    this.soil = makeSoil();
-    this.scene.add(this.soil.group);
+    // the map
+    this.map = new WorldMap(this.scene);
 
-    this.plant = new THREE.Group();
-    this.scene.add(this.plant);
-
-    this.seed = makeSeed();
-    this.plant.add(this.seed.mesh);
-
-    this.stem = makeStem();
-    this.plant.add(this.stem.mesh);
-
-    this.leaves = [];
-    for (let i = 0; i < 6; i++) {
-      const leaf = makeLeaf(i);
-      this.leaves.push(leaf);
-      this.plant.add(leaf.mesh);
-    }
-
-    this.roses = FLOWERS.map((f, i) => {
-      const r = makeRose(f, i);
-      this.plant.add(r.group);
-      return r;
-    });
-
-    this.droplet = makeDroplet();
-    this.scene.add(this.droplet.mesh);
-
-    this.helix = makeHelix(this.scene);
-    this._makeParticles();
-
-    // camera state
-    this.camAngle = 0;
-    this.camPos = new THREE.Vector3(0, 2.1, 8.5);
-    this.camLook = new THREE.Vector3(0, 1.2, 0);
-    this.camTarget = new THREE.Vector3(0, 1.2, 0);
-    this._cTmp = new THREE.Color();
+    // camera spline — rides above the travel path, but cinematic (wider, higher)
+    const camPts = [
+      new THREE.Vector3(-52, 6.5, 16),
+      new THREE.Vector3(-36, 5.2, 6),
+      this.map.cpPos[0].clone().add(new THREE.Vector3(4, 3.4, 9)),   // low & intimate at cp1
+      this.map.cpPos[1].clone().add(new THREE.Vector3(3, 4.2, 10)),  // playground sweep
+      this.map.cpPos[2].clone().add(new THREE.Vector3(-2, 2.6, 7)),  // skim the water
+      this.map.cpPos[3].clone().add(new THREE.Vector3(-4, 3.2, 8)),  // climb beside the peak
+      new THREE.Vector3(44, 12, -52),                                 // arena overview
+      new THREE.Vector3(50, 16, -60),                                 // board / next
+      this.map.finalePos.clone().add(new THREE.Vector3(2, 17, 20)),  // wide pull-back
+    ];
+    this.camCurve = new THREE.CatmullRomCurve3(camPts, false, 'catmullrom', 0.4);
+    this.camPos = new THREE.Vector3();
+    this.camLook = new THREE.Vector3();
+    this.camCur = this.camCurve.getPoint(0);
+    this.lookCur = this.map.cpPos[0].clone().setY(1.5);
+    this._lookBase = new THREE.Vector3();
+    this._tmp = new THREE.Vector3();
+    this._cTmpA = new THREE.Color();
+    this._cTmpB = new THREE.Color();
 
     this._onResize = this._onResize.bind(this);
     window.addEventListener('resize', this._onResize);
@@ -94,28 +80,50 @@ export class World {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
-  _makeParticles() {
-    const N = device.particles;
-    const geo = new THREE.BufferGeometry();
-    const pos = new Float32Array(N * 3);
-    const spd = new Float32Array(N);
-    for (let i = 0; i < N; i++) {
-      const r = 3 + Math.random() * 9;
-      const a = Math.random() * Math.PI * 2;
-      pos[i * 3] = Math.cos(a) * r;
-      pos[i * 3 + 1] = Math.random() * 10 - 1;
-      pos[i * 3 + 2] = Math.sin(a) * r * 0.5;
+  // Where the camera should look at a given progress — rides ahead of the
+  // travellers, easing into each checkpoint as we approach it.
+  _lookTarget(p) {
+    const m = this.map;
+    if (p < 0.125) return m.cpPos[0].clone().setY(1.6);
+    if (p < 0.170) return this._tmp.copy(m.cpPos[0]).lerp(m.cpPos[1], (p - 0.125) / 0.045).setY(1.6).clone();
+    if (p < 0.290) return m.cpPos[1].clone().setY(1.8);
+    if (p < 0.325) return this._tmp.copy(m.cpPos[1]).lerp(m.cpPos[2], (p - 0.290) / 0.035).setY(1.6).clone();
+    if (p < 0.480) return m.cpPos[2].clone().setY(1.6);
+    if (p < 0.600) return this._tmp.copy(m.cpPos[2]).lerp(m.cpPos[3], (p - 0.480) / 0.12).setY(2.0).clone();
+    if (p < 0.775) return m.cpPos[3].clone().setY(2.4);
+    if (p < 0.825) {
+      // arena: swing the gaze out to the pillar ring
+      const k = Math.min(1, ((p - 0.775) / 0.05) * 1.4);
+      return this._tmp.copy(m.cpPos[3]).lerp(m.landmarks.arena, k).setY(2.0).clone();
     }
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    const mat = new THREE.PointsMaterial({
-      color: 0xe8b99c, size: 0.04, transparent: true, opacity: 0.32,
-      depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true,
-    });
-    const pts = new THREE.Points(geo, mat);
-    pts.frustumCulled = false;
-    this._particleSpeeds = spd;
-    this.scene.add(pts);
-    this.particles = pts;
+    if (p < 0.870) {
+      // flex board: pan across the water to the great slab
+      const k = Math.min(1, ((p - 0.825) / 0.045) * 1.3);
+      return this._tmp.copy(m.landmarks.arena).lerp(m.landmarks.board, k).setY(2.2).clone();
+    }
+    if (p < 0.930) {
+      // the fog gate: settle on the arch into whatever comes next
+      const k = Math.min(1, ((p - 0.870) / 0.06) * 1.4);
+      return this._tmp.copy(m.landmarks.board).lerp(m.landmarks.gate, k).setY(1.8).clone();
+    }
+    // finale: look back along the traveled path
+    const back = m.curve.getPoint(Math.max(0, journey.travel() - 0.18));
+    return this._tmp.copy(back).lerp(m.finalePos, 0.5).setY(1.8).clone();
+  }
+
+  // Fog density/color per progress — the "locked region" language.
+  _mood(p) {
+    // reveals: each checkpoint approach thins the fog locally in time
+    const reveals =
+      smoothstep(0.10, 0.20, p) * 0.22 +
+      smoothstep(0.26, 0.36, p) * 0.2 +
+      smoothstep(0.42, 0.52, p) * 0.2 +
+      smoothstep(0.57, 0.67, p) * 0.2 +
+      smoothstep(0.88, 0.96, p) * 0.18;
+    const density = lerp(0.022, 0.0085, clamp(reveals, 0, 1));
+    // finale warms toward deep wine
+    const col = this._cTmpA.set(BRAND.ink).lerp(this._cTmpB.set(BRAND.deepWine), smoothstep(0.75, 0.98, p) * 0.85);
+    return { density, col };
   }
 
   update(dt, time) {
@@ -123,134 +131,89 @@ export class World {
     j.p = damp(j.p, j.raw, 5.2, dt);
     j.vel = j.raw - j.p;
 
-    // blooms — gated by REAL snick completion only
-    for (let i = 0; i < 4; i++) {
-      j.bloom[i] = damp(j.bloom[i], j.done[i] ? 1 : 0, 1.5, dt);
-      this.roses[i].setOpen(j.bloom[i], time);
-    }
-
-    this._updatePlant(j.growth(), time);
-    this._updateSoilSeedWater(time, dt);
-    this.helix.update(time, dt, j);
-    this._updateParticles(dt, time);
+    this.map.update(dt, time);
     this._updateCamera(dt, time);
     this._updateMood();
   }
 
-  _updatePlant(g, time) {
-    const growH = 0.15 + g * 4.35;
-    this.stem.setGrowth(g, time);
-
-    // seed dissolves into the soil once the stem takes over
-    const seedFade = 1 - smoothstep(0.05, 0.14, g);
-    this.seed.mesh.visible = seedFade > 0.02;
-    this.seed.mat.opacity = seedFade;
-    this.seed.mesh.position.y = 0.16;
-
-    this.plant.rotation.z = wobble(time, 0.4, 0.7, 0.012) * (0.4 + g);
-    this.plant.rotation.x = wobble(time, 1.1, 0.5, 0.008) * (0.4 + g);
-
-    // four roses at height fractions of the stem
-    const fracs = [0.4, 0.56, 0.73, 0.96];
-    for (let i = 0; i < 4; i++) {
-      const R = this.roses[i];
-      const born = smoothstep(0.4, 0.52, g + i * 0.14);
-      R.group.visible = born > 0.01;
-      R.group.scale.setScalar(clamp(born, 0.001, 1) * (1 + i * 0.08));
-      R.group.position.set(
-        (i % 2 === 0 ? 0.05 : -0.06) + wobble(time, i, 0.9, 0.012),
-        lerp(0.35, growH, fracs[i]),
-        (i % 2 ? -0.1 : 0.08),
-      );
-      R.group.rotation.y = i * 1.9 + time * 0.02 * (i % 2 ? -1 : 1);
-      R.group.rotation.z = wobble(time, i + 2, 1.1, 0.02);
-    }
-
-    for (const leaf of this.leaves) leaf.update(g, time, growH);
-  }
-
-  _updateSoilSeedWater(time, dt) {
-    const j = journey;
-    const D = this.droplet;
-    // two watering moments: during 'water' and 'water2' chapters
-    let t = -1;
-    if (j.inside('water')) t = j.chapterProgress('water');
-    else if (j.inside('water2')) t = j.chapterProgress('water2');
-    else if (j.inside('snick2')) t = j.chapterProgress('snick2') * 0.8;
-
-    if (t >= 0 && t < 0.62) {
-      // fall from above into the soil
-      const f = smoothstep(0.08, 0.55, t);
-      D.mesh.visible = true;
-      D.mesh.position.set(0.32, 5.6 - f * 5.35, 0.15);
-      D.mat.opacity = 1 - smoothstep(0.5, 0.62, t);
-      D.mesh.scale.setScalar(1 - smoothstep(0.5, 0.62, t) * 0.6);
-    } else {
-      D.mesh.visible = false;
-    }
-
-    // soil drinks: subtle darken/shine response near watering moments
-    const drink = (j.inside('water') ? smoothstep(0.4, 0.9, j.chapterProgress('water')) : 0)
-      + (j.inside('water2') ? smoothstep(0.4, 0.9, j.chapterProgress('water2')) : 0);
-    this.soil.setWet(clamp(drink, 0, 1), time);
-  }
-
-  _updateParticles(dt, time) {
-    const arr = this.particles.geometry.attributes.position.array;
-    const n = arr.length / 3;
-    for (let i = 0; i < n; i++) {
-      arr[i * 3 + 1] += (0.1 + this._particleSpeeds[i] * 0.08) * dt;
-      arr[i * 3] += Math.sin(time * 0.4 + i) * 0.02 * dt;
-      if (arr[i * 3 + 1] > 9.5) arr[i * 3 + 1] = -1.2;
-    }
-    this.particles.geometry.attributes.position.needsUpdate = true;
-  }
-
   _updateCamera(dt, time) {
     const j = journey;
-    const amp = device.cameraAmplitude;
-    const targetAngle = (j.cameraAngle() * Math.PI / 180) * amp;
-    this.camAngle = damp(this.camAngle, targetAngle, 3.2, dt);
+    const p = j.p;
 
-    const g = j.growth();
-    const focusY = 0.55 + g * 3.55;
-    let dist = 8.8 - smoothstep(0, 0.5, j.p) * 2.7 + smoothstep(0.85, 1, j.p) * 1.4;
-    if (j.inside('seed')) dist = 7.6; // intimate opening
-    const camR = Math.max(4.9, dist) * (device.mobile ? 1.12 : 1);
+    // base spline position
+    const t = clamp(p / 0.985, 0, 1);
+    const target = this.camCurve.getPoint(t);
+    this.camPos.copy(target);
 
-    // hero moment: extra slow cinematic orbit on top of scroll angle
-    if (j.inside('hero')) {
-      this.camAngle += dt * 0.14 * j.chapterProgress('hero');
+    // gentle lateral sway + banking through curves (skip if reduced motion)
+    if (!this.reduced) {
+      const sway = Math.sin(time * 0.4) * 0.35 + Math.sin(time * 0.23) * 0.22;
+      this.camPos.x += sway;
+      this.camPos.y += Math.sin(time * 0.5) * 0.14;
     }
 
-    const bob = Math.sin(time * 0.35) * 0.07;
-    this.camPos.set(
-      Math.sin(this.camAngle) * camR,
-      0.9 + focusY * 0.62 + bob,
-      Math.cos(this.camAngle) * camR,
-    );
-    this.camTarget.set(0, focusY * 0.85 + 0.3, 0);
+    // per-chapter cinematic adjustments
+    if (p < 0.08) {
+      // opening: slow push-in from high
+      const local = clamp(p / 0.08, 0, 1);
+      this.camPos.y += lerp(3.2, 0, local);
+      this.camPos.z += lerp(6, 0, local);
+    }
+    if (j.inside('cp3')) {
+      // bridge crossing: skim low over the water
+      const local = j.chapterProgress('cp3');
+      this.camPos.y -= Math.sin(local * Math.PI) * 1.4;
+    }
+    if (j.inside('cp4')) {
+      // the climb: tilt up toward the peak
+      const local = j.chapterProgress('cp4');
+      this.camPos.y += Math.sin(local * Math.PI) * 1.2;
+    }
+    if (p > 0.930) {
+      // finale: extra slow drift outward
+      const local = clamp((p - 0.930) / 0.055, 0, 1);
+      this.camPos.y += local * 2.2;
+      this.camPos.z += local * 3.4;
+    }
 
-    this.camera.position.lerp(this.camPos, 1 - Math.exp(-3.4 * dt));
-    this.camLook.lerp(this.camTarget, 1 - Math.exp(-3.4 * dt));
-    this.camera.lookAt(this.camLook);
-    this.coreGlow.position.set(0, focusY, 0);
+    // look target with damping
+    this._lookBase.copy(this._lookTarget(p));
+    this.lookCur.lerp(this._lookBase, 1 - Math.exp(-3.0 * dt));
+    this.camCur.lerp(this.camPos, 1 - Math.exp(-3.4 * dt));
+
+    this.camera.position.copy(this.camCur);
+    this.camera.lookAt(this.lookCur);
+
+    // subtle roll (banking) from horizontal curvature
+    if (!this.reduced) {
+      const ahead = this.camCurve.getPoint(clamp(t + 0.02, 0, 1));
+      const dx = ahead.x - this.camCur.x;
+      this.camera.rotation.z = clamp(-dx * 0.012, -0.05, 0.05);
+    }
   }
 
   _updateMood() {
-    const j = journey;
-    const p = j.p;
-    // ink → deep wine → blush as the story warms up
-    const warmth = smoothstep(0.34, 0.56, p) * 0.55 + smoothstep(0.93, 1.0, p) * 0.45;
-    const col = this._cTmp.set(BRAND.ink).lerp(new THREE.Color(BRAND.deepWine), clamp(warmth, 0, 1));
-    col.lerp(new THREE.Color(BRAND.blush), smoothstep(0.965, 1.0, p) * 0.9);
-    this.scene.background = col;
+    const { density, col } = this._mood(journey.p);
+    this.scene.fog.density = density;
     this.scene.fog.color.copy(col);
-    this.scene.fog.density = lerp(0.03, 0.011, warmth);
-
-    this.keyLight.intensity = lerp(2.5, 3.5, warmth);
-    this.rimLight.intensity = lerp(1.0, 1.7, warmth);
-    this.fillLight.intensity = lerp(0.85, 1.25, warmth);
-    this.coreGlow.intensity = smoothstep(0.9, 1.0, p) * 4 + j.bloom[3] * 2;
+    this.scene.background.lerp(col, 0.06);
   }
+}
+
+// Static fallback if WebGL is unavailable: gradient + silhouettes via CSS,
+// content remains fully usable.
+export function mountStaticFallback() {
+  document.body.classList.add('no-webgl');
+  const el = document.createElement('div');
+  el.className = 'static-bg';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = `
+    <div class="static-stars"></div>
+    <div class="static-hills">
+      <svg viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="#3A1620" d="M0,224 C240,160 420,288 720,224 C1020,160 1200,256 1440,192 L1440,320 L0,320 Z" opacity="0.8"></path>
+        <path fill="#241016" d="M0,256 C300,208 560,304 860,256 C1120,214 1280,272 1440,240 L1440,320 L0,320 Z"></path>
+      </svg>
+    </div>`;
+  document.body.prepend(el);
 }

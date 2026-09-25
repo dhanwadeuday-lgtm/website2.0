@@ -21,7 +21,7 @@ export const damp = (current, target, lambda, dt) =>
 export const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 export const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
-// Organic wobble for petals / wind.
+// Organic wobble for ambient motion.
 export const wobble = (time, seed, freq = 1.7, amp = 0.05) =>
   Math.sin(time * freq + seed * 12.9898) * amp +
   Math.sin(time * freq * 0.63 + seed * 78.233) * amp * 0.55;
@@ -37,11 +37,10 @@ export const device = (() => {
     // particle counts & segment tiers
     particles: mobile ? 260 : 900,
     growthParticles: mobile ? 90 : 220,
-    stemSegs: mobile ? 44 : 80,
+    stemSegs: mobile ? 44 : 80, // curve segments for smooth paths
     envQuality: mobile ? 'low' : 'high',
     dprCap: mobile ? 1.7 : 2,
     cameraAmplitude: mobile ? 0.62 : 1, // gentler camera travel on phones
-    tightSpiral: mobile ? 0.74 : 1, // helix becomes a tighter spiral on mobile
   };
 })();
 
