@@ -1,0 +1,10 @@
+{
+  "name": "Snickylink",
+  "short_name": "Snickylink",
+  "description": "More Than a Chat. A daily game for couples.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E0E13",
+  "theme_color": "#3A1620",
+  "icons": [{ "src": "/favicon.png", "sizes": "64x64", "type": "image/png" }]
+}
