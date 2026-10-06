@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { IGNITION, skipIgnition, startVisualIgnition, COUPLE_TAGS, SNICKS, WORLD_CHANGES, useJourney, type SnickId } from "@/lib/journey";
-import logo from "@/assets/snickylink-logo.png.asset.json";
+import logo from "@/assets/snickylink-logo.png";
 import { Button } from "@/components/ui/button";
 import { Chapter, Reveal } from "./Reveal";
 import { SnickCard } from "./SnickCard";
@@ -124,7 +124,7 @@ function Waitlist() {
     <Reveal>
       <p className="eyebrow">● A new light at the Glade's edge</p>
       <Title>YOUR SPARK IS NOW PART OF THIS WORLD.</Title>
-      <img src={logo.url} alt="Snickylink logo" className="mx-auto mt-12 w-32 opacity-90 mix-blend-screen" />
+      <img src={logo} alt="Snickylink logo" className="mx-auto mt-12 w-32 opacity-90 mix-blend-screen" />
       <p className="mt-8 font-display text-3xl uppercase">Snickylink</p>
       <p className="eyebrow mt-3">Connect · Play · Grow</p>
     </Reveal>

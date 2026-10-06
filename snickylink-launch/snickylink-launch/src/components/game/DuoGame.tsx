@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/snickylink-couple-logo.png.asset.json";
+import logo from "@/assets/snickylink-couple-logo.png";
 
 const SNICKS = [
   { n: "01", icon: "👀", name: "NOTICE", prompt: "Find one tiny thing you genuinely love about your person." },
@@ -116,7 +116,7 @@ export function DuoGame() {
 
 
 
-    <Section id="hero"><div className="duo-hero"><div className="duo-hero-copy"><div className="duo-hero-brand"><img src={logo.url} alt=""/><span>SNICKYLINK</span></div><p className="duo-label">BETWEEN US ONLY.</p><h1><span>A PRIVATE</span><span>WORLD</span><span>FOR YOU</span><em>+ yours.</em></h1><p>Daily dares for two. Collect memories.<br/>Climb the duo league.</p><Button className="duo-btn peach" onClick={() => jump("setup")}>CLAIM OUR SPACE <span aria-hidden="true">→</span></Button></div><div className="duo-hero-deck" aria-hidden="true">{SNICKS.slice(0, 3).map((_, i) => <SnickCard key={i} index={i} state="locked" />)}<div className="duo-card mystery"><span className="duo-mystery-mark">?</span><strong>?</strong><small>UNSEAL ME</small></div></div></div></Section>
+    <Section id="hero"><div className="duo-hero"><div className="duo-hero-copy"><div className="duo-hero-brand"><img src={logo} alt=""/><span>SNICKYLINK</span></div><p className="duo-label">BETWEEN US ONLY.</p><h1><span>A PRIVATE</span><span>WORLD</span><span>FOR YOU</span><em>+ yours.</em></h1><p>Daily dares for two. Collect memories.<br/>Climb the duo league.</p><Button className="duo-btn peach" onClick={() => jump("setup")}>CLAIM OUR SPACE <span aria-hidden="true">→</span></Button></div><div className="duo-hero-deck" aria-hidden="true">{SNICKS.slice(0, 3).map((_, i) => <SnickCard key={i} index={i} state="locked" />)}<div className="duo-card mystery"><span className="duo-mystery-mark">?</span><strong>?</strong><small>UNSEAL ME</small></div></div></div></Section>
 
     <Section id="setup" light narrow><p className="duo-step">STEP 1 · THE LINK</p><h2>Who's <em>playing?</em></h2><form className="duo-setup" onSubmit={createDuo}><label>YOUR NAME<input value={nameA} onChange={(e) => setNameA(e.target.value)} maxLength={14} placeholder="Uday" /></label><span>×</span><label>YOUR PERSON'S NAME<input value={nameB} onChange={(e) => setNameB(e.target.value)} maxLength={14} placeholder="Ria" /></label><Button className="duo-btn wine" type="submit">CREATE OUR DUO →</Button></form>{created && <p className="duo-created">✦ Duo created: <b>{duo}</b></p>}</Section>
 
@@ -139,7 +139,7 @@ export function DuoGame() {
 
     <Section id="final" light narrow><div className="duo-final"><p className="duo-step">TO BE CONTINUED</p><h2>That was just the <em>beginning.</em></h2><ol>{WORLDS.map((w, i) => <li key={w[0]} className={i === 0 ? "on" : ""}><span>{w[0]}</span><b>{w[2]}</b>{i === 0 ? <small>✓ CLEARED</small> : <Lock/>}</li>)}</ol><p>What's behind the next gate?</p><Button className="duo-btn wine" onClick={() => !created ? jump("setup") : !paired ? jump("connect") : shareInvite()}>BRING YOUR PERSON →</Button></div></Section>
 
-    <footer className="duo-footer"><button onClick={() => jump("hero")} aria-label="SNICKYLINK — back to top"><img src={logo.url} alt=""/><span>SNICKYLINK</span></button><p>CONNECT · PLAY · GROW</p><Button variant="link" onClick={reset}>reset demo</Button></footer>
+    <footer className="duo-footer"><button onClick={() => jump("hero")} aria-label="SNICKYLINK — back to top"><img src={logo} alt=""/><span>SNICKYLINK</span></button><p>CONNECT · PLAY · GROW</p><Button variant="link" onClick={reset}>reset demo</Button></footer>
 
     {sheet && <><button className="duo-sheet-bg" aria-label="Close challenge" onClick={() => setSheet(null)}/><aside className="duo-sheet" role="dialog" aria-modal="true" aria-label={`Snick ${SNICKS[sheet.index]?.n}`}><i className="duo-grab"/><Button variant="ghost" size="icon" className="duo-sheet-close" onClick={() => setSheet(null)} aria-label="Close">×</Button>{sheet.complete ? <div className="duo-complete"><i>✓</i><h3>Snick complete</h3><b>+20 XP</b><p>{sheet.index === 3 ? "That's all four. You two did it. ✦" : `${SNICKS[sheet.index + 1]?.name} ${SNICKS[sheet.index + 1]?.icon} just unlocked.`}</p><Button className="duo-btn wine" onClick={nextFromSheet}>{sheet.index === 3 ? "SEE YOUR RESULT →" : "KEEP GOING →"}</Button></div> : <SnickSheet index={sheet.index} me={me} them={them} notice={notice} setNotice={setNotice} memory={memory} setMemory={setMemory} timer={timer} running={running} setRunning={setRunning} checks={checks} setChecks={setChecks} onComplete={() => complete(sheet.index)}/>}</aside></>}
     {toast && <div className="duo-toast" role="status">{toast}</div>}

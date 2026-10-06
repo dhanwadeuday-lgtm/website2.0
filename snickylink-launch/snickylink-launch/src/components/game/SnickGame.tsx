@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import logo from "@/assets/snickylink-logo.png.asset.json";
+import logo from "@/assets/snickylink-logo.png";
 
 const btn =
   "min-h-12 rounded-full bg-peach px-7 py-3 font-sans text-sm font-bold tracking-[0.18em] uppercase text-deep-wine shadow-[var(--shadow-bloom)] transition hover:scale-[1.03] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-peach disabled:opacity-40";
@@ -123,7 +123,7 @@ function Hook({ onEnter }: { onEnter: () => void }) {
         <br />
         when you play them together.
       </p>
-      <img src={logo.url} alt="SNICKYLINK" className="sl-in mt-10 w-28 mix-blend-screen" style={{ animationDelay: "1.8s" }} />
+      <img src={logo} alt="SNICKYLINK" className="sl-in mt-10 w-28 mix-blend-screen" style={{ animationDelay: "1.8s" }} />
       <p className="sl-in mt-4 font-display text-xl tracking-[0.35em] text-peach" style={{ animationDelay: "2s" }}>SNICKYLINK</p>
       <button
         className={`sl-in mt-10 ${btn}`}
@@ -529,7 +529,7 @@ function Payoff() {
   return (
     <Screen id="payoff">
       <div className="sl-story relative mx-auto flex aspect-[9/16] w-64 flex-col items-center justify-between overflow-hidden rounded-3xl p-7 md:w-72">
-        <img src={logo.url} alt="" className="w-12 mix-blend-screen" />
+        <img src={logo} alt="" className="w-12 mix-blend-screen" />
         <p className="text-xs font-bold tracking-[0.4em] text-blush">SNICKYLINK</p>
         <p className="font-display text-4xl leading-[1.05] text-blush">TODAY WE<br />PLAYED.</p>
         <XP n={250} className="text-3xl" />
