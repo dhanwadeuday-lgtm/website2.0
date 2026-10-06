@@ -1,0 +1,6 @@
+- [x] Act 1 visual hook (embers, parallax, lit text)
+- [x] Act 2 Ignition (approach, flash, ring reveal)
+- [x] Act 3 Honeymoon Glade (terrain, campfire, fog silhouettes)
+- [x] Act 4 Four Snicks (per-Snick checkpoints + pulses)
+- [x] Act 5 Flex (bird's-eye rise, card staged reveal, fog names, waitlist marker)
+- [x] Replace the rose story with the uploaded Duo game design and complete interaction flow
